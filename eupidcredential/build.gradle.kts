@@ -12,7 +12,7 @@ plugins {
 /* required for maven publication */
 val artifactVersion: String by extra
 group = "at.asitplus.wallet"
-version = "$artifactVersion"
+version = artifactVersion
 
 kotlin {
     jvm {
@@ -59,7 +59,7 @@ publishing {
             artifact(javadocJar)
             pom {
                 name.set("EU PID Credential")
-                description.set("Use data provided by EU Wallets as a W3C VC, or ISO 18013-5 Credential")
+                description.set("Use data provided by EU Wallets as a W3C VC, SD-JWT, or ISO 18013-5 Credential")
                 url.set("https://github.com/a-sit-plus/eu-pid-credential/")
                 licenses {
                     license {
