@@ -3,10 +3,12 @@ package at.asitplus.wallet.eupid
 import at.asitplus.wallet.lib.data.jsonSerializer
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
+import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.serialization.encodeToString
 import kotlin.random.Random
 import kotlin.random.nextUInt
+import kotlin.time.Duration.Companion.seconds
 
 class SerializerTest : FunSpec({
 
@@ -36,6 +38,13 @@ class SerializerTest : FunSpec({
             residentHouseNumber = randomString(),
             gender = IsoIec5218Gender.NOT_APPLICABLE,
             nationality = randomString(),
+            issuanceDate = Clock.System.now(),
+            expiryDate = Clock.System.now().plus(300.seconds),
+            issuingAuthority = randomString(),
+            documentNumber = randomString(),
+            administrativeNumber = randomString(),
+            issuingCountry = randomString(),
+            issuingJurisdiction = randomString(),
         )
         val serialized = jsonSerializer.encodeToString(credential)
 

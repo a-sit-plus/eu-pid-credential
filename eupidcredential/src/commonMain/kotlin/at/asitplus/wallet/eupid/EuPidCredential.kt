@@ -2,6 +2,7 @@ package at.asitplus.wallet.eupid
 
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes
 import at.asitplus.wallet.lib.data.CredentialSubject
+import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.serializers.LocalDateIso8601Serializer
 import kotlinx.serialization.SerialName
@@ -143,6 +144,54 @@ data class EuPidCredential(
      */
     @SerialName(Attributes.NATIONALITY)
     val nationality: String? = null,
-) : CredentialSubject()
+
+    /**
+     * Date (and possibly time) when the PID was issued.
+     */
+    @SerialName(Attributes.ISSUANCE_DATE)
+    val issuanceDate: Instant,
+
+    /**
+     * Date (and possibly time) when the PID will expire.
+     */
+    @SerialName(Attributes.EXPIRY_DATE)
+    val expiryDate: Instant,
+
+    /**
+     * Name of the administrative authority that has issued this PID instance, or
+     * the ISO 3166 Alpha-2 country code of the respective Member State if
+     * there is no separate authority authorized to issue PIDs.
+     */
+    @SerialName(Attributes.ISSUING_AUTHORITY)
+    val issuingAuthority: String,
+
+    /**
+     * A number for the PID, assigned by the PID Provider.
+     */
+    @SerialName(Attributes.DOCUMENT_NUMBER)
+    val documentNumber: String? = null,
+
+    /**
+     * A number assigned by the PID Provider for audit control or other purposes.
+     */
+    @SerialName(Attributes.ADMINISTRATIVE_NUMBER)
+    val administrativeNumber: String? = null,
+
+    /**
+     * Alpha-2 country code, as defined in ISO 3166-1, of the PID Provider's country or territory.
+     */
+    @SerialName(Attributes.ISSUING_COUNTRY)
+    val issuingCountry: String,
+
+    /**
+     * Country subdivision code of the jurisdiction that issued the PID, as
+     * defined in ISO 3166-2:2020, Clause 8. The first part of the code SHALL
+     * be the same as the value for issuing_country.
+     */
+    @SerialName(Attributes.ISSUING_JURISDICTION)
+    val issuingJurisdiction: String? = null,
+
+
+    ) : CredentialSubject()
 
 

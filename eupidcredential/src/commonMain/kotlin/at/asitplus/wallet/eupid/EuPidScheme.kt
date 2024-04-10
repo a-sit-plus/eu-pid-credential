@@ -37,11 +37,24 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
 
         Attributes.GENDER,
         Attributes.NATIONALITY,
+
+        Attributes.ISSUANCE_DATE,
+        Attributes.EXPIRY_DATE,
+        Attributes.ISSUING_AUTHORITY,
+        Attributes.DOCUMENT_NUMBER,
+        Attributes.ADMINISTRATIVE_NUMBER,
+        Attributes.ISSUING_COUNTRY,
+        Attributes.ISSUING_JURISDICTION,
     )
+
     val requiredClaimNames: Collection<String> = listOf(
         Attributes.FAMILY_NAME,
         Attributes.GIVEN_NAME,
-        Attributes.BIRTH_DATE
+        Attributes.BIRTH_DATE,
+        Attributes.ISSUANCE_DATE,
+        Attributes.EXPIRY_DATE,
+        Attributes.ISSUING_AUTHORITY,
+        Attributes.ISSUING_JURISDICTION,
     )
 
     object Attributes {
@@ -70,5 +83,13 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
 
         const val GENDER = "gender"
         const val NATIONALITY = "nationality"
+
+        const val ISSUANCE_DATE = "issuance_date"
+        const val EXPIRY_DATE = "expiry_date"
+        const val ISSUING_AUTHORITY = "issuing_authority"
+        const val DOCUMENT_NUMBER = "document_number"
+        const val ADMINISTRATIVE_NUMBER = "administrative_number"
+        const val ISSUING_COUNTRY = "issuing_country"
+        const val ISSUING_JURISDICTION = "issuing_jurisdiction"
     }
 }

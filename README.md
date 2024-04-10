@@ -31,8 +31,18 @@ See [PID Rule Book](https://github.com/eu-digital-identity-wallet/eudi-doc-archi
 - `resident_house_number`
 - `gender`
 - `nationality`
+- `issuance_date`
+- `expiry_date`
+- `issuing_authority`
+- `document_number`
+- `administrative_number`
+- `issuing_country`
+- `issuing_jurisdiction`
 
 ## Changelog
+
+Release 2.0.0:
+ - Implement metadata, based on PID Rule Book 1.0.0 from November 2023
 
 Release 1.0.0:
  - Initial release, based on PID Rule Book 1.0.0 from November 2023
