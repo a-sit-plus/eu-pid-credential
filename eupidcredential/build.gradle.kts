@@ -1,11 +1,12 @@
-import at.asitplus.gradle.*
+import at.asitplus.gradle.Logger
+import at.asitplus.gradle.serialization
+import at.asitplus.gradle.setupDokka
 
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
-    id("org.jetbrains.dokka")
-    id("maven-publish")
     id("at.asitplus.gradle.conventions")
+    id("org.jetbrains.dokka")
     id("signing")
 }
 
@@ -15,42 +16,30 @@ group = "at.asitplus.wallet"
 version = artifactVersion
 
 kotlin {
-    jvm {
-        withJava()
-        testRuns["test"].executionTask.configure {
-            useJUnitPlatform()
-        }
-    }
+    jvm()
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 api(serialization("json"))
                 api("at.asitplus.wallet:vclib:3.4.0")
             }
         }
-        val commonTest by getting
-        val jvmMain by getting
-        val jvmTest by getting
-    }
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-}
-
-repositories {
-    mavenLocal()
-    mavenCentral()
-    maven {
-        url = uri("https://s01.oss.sonatype.org/content/repositories/releases/")
     }
 }
 
-val dokkaHtml by tasks.getting(org.jetbrains.dokka.gradle.DokkaTask::class)
+val javadocJar = setupDokka(baseUrl = "https://github.com/a-sit-plus/eu-pid-credential/tree/main/")
 
-val javadocJar: TaskProvider<Jar> by tasks.registering(Jar::class) {
-    dependsOn(dokkaHtml)
-    archiveClassifier.set("javadoc")
-    from(dokkaHtml.outputDirectory)
+//catch the missing `signMavenPublication` Task, which slips through for reasons unknown
+afterEvaluate {
+    val signTasks = tasks.filter { it.name.startsWith("sign") }
+    tasks.filter { it.name.startsWith("publish") }.forEach {
+        Logger.lifecycle("   * ${it.name} now depends on ${signTasks.joinToString { it.name }}")
+        it.dependsOn(*signTasks.toTypedArray())
+    }
 }
 
 publishing {
