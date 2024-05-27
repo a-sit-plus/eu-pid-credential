@@ -25,8 +25,7 @@ kotlin {
         commonMain {
             dependencies {
                 api(serialization("json"))
-                api(serialization("cbor")) //workaround until everything's up to date
-                api("at.asitplus.wallet:vclib:4.0.0-SNAPSHOT")
+                api("at.asitplus.wallet:vclib:3.8.0")
             }
         }
     }
@@ -85,6 +84,11 @@ publishing {
             signing.isRequired = false
         }
     }
+}
+
+repositories {
+    maven(url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+    mavenCentral()
 }
 
 signing {

@@ -10,8 +10,9 @@ import at.asitplus.wallet.lib.data.SchemaIndex
 object EuPidScheme : ConstantIndex.CredentialScheme {
     override val schemaUri: String = "${SchemaIndex.BASE}/schemas/1.0.0/eupid.json"
     override val vcType: String = "EuPid2023"
-    override val isoNamespace: String = "eu.europa.ec.eudiw.pid.1"
-    override val isoDocType: String = "eu.europa.ec.eudiw.pid.1"
+    override val isoNamespace: String = "eu.europa.ec.eudi.pid.1"
+    override val isoDocType: String = "eu.europa.ec.eudi.pid.1"
+    override val sdJwtType: String = "urn:eu.europa.ec.eudi:pid:1"
     override val claimNames: Collection<String> = listOf(
         Attributes.FAMILY_NAME,
         Attributes.GIVEN_NAME,
