@@ -92,4 +92,42 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         const val ISSUING_COUNTRY = "issuing_country"
         const val ISSUING_JURISDICTION = "issuing_jurisdiction"
     }
+
+    /**
+     * Maps names from [Attributes] to claim names used in SD-JWT
+     */
+    val claimNameMap = mapOf(
+        Attributes.FAMILY_NAME to Attributes.FAMILY_NAME,
+        Attributes.GIVEN_NAME to Attributes.GIVEN_NAME,
+        Attributes.BIRTH_DATE to "birthdate",
+
+        Attributes.AGE_OVER_18 to "age_equal_or_over/18",
+        Attributes.AGE_IN_YEARS to Attributes.AGE_IN_YEARS,
+        Attributes.AGE_BIRTH_YEAR to Attributes.AGE_BIRTH_YEAR,
+        Attributes.FAMILY_NAME_BIRTH to "birth_family_name",
+        Attributes.GIVEN_NAME_BIRTH to "birth_given_name",
+        Attributes.BIRTH_PLACE to "place_of_birth/locality",
+        Attributes.BIRTH_COUNTRY to "place_of_birth/country",
+        Attributes.BIRTH_STATE to "place_of_birth/region",
+        Attributes.BIRTH_CITY to "place_of_birth/locality",
+
+        Attributes.RESIDENT_ADDRESS to "address/formatted",
+        Attributes.RESIDENT_COUNTRY to "address/country",
+        Attributes.RESIDENT_STATE to "address/region",
+        Attributes.RESIDENT_CITY to "address/locality",
+        Attributes.RESIDENT_POSTAL_CODE to "address/postal_code",
+        Attributes.RESIDENT_STREET to "address/street_address",
+        Attributes.RESIDENT_HOUSE_NUMBER to "address/house_number",
+
+        Attributes.GENDER to Attributes.GENDER,
+        Attributes.NATIONALITY to "nationalities",
+
+        Attributes.ISSUANCE_DATE to "iat",
+        Attributes.EXPIRY_DATE to "exp",
+        Attributes.ISSUING_AUTHORITY to Attributes.ISSUING_AUTHORITY,
+        Attributes.DOCUMENT_NUMBER to Attributes.DOCUMENT_NUMBER,
+        Attributes.ADMINISTRATIVE_NUMBER to Attributes.ADMINISTRATIVE_NUMBER,
+        Attributes.ISSUING_COUNTRY to Attributes.ISSUING_COUNTRY,
+        Attributes.ISSUING_JURISDICTION to Attributes.ISSUING_JURISDICTION,
+    )
 }
