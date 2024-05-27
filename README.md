@@ -41,6 +41,13 @@ See [PID Rule Book](https://github.com/eu-digital-identity-wallet/eudi-doc-archi
 
 ## Changelog
 
+Release 2.1.0:
+ - Update to `vclib` 3.8.0
+
+Release 2.0.2:
+ - Update to `vclib` 3.7.0
+ - Koltin 2.0.0
+
 Release 2.0.1:
  - Fix publishing, re-releasing 2.0.0
 
