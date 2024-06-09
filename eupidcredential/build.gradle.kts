@@ -25,7 +25,10 @@ kotlin {
         commonMain {
             dependencies {
                 api(serialization("json"))
-                api("at.asitplus.wallet:vclib:3.4.0")
+                api(serialization("cbor")) //workaround until everything's up to date
+                api("at.asitplus.wallet:vclib:3.7.0"){
+                    exclude(group="org.jetbrains.kotlinx", module="kotlinx-serialization-cbor") //workaround until everything's up to date
+                }
             }
         }
     }
