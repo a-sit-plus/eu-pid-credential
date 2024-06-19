@@ -26,13 +26,19 @@ kotlin {
             dependencies {
                 api(serialization("json"))
                 api(serialization("cbor")) //workaround until everything's up to date
-                api("at.asitplus.wallet:vclib:3.7.0"){
-                    exclude(group="org.jetbrains.kotlinx", module="kotlinx-serialization-cbor") //workaround until everything's up to date
-                }
+                api("at.asitplus.wallet:vclib:4.0.0-SNAPSHOT")
             }
         }
     }
 }
+
+repositories{
+        mavenLocal()
+        mavenCentral()
+        maven(url = uri("https://s01.oss.sonatype.org/content/repositories/releases/"))
+        maven(url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+    }
+
 
 val javadocJar = setupDokka(baseUrl = "https://github.com/a-sit-plus/eu-pid-credential/tree/main/")
 
