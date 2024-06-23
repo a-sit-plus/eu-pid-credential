@@ -41,6 +41,9 @@ See [PID Rule Book](https://github.com/eu-digital-identity-wallet/eudi-doc-archi
 
 ## Changelog
 
+Release 2.1.1:
+ - Fix required claim names in `EuPidScheme` to contain `age_over_18` and `issuing_country`
+
 Release 2.1.0:
  - Update to `vclib` 3.8.0
  - Use correct namespace, doc type and SD-JWT type

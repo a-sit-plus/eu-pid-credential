@@ -1,6 +1,7 @@
 package at.asitplus.wallet.eupid
 
 import at.asitplus.wallet.lib.data.ConstantIndex
+import at.asitplus.wallet.lib.data.ConstantIndex.CredentialRepresentation.*
 import at.asitplus.wallet.lib.data.SchemaIndex
 
 
@@ -13,6 +14,9 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
     override val isoNamespace: String = "eu.europa.ec.eudi.pid.1"
     override val isoDocType: String = "eu.europa.ec.eudi.pid.1"
     override val sdJwtType: String = "urn:eu.europa.ec.eudi:pid:1"
+    override val supportedRepresentations: Collection<ConstantIndex.CredentialRepresentation> =
+        listOf(PLAIN_JWT, SD_JWT, ISO_MDOC)
+
     override val claimNames: Collection<String> = listOf(
         Attributes.FAMILY_NAME,
         Attributes.GIVEN_NAME,
@@ -52,10 +56,11 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         Attributes.FAMILY_NAME,
         Attributes.GIVEN_NAME,
         Attributes.BIRTH_DATE,
+        Attributes.AGE_OVER_18,
         Attributes.ISSUANCE_DATE,
         Attributes.EXPIRY_DATE,
         Attributes.ISSUING_AUTHORITY,
-        Attributes.ISSUING_JURISDICTION,
+        Attributes.ISSUING_COUNTRY,
     )
 
     object Attributes {
