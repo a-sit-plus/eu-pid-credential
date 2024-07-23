@@ -25,13 +25,17 @@ kotlin {
         commonMain {
             dependencies {
                 api(serialization("json"))
-                api("at.asitplus.wallet:vclib:3.8.0")
+                api("at.asitplus.wallet:vclib:4.0.0")
             }
         }
     }
 }
 
 repositories{
+    maven {
+        url = uri(layout.projectDirectory.dir("..").dir("..").dir("repo"))
+        name = "local"
+    }
         mavenLocal()
         mavenCentral()
         maven(url = uri("https://s01.oss.sonatype.org/content/repositories/releases/"))
