@@ -32,10 +32,6 @@ kotlin {
 }
 
 repositories{
-    maven {
-        url = uri(layout.projectDirectory.dir("..").dir("..").dir("repo"))
-        name = "local"
-    }
         mavenLocal()
         mavenCentral()
         maven(url = uri("https://s01.oss.sonatype.org/content/repositories/releases/"))
