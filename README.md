@@ -43,6 +43,9 @@ See [PID Rule Book](https://github.com/eu-digital-identity-wallet/eudi-doc-archi
 
 ## Changelog
 
+Release 2.1.2:
+- Update to `vclib` 4.0.0
+
 Release 2.1.1:
  - Fix required claim names in `EuPidScheme` to contain `age_over_18` and `issuing_country`
 
