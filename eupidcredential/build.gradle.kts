@@ -25,7 +25,7 @@ kotlin {
         commonMain {
             dependencies {
                 api(serialization("json"))
-                api("at.asitplus.wallet:vclib:4.0.0")
+                api("at.asitplus.wallet:vck:4.1.0-SNAPSHOT")
             }
         }
     }
@@ -91,6 +91,7 @@ publishing {
 }
 
 repositories {
+    mavenLocal()
     maven(url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
     mavenCentral()
 }
