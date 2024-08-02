@@ -13,7 +13,7 @@ import kotlin.time.Duration.Companion.seconds
 class SerializerTest : FunSpec({
 
     test("serialize credential") {
-        Initializer.initWithVcLib()
+        Initializer.initWithVCK()
 
         val credential = EuPidCredential(
             id = randomString(),
