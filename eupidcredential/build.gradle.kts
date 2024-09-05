@@ -25,7 +25,7 @@ kotlin {
         commonMain {
             dependencies {
                 api(serialization("json"))
-                api("at.asitplus.wallet:vck:4.1.0")
+                api("at.asitplus.wallet:vck:4.2.0-SNAPSHOT")
             }
         }
     }
