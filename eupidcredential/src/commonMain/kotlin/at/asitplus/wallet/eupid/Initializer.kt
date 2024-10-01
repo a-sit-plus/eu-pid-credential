@@ -1,5 +1,6 @@
 package at.asitplus.wallet.eupid
 
+import at.asitplus.wallet.lib.JsonValueEncoder
 import at.asitplus.wallet.lib.LibraryInitializer
 import at.asitplus.wallet.lib.data.CredentialSubject
 import at.asitplus.wallet.lib.data.vckJsonSerializer
@@ -32,7 +33,7 @@ object Initializer {
                     subclass(EuPidCredential::class)
                 }
             },
-            jsonValueEncoder = { if (it is IsoIec5218Gender) vckJsonSerializer.encodeToJsonElement(it) else null },
+            jsonValueEncoder = jsonValueEncoder(),
             itemValueSerializerMap = mapOf(
                 EuPidScheme.Attributes.BIRTH_DATE to LocalDate.serializer(),
                 EuPidScheme.Attributes.AGE_IN_YEARS to UInt.serializer(),
@@ -42,6 +43,16 @@ object Initializer {
                 EuPidScheme.Attributes.EXPIRY_DATE to Instant.serializer(),
             )
         )
+    }
+
+    private fun jsonValueEncoder(): JsonValueEncoder = {
+        when (it) {
+            is IsoIec5218Gender -> vckJsonSerializer.encodeToJsonElement(it)
+            is LocalDate -> vckJsonSerializer.encodeToJsonElement(it)
+            is UInt -> vckJsonSerializer.encodeToJsonElement(it)
+            is Instant -> vckJsonSerializer.encodeToJsonElement(it)
+            else -> null
+        }
     }
 
 }
