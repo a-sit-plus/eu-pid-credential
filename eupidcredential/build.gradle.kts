@@ -31,13 +31,6 @@ kotlin {
     }
 }
 
-repositories{
-        mavenCentral()
-        maven(url = uri("https://s01.oss.sonatype.org/content/repositories/releases/"))
-        maven(url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
-    }
-
-
 val javadocJar = setupDokka(baseUrl = "https://github.com/a-sit-plus/eu-pid-credential/tree/main/")
 
 //catch the missing `signMavenPublication` Task, which slips through for reasons unknown
