@@ -64,76 +64,100 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
     )
 
     object Attributes {
+        /** Current last name(s) or surname(s) of the PID User. */
         const val FAMILY_NAME = "family_name"
+
+        /** Current first name(s), including middle name(s), of the PID User. */
         const val GIVEN_NAME = "given_name"
+
+        /** Day, month, and year on which the PID User was born. */
         const val BIRTH_DATE = "birth_date"
 
+        /** Attesting whether the PID User is currently an adult (true) or a minor (false). */
         const val AGE_OVER_18 = "age_over_18"
+
+        /** The current age of the PID User in years. */
         const val AGE_IN_YEARS = "age_in_years"
+
+        /** The year when the PID User was born. */
         const val AGE_BIRTH_YEAR = "age_birth_year"
+
+        /** Last name(s) or surname(s) of the PID User at the time of birth. */
         const val FAMILY_NAME_BIRTH = "family_name_birth"
+
+        /** First name(s), including middle name(s), of the PID User at the time of birth. */
         const val GIVEN_NAME_BIRTH = "given_name_birth"
 
+        /** The country, state, and city where the PID User was born. */
         const val BIRTH_PLACE = "birth_place"
+
+        /** The country where the PID User was born, as an Alpha-2 country code as specified in ISO 3166-1. */
         const val BIRTH_COUNTRY = "birth_country"
+
+        /** The state, province, district, or local area where the PID User was born. */
         const val BIRTH_STATE = "birth_state"
+
+        /** The municipality, city, town, or village where the PID User was born. */
         const val BIRTH_CITY = "birth_city"
 
+        /**
+         * The full address of the place where the PID User currently resides and/or can be contacted
+         * (street name, house number, city etc.).
+         */
         const val RESIDENT_ADDRESS = "resident_address"
+
+        /** The country where the PID User currently resides, as an Alpha-2 country code as specified in ISO 3166-1. */
         const val RESIDENT_COUNTRY = "resident_country"
+
+        /** The state, province, district, or local area where the PID User currently resides. */
         const val RESIDENT_STATE = "resident_state"
+
+        /** The municipality, city, town, or village where the PID User currently resides. */
         const val RESIDENT_CITY = "resident_city"
+
+        /** Postal code of the place where the PID User currently resides. */
         const val RESIDENT_POSTAL_CODE = "resident_postal_code"
+
+        /** The name of the street where the PID User currently resides. */
         const val RESIDENT_STREET = "resident_street"
+
+        /** The house number where the PID User currently resides, including any affix or suffix. */
         const val RESIDENT_HOUSE_NUMBER = "resident_house_number"
 
+        /** PID User’s gender, using a value as defined in ISO/IEC 5218. */
         const val GENDER = "gender"
+
+        /** Alpha-2 country code as specified in ISO 3166-1, representing the nationality of the PID User. */
         const val NATIONALITY = "nationality"
 
+        /** Date (and possibly time) when the PID was issued. */
         const val ISSUANCE_DATE = "issuance_date"
+
+        /** Date (and possibly time) when the PID will expire. */
         const val EXPIRY_DATE = "expiry_date"
+
+        /**
+         * Name of the administrative authority that has issued this PID instance, or
+         * the ISO 3166 Alpha-2 country code of the respective Member State if
+         * there is no separate authority authorized to issue PIDs.
+         */
         const val ISSUING_AUTHORITY = "issuing_authority"
+
+        /** A number for the PID, assigned by the PID Provider. */
         const val DOCUMENT_NUMBER = "document_number"
+
+        /** A number assigned by the PID Provider for audit control or other purposes. */
         const val ADMINISTRATIVE_NUMBER = "administrative_number"
+
+        /** Alpha-2 country code, as defined in ISO 3166-1, of the PID Provider's country or territory. */
         const val ISSUING_COUNTRY = "issuing_country"
+
+        /**
+         * Country subdivision code of the jurisdiction that issued the PID, as
+         * defined in ISO 3166-2:2020, Clause 8. The first part of the code SHALL
+         * be the same as the value for [ISSUING_COUNTRY].
+         */
         const val ISSUING_JURISDICTION = "issuing_jurisdiction"
     }
 
-    /**
-     * Maps names from [Attributes] to claim names used in SD-JWT
-     */
-    val claimNameMap = mapOf(
-        Attributes.FAMILY_NAME to Attributes.FAMILY_NAME,
-        Attributes.GIVEN_NAME to Attributes.GIVEN_NAME,
-        Attributes.BIRTH_DATE to "birthdate",
-
-        Attributes.AGE_OVER_18 to "age_equal_or_over/18",
-        Attributes.AGE_IN_YEARS to Attributes.AGE_IN_YEARS,
-        Attributes.AGE_BIRTH_YEAR to Attributes.AGE_BIRTH_YEAR,
-        Attributes.FAMILY_NAME_BIRTH to "birth_family_name",
-        Attributes.GIVEN_NAME_BIRTH to "birth_given_name",
-        Attributes.BIRTH_PLACE to "place_of_birth/locality",
-        Attributes.BIRTH_COUNTRY to "place_of_birth/country",
-        Attributes.BIRTH_STATE to "place_of_birth/region",
-        Attributes.BIRTH_CITY to "place_of_birth/locality",
-
-        Attributes.RESIDENT_ADDRESS to "address/formatted",
-        Attributes.RESIDENT_COUNTRY to "address/country",
-        Attributes.RESIDENT_STATE to "address/region",
-        Attributes.RESIDENT_CITY to "address/locality",
-        Attributes.RESIDENT_POSTAL_CODE to "address/postal_code",
-        Attributes.RESIDENT_STREET to "address/street_address",
-        Attributes.RESIDENT_HOUSE_NUMBER to "address/house_number",
-
-        Attributes.GENDER to Attributes.GENDER,
-        Attributes.NATIONALITY to "nationalities",
-
-        Attributes.ISSUANCE_DATE to "iat",
-        Attributes.EXPIRY_DATE to "exp",
-        Attributes.ISSUING_AUTHORITY to Attributes.ISSUING_AUTHORITY,
-        Attributes.DOCUMENT_NUMBER to Attributes.DOCUMENT_NUMBER,
-        Attributes.ADMINISTRATIVE_NUMBER to Attributes.ADMINISTRATIVE_NUMBER,
-        Attributes.ISSUING_COUNTRY to Attributes.ISSUING_COUNTRY,
-        Attributes.ISSUING_JURISDICTION to Attributes.ISSUING_JURISDICTION,
-    )
 }

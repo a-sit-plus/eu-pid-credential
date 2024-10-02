@@ -1,10 +1,13 @@
 package at.asitplus.wallet.eupid
 
-import at.asitplus.wallet.lib.data.jsonSerializer
+import at.asitplus.wallet.lib.data.vckJsonSerializer
+import at.asitplus.wallet.lib.iso.vckCborSerializer
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
+import kotlinx.serialization.decodeFromByteArray
+import kotlinx.serialization.encodeToByteArray
 import kotlinx.serialization.encodeToString
 import kotlin.random.Random
 import kotlin.random.nextUInt
@@ -13,8 +16,6 @@ import kotlin.time.Duration.Companion.seconds
 class SerializerTest : FunSpec({
 
     test("serialize credential") {
-        Initializer.initWithVCK()
-
         val credential = EuPidCredential(
             id = randomString(),
             familyName = randomString(),
@@ -46,10 +47,15 @@ class SerializerTest : FunSpec({
             issuingCountry = randomString(),
             issuingJurisdiction = randomString(),
         )
-        val serialized = jsonSerializer.encodeToString(credential)
+        val serialized = vckJsonSerializer.encodeToString(credential)
 
-        val parsed: EuPidCredential = jsonSerializer.decodeFromString(serialized)
+        val parsed: EuPidCredential = vckJsonSerializer.decodeFromString(serialized)
         parsed shouldBe credential
+
+        val cbor  = vckCborSerializer.encodeToByteArray(credential)
+        val decoded: EuPidCredential = vckCborSerializer.decodeFromByteArray(cbor)
+
+        decoded shouldBe credential
     }
 
 })

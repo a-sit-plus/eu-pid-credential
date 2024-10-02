@@ -18,142 +18,99 @@ data class EuPidCredential(
 
     override val id: String,
 
-    /**
-     * Current last name(s) or surname(s) of the PID User.
-     */
+    /** Current last name(s) or surname(s) of the PID User. */
     @SerialName(Attributes.FAMILY_NAME)
     val familyName: String,
 
-    /**
-     * Current first name(s), including middle name(s), of the PID User.
-     */
+    /** Current first name(s), including middle name(s), of the PID User. */
     @SerialName(Attributes.GIVEN_NAME)
     val givenName: String,
 
-    /**
-     * Day, month, and year on which the PID User was born.
-     */
+    /** Day, month, and year on which the PID User was born. */
     @SerialName(Attributes.BIRTH_DATE)
     @Serializable(with = LocalDateIso8601Serializer::class)
     val birthDate: LocalDate,
 
-    /**
-     * Attesting whether the PID User is currently an adult (true) or a minor (false).
-     */
+    /** Attesting whether the PID User is currently an adult (true) or a minor (false). */
     @SerialName(Attributes.AGE_OVER_18)
     val ageOver18: Boolean? = null,
 
-    /**
-     * The current age of the PID User in years.
-     */
+    /** The current age of the PID User in years. */
     @SerialName(Attributes.AGE_IN_YEARS)
     val ageInYears: UInt? = null,
 
-    /**
-     * The year when the PID User was born.
-     */
+    /** The year when the PID User was born. */
     @SerialName(Attributes.AGE_BIRTH_YEAR)
     val ageBirthYear: UInt? = null,
 
-    /**
-     * Last name(s) or surname(s) of the PID User at the time of birth.
-     */
+    /** Last name(s) or surname(s) of the PID User at the time of birth. */
     @SerialName(Attributes.FAMILY_NAME_BIRTH)
     val familyNameBirth: String? = null,
 
-    /**
-     * First name(s), including middle name(s), of the PID User at the time of birth.
-     */
+    /** First name(s), including middle name(s), of the PID User at the time of birth. */
     @SerialName(Attributes.GIVEN_NAME_BIRTH)
     val givenNameBirth: String? = null,
 
-    /**
-     * The country, state, and city where the PID User was born.
-     */
+    /** The country, state, and city where the PID User was born. */
     @SerialName(Attributes.BIRTH_PLACE)
     val birthPlace: String? = null,
 
-    /**
-     * The country where the PID User was born, as an Alpha-2 country code as specified in ISO 3166-1.
-     */
+    /** The country where the PID User was born, as an Alpha-2 country code as specified in ISO 3166-1. */
     @SerialName(Attributes.BIRTH_COUNTRY)
     val birthCountry: String? = null,
 
-    /**
-     * The state, province, district, or local area where the PID User was born.
-     */
+    /** The state, province, district, or local area where the PID User was born. */
     @SerialName(Attributes.BIRTH_STATE)
     val birthState: String? = null,
 
-    /**
-     * The municipality, city, town, or village where the PID User was born.
-     */
+    /** The municipality, city, town, or village where the PID User was born. */
     @SerialName(Attributes.BIRTH_CITY)
     val birthCity: String? = null,
 
     /**
-     * The full address of the place where the PID User currently resides and/or can be contacted (street name, house number, city etc.).
+     * The full address of the place where the PID User currently resides and/or can be contacted
+     * (street name, house number, city etc.).
      */
     @SerialName(Attributes.RESIDENT_ADDRESS)
     val residentAddress: String? = null,
 
-    /**
-     * The country where the PID User currently resides, as an Alpha-2 country code as specified in ISO 3166-1.
-     */
+    /** The country where the PID User currently resides, as an Alpha-2 country code as specified in ISO 3166-1. */
     @SerialName(Attributes.RESIDENT_COUNTRY)
     val residentCountry: String? = null,
 
-    /**
-     * The state, province, district, or local area where the PID User currently resides.
-     */
+    /** The state, province, district, or local area where the PID User currently resides. */
     @SerialName(Attributes.RESIDENT_STATE)
     val residentState: String? = null,
 
-    /**
-     * The municipality, city, town, or village where the PID User currently resides.
-     */
+    /** The municipality, city, town, or village where the PID User currently resides. */
     @SerialName(Attributes.RESIDENT_CITY)
     val residentCity: String? = null,
 
-    /**
-     * Postal code of the place where the PID User currently resides.
-     */
+    /** Postal code of the place where the PID User currently resides. */
     @SerialName(Attributes.RESIDENT_POSTAL_CODE)
     val residentPostalCode: String? = null,
 
-    /**
-     * The name of the street where the PID User currently resides.
-     */
+    /** The name of the street where the PID User currently resides. */
     @SerialName(Attributes.RESIDENT_STREET)
     val residentStreet: String? = null,
 
-    /**
-     * The house number where the PID User currently resides, including any affix or suffix.
-     */
+    /** The house number where the PID User currently resides, including any affix or suffix. */
     @SerialName(Attributes.RESIDENT_HOUSE_NUMBER)
     val residentHouseNumber: String? = null,
 
-    /**
-     * PID User’s gender, using a value as defined in ISO/IEC 5218.
-     */
+    /** PID User’s gender, using a value as defined in ISO/IEC 5218. */
     @SerialName(Attributes.GENDER)
     val gender: IsoIec5218Gender? = null,
 
-    /**
-     * Alpha-2 country code as specified in ISO 3166-1, representing the nationality of the PID User.
-     */
+    /** Alpha-2 country code as specified in ISO 3166-1, representing the nationality of the PID User. */
     @SerialName(Attributes.NATIONALITY)
     val nationality: String? = null,
 
-    /**
-     * Date (and possibly time) when the PID was issued.
-     */
+    /** Date (and possibly time) when the PID was issued. */
     @SerialName(Attributes.ISSUANCE_DATE)
     val issuanceDate: Instant,
 
-    /**
-     * Date (and possibly time) when the PID will expire.
-     */
+    /** Date (and possibly time) when the PID will expire. */
     @SerialName(Attributes.EXPIRY_DATE)
     val expiryDate: Instant,
 
@@ -165,28 +122,22 @@ data class EuPidCredential(
     @SerialName(Attributes.ISSUING_AUTHORITY)
     val issuingAuthority: String,
 
-    /**
-     * A number for the PID, assigned by the PID Provider.
-     */
+    /** A number for the PID, assigned by the PID Provider. */
     @SerialName(Attributes.DOCUMENT_NUMBER)
     val documentNumber: String? = null,
 
-    /**
-     * A number assigned by the PID Provider for audit control or other purposes.
-     */
+    /** A number assigned by the PID Provider for audit control or other purposes. */
     @SerialName(Attributes.ADMINISTRATIVE_NUMBER)
     val administrativeNumber: String? = null,
 
-    /**
-     * Alpha-2 country code, as defined in ISO 3166-1, of the PID Provider's country or territory.
-     */
+    /** Alpha-2 country code, as defined in ISO 3166-1, of the PID Provider's country or territory. */
     @SerialName(Attributes.ISSUING_COUNTRY)
     val issuingCountry: String,
 
     /**
      * Country subdivision code of the jurisdiction that issued the PID, as
      * defined in ISO 3166-2:2020, Clause 8. The first part of the code SHALL
-     * be the same as the value for issuing_country.
+     * be the same as the value for [issuingCountry].
      */
     @SerialName(Attributes.ISSUING_JURISDICTION)
     val issuingJurisdiction: String? = null,
