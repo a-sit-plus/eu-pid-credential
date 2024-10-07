@@ -3,13 +3,35 @@ package at.asitplus.wallet.eupid
 import at.asitplus.signum.indispensable.cosef.CoseHeader
 import at.asitplus.signum.indispensable.cosef.CoseSigned
 import at.asitplus.signum.indispensable.cosef.io.ByteStringWrapper
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.ADMINISTRATIVE_NUMBER
 import at.asitplus.wallet.lib.iso.IssuerSignedItem
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.BIRTH_DATE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_IN_YEARS
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_BIRTH_YEAR
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_18
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.BIRTH_CITY
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.BIRTH_COUNTRY
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.BIRTH_PLACE
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.BIRTH_STATE
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.DOCUMENT_NUMBER
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.GENDER
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.ISSUANCE_DATE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.EXPIRY_DATE
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.FAMILY_NAME
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.FAMILY_NAME_BIRTH
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.GIVEN_NAME
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.GIVEN_NAME_BIRTH
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.ISSUING_AUTHORITY
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.ISSUING_COUNTRY
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.ISSUING_JURISDICTION
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.NATIONALITY
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_ADDRESS
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_CITY
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_COUNTRY
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_HOUSE_NUMBER
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_POSTAL_CODE
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_STATE
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_STREET
 import at.asitplus.wallet.lib.agent.SubjectCredentialStore
 import at.asitplus.wallet.lib.data.CredentialToJsonConverter
 import at.asitplus.wallet.lib.iso.IssuerSigned
@@ -28,16 +50,8 @@ import kotlin.random.nextUInt
 class SerializerRegistrationTest : FreeSpec({
 
     "Serialization and deserialization" - {
-        withData(
-            nameFn = { "for ${it.key}" },
-            dataMap().entries
-        ) {
-            val item = IssuerSignedItem(
-                digestId = Random.nextUInt(),
-                random = Random.nextBytes(32),
-                elementIdentifier = it.key,
-                elementValue = it.value
-            )
+        withData(nameFn = { "for ${it.key}" }, dataMap().entries) {
+            val item = it.toIssuerSignedItem()
 
             val serialized = item.serialize(EuPidScheme.isoNamespace)
 
@@ -50,9 +64,7 @@ class SerializerRegistrationTest : FreeSpec({
     "Serialization to JSON Element" {
         val claims = dataMap()
         val namespacedItems: Map<String, List<IssuerSignedItem>> =
-            mapOf(EuPidScheme.isoNamespace to claims.map {
-                IssuerSignedItem(Random.nextUInt(), Random.nextBytes(32), it.key, it.value)
-            }.toList())
+            mapOf(EuPidScheme.isoNamespace to claims.map { it.toIssuerSignedItem() }.toList())
         val issuerAuth = CoseSigned(ByteStringWrapper(CoseHeader()), null, null, byteArrayOf())
         val credential = SubjectCredentialStore.StoreEntry.Iso(
             IssuerSigned.fromIssuerSignedItems(namespacedItems, issuerAuth),
@@ -72,15 +84,40 @@ class SerializerRegistrationTest : FreeSpec({
     }
 })
 
+private fun Map.Entry<String, Any>.toIssuerSignedItem() =
+    IssuerSignedItem(Random.nextUInt(), Random.nextBytes(32), key, value)
+
 
 private fun dataMap(): Map<String, Any> =
     mapOf(
+        FAMILY_NAME to randomString(),
+        GIVEN_NAME to randomString(),
         BIRTH_DATE to randomLocalDate(),
+        AGE_OVER_18 to Random.nextBoolean(),
         AGE_IN_YEARS to Random.nextUInt(1u, 99u),
         AGE_BIRTH_YEAR to Random.nextUInt(1900u, 2100u),
+        FAMILY_NAME_BIRTH to randomString(),
+        GIVEN_NAME_BIRTH to randomString(),
+        BIRTH_PLACE to randomString(),
+        BIRTH_COUNTRY to randomString(),
+        BIRTH_STATE to randomString(),
+        BIRTH_CITY to randomString(),
+        RESIDENT_ADDRESS to randomString(),
+        RESIDENT_COUNTRY to randomString(),
+        RESIDENT_STATE to randomString(),
+        RESIDENT_CITY to randomString(),
+        RESIDENT_POSTAL_CODE to randomString(),
+        RESIDENT_STREET to randomString(),
+        RESIDENT_HOUSE_NUMBER to randomString(),
         GENDER to IsoIec5218Gender.NOT_APPLICABLE,
+        NATIONALITY to randomString(),
         ISSUANCE_DATE to randomInstant(),
         EXPIRY_DATE to randomInstant(),
+        ISSUING_AUTHORITY to randomString(),
+        DOCUMENT_NUMBER to randomString(),
+        ADMINISTRATIVE_NUMBER to randomString(),
+        ISSUING_COUNTRY to randomString(),
+        ISSUING_JURISDICTION to randomString(),
     )
 
 private fun randomLocalDate() = LocalDate(Random.nextInt(1900, 2100), Random.nextInt(1, 12), Random.nextInt(1, 28))

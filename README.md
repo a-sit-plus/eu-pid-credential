@@ -43,6 +43,9 @@ See [PID Rule Book](https://github.com/eu-digital-identity-wallet/eudi-doc-archi
 
 ## Changelog
 
+Release 2.2.1:
+ - Fix serialization in ISO format
+
 Release 2.2.0
 - Update to VC-K 5.0.0
 
