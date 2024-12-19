@@ -1,6 +1,11 @@
 package at.asitplus.wallet.eupid
 
+import at.asitplus.signum.indispensable.CryptoSignature
+import at.asitplus.signum.indispensable.cosef.CoseEllipticCurve
 import at.asitplus.signum.indispensable.cosef.CoseHeader
+import at.asitplus.signum.indispensable.cosef.CoseKey
+import at.asitplus.signum.indispensable.cosef.CoseKeyParams
+import at.asitplus.signum.indispensable.cosef.CoseKeyType
 import at.asitplus.signum.indispensable.cosef.CoseSigned
 import at.asitplus.signum.indispensable.cosef.io.ByteStringWrapper
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.ADMINISTRATIVE_NUMBER
@@ -34,13 +39,19 @@ import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_STATE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_STREET
 import at.asitplus.wallet.lib.agent.SubjectCredentialStore
 import at.asitplus.wallet.lib.data.CredentialToJsonConverter
+import at.asitplus.wallet.lib.iso.DeviceKeyInfo
 import at.asitplus.wallet.lib.iso.IssuerSigned
+import at.asitplus.wallet.lib.iso.MobileSecurityObject
+import at.asitplus.wallet.lib.iso.ValidityInfo
+import at.asitplus.wallet.lib.iso.ValueDigest
+import at.asitplus.wallet.lib.iso.ValueDigestList
 import io.kotest.assertions.withClue
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.datatest.withData
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
+import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.serialization.json.JsonObject
@@ -55,20 +66,30 @@ class SerializerRegistrationTest : FreeSpec({
 
             val serialized = item.serialize(EuPidScheme.isoNamespace)
 
-            val deserialized = IssuerSignedItem.deserialize(serialized, EuPidScheme.isoNamespace).getOrThrow()
+            val deserialized = IssuerSignedItem.deserialize(serialized, EuPidScheme.isoNamespace, item.elementIdentifier).getOrThrow()
 
             deserialized.elementValue shouldBe it.value
         }
     }
 
     "Serialization to JSON Element" {
+        val mso = MobileSecurityObject(
+            version = "1.0",
+            digestAlgorithm = "SHA-256",
+            valueDigests = mapOf("foo" to ValueDigestList(listOf(ValueDigest(0U, byteArrayOf())))),
+            deviceKeyInfo = deviceKeyInfo(),
+            docType = "docType",
+            validityInfo = ValidityInfo(Clock.System.now(), Clock.System.now(), Clock.System.now())
+        )
         val claims = dataMap()
         val namespacedItems: Map<String, List<IssuerSignedItem>> =
             mapOf(EuPidScheme.isoNamespace to claims.map { it.toIssuerSignedItem() }.toList())
-        val issuerAuth = CoseSigned(ByteStringWrapper(CoseHeader()), null, null, byteArrayOf())
+        val issuerAuth = CoseSigned.create(CoseHeader(), null, mso, CryptoSignature.RSAorHMAC(byteArrayOf(1,3,3,7)),
+            MobileSecurityObject.serializer()
+        )
         val credential = SubjectCredentialStore.StoreEntry.Iso(
             IssuerSigned.fromIssuerSignedItems(namespacedItems, issuerAuth),
-            EuPidScheme
+            EuPidScheme.isoNamespace
         )
         val converted = CredentialToJsonConverter.toJsonElement(credential)
             .shouldBeInstanceOf<JsonObject>()
@@ -123,3 +144,6 @@ private fun dataMap(): Map<String, Any> =
 private fun randomLocalDate() = LocalDate(Random.nextInt(1900, 2100), Random.nextInt(1, 12), Random.nextInt(1, 28))
 
 private fun randomInstant() = Instant.fromEpochSeconds(Random.nextLong(1000L, 3000L))
+
+private fun deviceKeyInfo() =
+    DeviceKeyInfo(CoseKey(CoseKeyType.EC2, keyParams = CoseKeyParams.EcYBoolParams(CoseEllipticCurve.P256)))
