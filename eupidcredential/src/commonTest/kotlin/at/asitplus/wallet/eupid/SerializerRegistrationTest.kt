@@ -13,7 +13,11 @@ import at.asitplus.wallet.lib.iso.IssuerSignedItem
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.BIRTH_DATE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_IN_YEARS
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_BIRTH_YEAR
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_12
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_14
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_16
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_18
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_21
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.BIRTH_CITY
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.BIRTH_COUNTRY
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.BIRTH_PLACE
@@ -114,7 +118,11 @@ private fun dataMap(): Map<String, Any> =
         FAMILY_NAME to randomString(),
         GIVEN_NAME to randomString(),
         BIRTH_DATE to randomLocalDate(),
+        AGE_OVER_12 to Random.nextBoolean(),
+        AGE_OVER_14 to Random.nextBoolean(),
+        AGE_OVER_16 to Random.nextBoolean(),
         AGE_OVER_18 to Random.nextBoolean(),
+        AGE_OVER_21 to Random.nextBoolean(),
         AGE_IN_YEARS to Random.nextUInt(1u, 99u),
         AGE_BIRTH_YEAR to Random.nextUInt(1900u, 2100u),
         FAMILY_NAME_BIRTH to randomString(),

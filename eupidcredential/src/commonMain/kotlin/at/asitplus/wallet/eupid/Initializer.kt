@@ -35,7 +35,11 @@ object Initializer {
             },
             jsonValueEncoder = jsonValueEncoder(),
             itemValueSerializerMap = mapOf(
+                EuPidScheme.Attributes.AGE_OVER_12 to Boolean.serializer(),
+                EuPidScheme.Attributes.AGE_OVER_14 to Boolean.serializer(),
+                EuPidScheme.Attributes.AGE_OVER_16 to Boolean.serializer(),
                 EuPidScheme.Attributes.AGE_OVER_18 to Boolean.serializer(),
+                EuPidScheme.Attributes.AGE_OVER_21 to Boolean.serializer(),
                 EuPidScheme.Attributes.BIRTH_DATE to LocalDate.serializer(),
                 EuPidScheme.Attributes.AGE_IN_YEARS to UInt.serializer(),
                 EuPidScheme.Attributes.AGE_BIRTH_YEAR to UInt.serializer(),

@@ -15,7 +15,11 @@ See [PID Rule Book](https://github.com/eu-digital-identity-wallet/eudi-doc-archi
 - `family_name`
 - `given_name`
 - `birth_date`
+- `age_over_12`
+- `age_over_14`
+- `age_over_16`
 - `age_over_18`
+- `age_over_21`
 - `age_in_years`
 - `age_birth_year`
 - `family_name_birth`
@@ -43,21 +47,24 @@ See [PID Rule Book](https://github.com/eu-digital-identity-wallet/eudi-doc-archi
 
 ## Changelog
 
+Release 2.2.3:
+ - Add additional claims: `age_over_12`, `age_over_14`, `age_over_16`, `age_over_21`
+
 Release 2.2.2:
-- VC-K 5.2.1
-- Kotlin 2.1.0
+ - VC-K 5.2.1
+ - Kotlin 2.1.0
 
 Release 2.2.1:
-- Fix serialization in ISO format
+ - Fix serialization in ISO format
 
-Release 2.2.0
-- Update to VC-K 5.0.0
+Release 2.2.0:
+ - Update to VC-K 5.0.0
 
 Release 2.1.3:
-- Update to VC-K 4.1.0
+ - Update to VC-K 4.1.0
 
 Release 2.1.2:
-- Update to `vclib` 4.0.0
+ - Update to `vclib` 4.0.0
 
 Release 2.1.1:
  - Fix required claim names in `EuPidScheme` to contain `age_over_18` and `issuing_country`

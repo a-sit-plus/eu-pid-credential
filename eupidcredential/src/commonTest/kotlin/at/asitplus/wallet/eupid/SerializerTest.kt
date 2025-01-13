@@ -6,6 +6,7 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.decodeFromByteArray
 import kotlinx.serialization.encodeToByteArray
 import kotlinx.serialization.encodeToString
@@ -13,6 +14,7 @@ import kotlin.random.Random
 import kotlin.random.nextUInt
 import kotlin.time.Duration.Companion.seconds
 
+@OptIn(ExperimentalSerializationApi::class)
 class SerializerTest : FunSpec({
 
     test("serialize credential") {
@@ -21,7 +23,11 @@ class SerializerTest : FunSpec({
             familyName = randomString(),
             givenName = randomString(),
             birthDate = LocalDate.fromEpochDays(2),
-            ageOver18 = true,
+            ageOver12 = Random.nextBoolean(),
+            ageOver14 = Random.nextBoolean(),
+            ageOver16 = Random.nextBoolean(),
+            ageOver18 = Random.nextBoolean(),
+            ageOver21 = Random.nextBoolean(),
             ageInYears = Random.nextUInt(),
             ageBirthYear = Random.nextUInt(),
             familyNameBirth = randomString(),
@@ -52,7 +58,7 @@ class SerializerTest : FunSpec({
         val parsed: EuPidCredential = vckJsonSerializer.decodeFromString(serialized)
         parsed shouldBe credential
 
-        val cbor  = vckCborSerializer.encodeToByteArray(credential)
+        val cbor = vckCborSerializer.encodeToByteArray(credential)
         val decoded: EuPidCredential = vckCborSerializer.decodeFromByteArray(cbor)
 
         decoded shouldBe credential

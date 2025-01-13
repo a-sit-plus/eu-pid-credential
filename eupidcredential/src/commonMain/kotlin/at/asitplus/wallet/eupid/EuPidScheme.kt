@@ -22,7 +22,11 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         Attributes.GIVEN_NAME,
         Attributes.BIRTH_DATE,
 
+        Attributes.AGE_OVER_12,
+        Attributes.AGE_OVER_14,
+        Attributes.AGE_OVER_16,
         Attributes.AGE_OVER_18,
+        Attributes.AGE_OVER_21,
         Attributes.AGE_IN_YEARS,
         Attributes.AGE_BIRTH_YEAR,
         Attributes.FAMILY_NAME_BIRTH,
@@ -73,8 +77,20 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         /** Day, month, and year on which the PID User was born. */
         const val BIRTH_DATE = "birth_date"
 
+        /** Additional current age attestations: Attesting whether the PID User is currently over 12 years old. */
+        const val AGE_OVER_12 = "age_over_12"
+
+        /** Additional current age attestations: Attesting whether the PID User is currently over 14 years old. */
+        const val AGE_OVER_14 = "age_over_14"
+
+        /** Additional current age attestations: Attesting whether the PID User is currently over 16 years old. */
+        const val AGE_OVER_16 = "age_over_16"
+
         /** Attesting whether the PID User is currently an adult (true) or a minor (false). */
         const val AGE_OVER_18 = "age_over_18"
+
+        /** Additional current age attestations: Attesting whether the PID User is currently over 21 years old. */
+        const val AGE_OVER_21 = "age_over_21"
 
         /** The current age of the PID User in years. */
         const val AGE_IN_YEARS = "age_in_years"
