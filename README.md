@@ -48,6 +48,7 @@ See [PID Rule Book](https://github.com/eu-digital-identity-wallet/eudi-doc-archi
 ## Changelog
 
 Release 2.2.3:
+ - VC-K 5.2.2
  - Add additional claims: `age_over_12`, `age_over_14`, `age_over_16`, `age_over_21`
 
 Release 2.2.2:
