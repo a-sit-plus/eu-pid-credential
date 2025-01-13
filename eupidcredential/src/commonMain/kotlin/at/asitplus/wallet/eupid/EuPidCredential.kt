@@ -31,9 +31,25 @@ data class EuPidCredential(
     @Serializable(with = LocalDateIso8601Serializer::class)
     val birthDate: LocalDate,
 
+    /** Additional current age attestations: Attesting whether the PID User is currently over 12 years old. */
+    @SerialName(Attributes.AGE_OVER_12)
+    val ageOver12: Boolean? = null,
+
+    /** Additional current age attestations: Attesting whether the PID User is currently over 14 years old. */
+    @SerialName(Attributes.AGE_OVER_14)
+    val ageOver14: Boolean? = null,
+
+    /** Additional current age attestations: Attesting whether the PID User is currently over 16 years old. */
+    @SerialName(Attributes.AGE_OVER_16)
+    val ageOver16: Boolean? = null,
+
     /** Attesting whether the PID User is currently an adult (true) or a minor (false). */
     @SerialName(Attributes.AGE_OVER_18)
     val ageOver18: Boolean? = null,
+
+    /** Additional current age attestations: Attesting whether the PID User is currently over 21 years old. */
+    @SerialName(Attributes.AGE_OVER_21)
+    val ageOver21: Boolean? = null,
 
     /** The current age of the PID User in years. */
     @SerialName(Attributes.AGE_IN_YEARS)
