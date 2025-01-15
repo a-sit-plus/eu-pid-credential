@@ -15,7 +15,7 @@ import kotlin.random.nextUInt
 import kotlin.time.Duration.Companion.seconds
 
 @OptIn(ExperimentalSerializationApi::class)
-class SerializerTest : FunSpec({
+class JwtSerializationTest : FunSpec({
 
     test("serialize credential") {
         val credential = EuPidCredential(
@@ -53,22 +53,11 @@ class SerializerTest : FunSpec({
             issuingCountry = randomString(),
             issuingJurisdiction = randomString(),
         )
-        val serialized = vckJsonSerializer.encodeToString(credential)
-
-        val parsed: EuPidCredential = vckJsonSerializer.decodeFromString(serialized)
-        parsed shouldBe credential
+        val json = vckJsonSerializer.encodeToString(credential)
+        vckJsonSerializer.decodeFromString<EuPidCredential>(json) shouldBe credential
 
         val cbor = vckCborSerializer.encodeToByteArray(credential)
-        val decoded: EuPidCredential = vckCborSerializer.decodeFromByteArray(cbor)
-
-        decoded shouldBe credential
+        vckCborSerializer.decodeFromByteArray<EuPidCredential>(cbor) shouldBe credential
     }
 
 })
-
-
-val charPool = ('A'..'Z') + ('a'..'z') + ('0'..'9')
-
-fun randomString() = (1..16)
-    .map { Random.nextInt(0, charPool.size).let { charPool[it] } }
-    .joinToString("")
