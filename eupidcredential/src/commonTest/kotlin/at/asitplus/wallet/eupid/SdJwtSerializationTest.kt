@@ -5,7 +5,6 @@ import at.asitplus.wallet.lib.iso.vckCborSerializer
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.datetime.Clock
-import kotlinx.datetime.LocalDate
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.decodeFromByteArray
 import kotlinx.serialization.encodeToByteArray
@@ -15,36 +14,41 @@ import kotlin.random.nextUInt
 import kotlin.time.Duration.Companion.seconds
 
 @OptIn(ExperimentalSerializationApi::class)
-class JwtSerializationTest : FunSpec({
+class SdJwtSerializationTest : FunSpec({
 
     test("serialize credential") {
-        val credential = EuPidCredential(
-            id = randomString(),
+        val credential = EuPidCredentialSdJwt(
             familyName = randomString(),
             givenName = randomString(),
             birthDate = randomLocalDate(),
-            ageOver12 = Random.nextBoolean(),
-            ageOver14 = Random.nextBoolean(),
-            ageOver16 = Random.nextBoolean(),
-            ageOver18 = Random.nextBoolean(),
-            ageOver21 = Random.nextBoolean(),
+            ageEqualOrOver = AgeEqualOrOverSdJwt(
+                equalOrOver12 = Random.nextBoolean(),
+                equalOrOver14 = Random.nextBoolean(),
+                equalOrOver16 = Random.nextBoolean(),
+                equalOrOver18 = Random.nextBoolean(),
+                equalOrOver21 = Random.nextBoolean(),
+            ),
             ageInYears = Random.nextUInt(),
             ageBirthYear = Random.nextUInt(),
             familyNameBirth = randomString(),
             givenNameBirth = randomString(),
-            birthPlace = randomString(),
-            birthCountry = randomString(),
-            birthState = randomString(),
-            birthCity = randomString(),
-            residentAddress = randomString(),
-            residentCountry = randomString(),
-            residentState = randomString(),
-            residentCity = randomString(),
-            residentPostalCode = randomString(),
-            residentStreet = randomString(),
-            residentHouseNumber = randomString(),
-            gender = IsoIec5218Gender.NOT_APPLICABLE,
-            nationality = randomString(),
+            placeOfBirth = PlaceOfBirthSdJwt(
+                //birthPlace = randomString(),
+                country = randomString(),
+                region = randomString(),
+                locality = randomString(),
+            ),
+            address = AddressSdJwt(
+                formatted = randomString(),
+                country = randomString(),
+                region = randomString(),
+                locality = randomString(),
+                postalCode = randomString(),
+                street = randomString(),
+                houseNumber = randomString(),
+            ),
+            gender = IsoIec5218Gender.NOT_APPLICABLE.toString(),
+            nationalities = setOf(randomString()),
             issuanceDate = Clock.System.now(),
             expiryDate = Clock.System.now().plus(300.seconds),
             issuingAuthority = randomString(),
@@ -54,10 +58,10 @@ class JwtSerializationTest : FunSpec({
             issuingJurisdiction = randomString(),
         )
         val json = vckJsonSerializer.encodeToString(credential)
-        vckJsonSerializer.decodeFromString<EuPidCredential>(json) shouldBe credential
+        vckJsonSerializer.decodeFromString<EuPidCredentialSdJwt>(json) shouldBe credential
 
         val cbor = vckCborSerializer.encodeToByteArray(credential)
-        vckCborSerializer.decodeFromByteArray<EuPidCredential>(cbor) shouldBe credential
+        vckCborSerializer.decodeFromByteArray<EuPidCredentialSdJwt>(cbor) shouldBe credential
     }
 
 })

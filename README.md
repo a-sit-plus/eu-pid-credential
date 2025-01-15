@@ -11,7 +11,9 @@ Use data provided by EU Wallets as a W3C VC, or ISO 18013-5 Credential, with the
 
 Be sure to call `at.asitplus.wallet.eupid.Initializer.initWithVCK` first thing in your application.
 
-See [PID Rule Book](https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-06-pid-rulebook.md) for a list of attributes. These are implemented:
+See [PID Rule Book](https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-06-pid-rulebook.md) for a list of attributes.
+
+These are implemented for ISO:
 - `family_name`
 - `given_name`
 - `birth_date`
@@ -45,7 +47,43 @@ See [PID Rule Book](https://github.com/eu-digital-identity-wallet/eudi-doc-archi
 - `issuing_country`
 - `issuing_jurisdiction`
 
+These are implemented for SD-JWT:
+- `family_name`
+- `given_name`
+- `birthdate`
+- `age_equal_or_over.12`
+- `age_equal_or_over.14`
+- `age_equal_or_over.16`
+- `age_equal_or_over.18`
+- `age_equal_or_over.21`
+- `age_in_years`
+- `age_birth_year`
+- `birth_family_name`
+- `birth_given_name`
+- `place_of_birth.locality`
+- `place_of_birth.country`
+- `place_of_birth.region`
+- `address.formatted`
+- `address.country`
+- `address.region`
+- `address.locality`
+- `address.postal_code`
+- `address.street_address`
+- `address.house_number`
+- `gender`
+- `nationalities`
+- `iat`
+- `exp`
+- `issuing_authority`
+- `document_number`
+- `administrative_number`
+- `issuing_country`
+- `issuing_jurisdiction`
+
 ## Changelog
+
+Release 3.0.0:
+ - Implement mapping to SD-JWT claim names according to <https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/pull/160>
 
 Release 2.2.3:
  - VC-K 5.2.2
