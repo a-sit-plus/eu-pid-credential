@@ -82,7 +82,7 @@ These are implemented for SD-JWT:
 
 ## Changelog
 
-Release 3.0.0:
+Release 2.3.0:
  - Implement mapping to SD-JWT claim names according to <https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/pull/160>
 
 Release 2.2.3:
