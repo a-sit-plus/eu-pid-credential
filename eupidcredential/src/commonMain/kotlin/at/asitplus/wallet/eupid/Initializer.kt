@@ -6,6 +6,7 @@ import at.asitplus.wallet.lib.data.CredentialSubject
 import at.asitplus.wallet.lib.data.vckJsonSerializer
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
+import kotlinx.serialization.builtins.ByteArraySerializer
 import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.encodeToJsonElement
 import kotlinx.serialization.modules.SerializersModule
@@ -46,6 +47,7 @@ object Initializer {
                 EuPidScheme.Attributes.GENDER to IsoIec5218GenderSerializer,
                 EuPidScheme.Attributes.ISSUANCE_DATE to Instant.serializer(),
                 EuPidScheme.Attributes.EXPIRY_DATE to Instant.serializer(),
+                EuPidScheme.Attributes.PORTRAIT to ByteArraySerializer(),
             )
         )
     }

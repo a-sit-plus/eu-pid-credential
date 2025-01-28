@@ -2,6 +2,8 @@ package at.asitplus.wallet.eupid
 
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes
 import at.asitplus.wallet.lib.data.CredentialSubject
+import io.matthewnelson.encoding.base64.Base64
+import io.matthewnelson.encoding.core.Encoder.Companion.encodeToString
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.serializers.LocalDateIso8601Serializer
@@ -158,7 +160,147 @@ data class EuPidCredential(
     @SerialName(Attributes.ISSUING_JURISDICTION)
     val issuingJurisdiction: String? = null,
 
+    /**
+     * A value assigned to the natural person that is unique among all personal administrative numbers issued by
+     * the provider of person identification data. Where Member States opt to include this attribute, they shall
+     * describe in their electronic identification schemes under which the person identification data is issued,
+     * the policy that they apply to the values of this attribute, including, where applicable, specific conditions
+     * for the processing of this value.
+     */
+    @SerialName(Attributes.PERSONAL_ADMINISTRATIVE_NUMBER)
+    val personalAdministrativeNumber: String? = null,
 
-    ) : CredentialSubject()
+    /** Facial image of the wallet user compliant with ISO 19794-5 or ISO 39794 specifications. */
+    @SerialName(Attributes.PORTRAIT)
+    val portrait: ByteArray? = null,
+
+) : CredentialSubject() {
+
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as EuPidCredential
+
+        if (ageOver12 != other.ageOver12) return false
+        if (ageOver14 != other.ageOver14) return false
+        if (ageOver16 != other.ageOver16) return false
+        if (ageOver18 != other.ageOver18) return false
+        if (ageOver21 != other.ageOver21) return false
+        if (id != other.id) return false
+        if (familyName != other.familyName) return false
+        if (givenName != other.givenName) return false
+        if (birthDate != other.birthDate) return false
+        if (ageInYears != other.ageInYears) return false
+        if (ageBirthYear != other.ageBirthYear) return false
+        if (familyNameBirth != other.familyNameBirth) return false
+        if (givenNameBirth != other.givenNameBirth) return false
+        if (birthPlace != other.birthPlace) return false
+        if (birthCountry != other.birthCountry) return false
+        if (birthState != other.birthState) return false
+        if (birthCity != other.birthCity) return false
+        if (residentAddress != other.residentAddress) return false
+        if (residentCountry != other.residentCountry) return false
+        if (residentState != other.residentState) return false
+        if (residentCity != other.residentCity) return false
+        if (residentPostalCode != other.residentPostalCode) return false
+        if (residentStreet != other.residentStreet) return false
+        if (residentHouseNumber != other.residentHouseNumber) return false
+        if (gender != other.gender) return false
+        if (nationality != other.nationality) return false
+        if (issuanceDate != other.issuanceDate) return false
+        if (expiryDate != other.expiryDate) return false
+        if (issuingAuthority != other.issuingAuthority) return false
+        if (documentNumber != other.documentNumber) return false
+        if (administrativeNumber != other.administrativeNumber) return false
+        if (issuingCountry != other.issuingCountry) return false
+        if (issuingJurisdiction != other.issuingJurisdiction) return false
+        if (personalAdministrativeNumber != other.personalAdministrativeNumber) return false
+        if (!portrait.contentEquals(other.portrait)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = ageOver12?.hashCode() ?: 0
+        result = 31 * result + (ageOver14?.hashCode() ?: 0)
+        result = 31 * result + (ageOver16?.hashCode() ?: 0)
+        result = 31 * result + (ageOver18?.hashCode() ?: 0)
+        result = 31 * result + (ageOver21?.hashCode() ?: 0)
+        result = 31 * result + id.hashCode()
+        result = 31 * result + familyName.hashCode()
+        result = 31 * result + givenName.hashCode()
+        result = 31 * result + birthDate.hashCode()
+        result = 31 * result + (ageInYears?.hashCode() ?: 0)
+        result = 31 * result + (ageBirthYear?.hashCode() ?: 0)
+        result = 31 * result + (familyNameBirth?.hashCode() ?: 0)
+        result = 31 * result + (givenNameBirth?.hashCode() ?: 0)
+        result = 31 * result + (birthPlace?.hashCode() ?: 0)
+        result = 31 * result + (birthCountry?.hashCode() ?: 0)
+        result = 31 * result + (birthState?.hashCode() ?: 0)
+        result = 31 * result + (birthCity?.hashCode() ?: 0)
+        result = 31 * result + (residentAddress?.hashCode() ?: 0)
+        result = 31 * result + (residentCountry?.hashCode() ?: 0)
+        result = 31 * result + (residentState?.hashCode() ?: 0)
+        result = 31 * result + (residentCity?.hashCode() ?: 0)
+        result = 31 * result + (residentPostalCode?.hashCode() ?: 0)
+        result = 31 * result + (residentStreet?.hashCode() ?: 0)
+        result = 31 * result + (residentHouseNumber?.hashCode() ?: 0)
+        result = 31 * result + (gender?.hashCode() ?: 0)
+        result = 31 * result + (nationality?.hashCode() ?: 0)
+        result = 31 * result + issuanceDate.hashCode()
+        result = 31 * result + expiryDate.hashCode()
+        result = 31 * result + issuingAuthority.hashCode()
+        result = 31 * result + (documentNumber?.hashCode() ?: 0)
+        result = 31 * result + (administrativeNumber?.hashCode() ?: 0)
+        result = 31 * result + issuingCountry.hashCode()
+        result = 31 * result + (issuingJurisdiction?.hashCode() ?: 0)
+        result = 31 * result + (personalAdministrativeNumber?.hashCode() ?: 0)
+        result = 31 * result + (portrait?.contentHashCode() ?: 0)
+        return result
+    }
+
+    override fun toString(): String {
+        return "EuPidCredential(" +
+                "id='$id', " +
+                "familyName='$familyName', " +
+                "givenName='$givenName', " +
+                "birthDate=$birthDate, " +
+                "ageOver12=$ageOver12, " +
+                "ageOver14=$ageOver14, " +
+                "ageOver16=$ageOver16, " +
+                "ageOver18=$ageOver18, " +
+                "ageOver21=$ageOver21, " +
+                "ageInYears=$ageInYears, " +
+                "ageBirthYear=$ageBirthYear, " +
+                "familyNameBirth=$familyNameBirth, " +
+                "givenNameBirth=$givenNameBirth, " +
+                "birthPlace=$birthPlace, " +
+                "birthCountry=$birthCountry, " +
+                "birthState=$birthState, " +
+                "birthCity=$birthCity, " +
+                "residentAddress=$residentAddress, " +
+                "residentCountry=$residentCountry, " +
+                "residentState=$residentState, " +
+                "residentCity=$residentCity, " +
+                "residentPostalCode=$residentPostalCode, " +
+                "residentStreet=$residentStreet, " +
+                "residentHouseNumber=$residentHouseNumber, " +
+                "gender=$gender, " +
+                "nationality=$nationality, " +
+                "issuanceDate=$issuanceDate, " +
+                "expiryDate=$expiryDate, " +
+                "issuingAuthority='$issuingAuthority', " +
+                "documentNumber=$documentNumber, " +
+                "administrativeNumber=$administrativeNumber, " +
+                "issuingCountry='$issuingCountry', " +
+                "issuingJurisdiction=$issuingJurisdiction, " +
+                "personalAdministrativeNumber=$personalAdministrativeNumber, " +
+                "portrait=${portrait?.encodeToString(Base64())}" +
+                ")"
+    }
+
+}
 
 

@@ -53,6 +53,9 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         Attributes.ADMINISTRATIVE_NUMBER,
         Attributes.ISSUING_COUNTRY,
         Attributes.ISSUING_JURISDICTION,
+
+        Attributes.PERSONAL_ADMINISTRATIVE_NUMBER,
+        Attributes.PORTRAIT,
     )
 
     val requiredClaimNames: Collection<String> = listOf(
@@ -173,6 +176,18 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
          * be the same as the value for [ISSUING_COUNTRY].
          */
         const val ISSUING_JURISDICTION = "issuing_jurisdiction"
+
+        /**
+         * A value assigned to the natural person that is unique among all personal administrative numbers issued by
+         * the provider of person identification data. Where Member States opt to include this attribute, they shall
+         * describe in their electronic identification schemes under which the person identification data is issued,
+         * the policy that they apply to the values of this attribute, including, where applicable, specific conditions
+         * for the processing of this value. */
+        const val PERSONAL_ADMINISTRATIVE_NUMBER = "personal_administrative_number"
+
+        /** Facial image of the wallet user compliant with ISO 19794-5 or ISO 39794 specifications. */
+        const val PORTRAIT = "portrait"
+
     }
 
     /**
@@ -211,6 +226,8 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         Attributes.ADMINISTRATIVE_NUMBER to SdJwtAttributes.ADMINISTRATIVE_NUMBER,
         Attributes.ISSUING_COUNTRY to SdJwtAttributes.ISSUING_COUNTRY,
         Attributes.ISSUING_JURISDICTION to SdJwtAttributes.ISSUING_JURISDICTION,
+        Attributes.PERSONAL_ADMINISTRATIVE_NUMBER to SdJwtAttributes.PERSONAL_ADMINISTRATIVE_NUMBER,
+        Attributes.PORTRAIT to SdJwtAttributes.PORTRAIT,
     )
 
     /**
@@ -412,6 +429,17 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
          * be the same as the value for [ISSUING_COUNTRY].
          */
         const val ISSUING_JURISDICTION = "issuing_jurisdiction"
+
+        /**
+         * A value assigned to the natural person that is unique among all personal administrative numbers issued by
+         * the provider of person identification data. Where Member States opt to include this attribute, they shall
+         * describe in their electronic identification schemes under which the person identification data is issued,
+         * the policy that they apply to the values of this attribute, including, where applicable, specific conditions
+         * for the processing of this value. */
+        const val PERSONAL_ADMINISTRATIVE_NUMBER = "administrative_number"
+
+        /** Facial image of the wallet user compliant with ISO 19794-5 or ISO 39794 specifications. */
+        const val PORTRAIT = "portrait"
     }
 
 }

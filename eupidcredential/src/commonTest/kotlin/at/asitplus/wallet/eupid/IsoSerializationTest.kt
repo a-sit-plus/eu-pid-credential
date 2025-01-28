@@ -27,6 +27,8 @@ import at.asitplus.wallet.eupid.EuPidScheme.Attributes.ISSUING_AUTHORITY
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.ISSUING_COUNTRY
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.ISSUING_JURISDICTION
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.NATIONALITY
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.PERSONAL_ADMINISTRATIVE_NUMBER
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.PORTRAIT
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_ADDRESS
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_CITY
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_COUNTRY
@@ -133,6 +135,8 @@ private fun dataMap(): Map<String, Any> = mapOf(
     ADMINISTRATIVE_NUMBER to randomString(),
     ISSUING_COUNTRY to randomString(),
     ISSUING_JURISDICTION to randomString(),
+    PERSONAL_ADMINISTRATIVE_NUMBER to randomString(),
+    PORTRAIT to Random.nextBytes(32),
 )
 
 private fun deviceKeyInfo() =

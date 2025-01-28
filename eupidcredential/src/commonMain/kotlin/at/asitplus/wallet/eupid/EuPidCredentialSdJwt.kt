@@ -1,6 +1,9 @@
 package at.asitplus.wallet.eupid
 
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes
 import at.asitplus.wallet.eupid.EuPidScheme.SdJwtAttributes
+import io.matthewnelson.encoding.base64.Base64
+import io.matthewnelson.encoding.core.Encoder.Companion.encodeToString
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.serializers.LocalDateIso8601Serializer
@@ -98,7 +101,103 @@ data class EuPidCredentialSdJwt(
      */
     @SerialName(SdJwtAttributes.ISSUING_JURISDICTION)
     val issuingJurisdiction: String? = null,
-)
+
+    /**
+     * A value assigned to the natural person that is unique among all personal administrative numbers issued by
+     * the provider of person identification data. Where Member States opt to include this attribute, they shall
+     * describe in their electronic identification schemes under which the person identification data is issued,
+     * the policy that they apply to the values of this attribute, including, where applicable, specific conditions
+     * for the processing of this value.
+     */
+    @SerialName(Attributes.PERSONAL_ADMINISTRATIVE_NUMBER)
+    val personalAdministrativeNumber: String? = null,
+
+    /** Facial image of the wallet user compliant with ISO 19794-5 or ISO 39794 specifications. */
+    @SerialName(Attributes.PORTRAIT)
+    val portrait: ByteArray? = null,
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as EuPidCredentialSdJwt
+
+        if (familyName != other.familyName) return false
+        if (givenName != other.givenName) return false
+        if (birthDate != other.birthDate) return false
+        if (ageEqualOrOver != other.ageEqualOrOver) return false
+        if (ageInYears != other.ageInYears) return false
+        if (ageBirthYear != other.ageBirthYear) return false
+        if (familyNameBirth != other.familyNameBirth) return false
+        if (givenNameBirth != other.givenNameBirth) return false
+        if (placeOfBirth != other.placeOfBirth) return false
+        if (address != other.address) return false
+        if (gender != other.gender) return false
+        if (nationalities != other.nationalities) return false
+        if (issuanceDate != other.issuanceDate) return false
+        if (expiryDate != other.expiryDate) return false
+        if (issuingAuthority != other.issuingAuthority) return false
+        if (documentNumber != other.documentNumber) return false
+        if (administrativeNumber != other.administrativeNumber) return false
+        if (issuingCountry != other.issuingCountry) return false
+        if (issuingJurisdiction != other.issuingJurisdiction) return false
+        if (personalAdministrativeNumber != other.personalAdministrativeNumber) return false
+        if (!portrait.contentEquals(other.portrait)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = familyName.hashCode()
+        result = 31 * result + givenName.hashCode()
+        result = 31 * result + birthDate.hashCode()
+        result = 31 * result + ageEqualOrOver.hashCode()
+        result = 31 * result + (ageInYears?.hashCode() ?: 0)
+        result = 31 * result + (ageBirthYear?.hashCode() ?: 0)
+        result = 31 * result + (familyNameBirth?.hashCode() ?: 0)
+        result = 31 * result + (givenNameBirth?.hashCode() ?: 0)
+        result = 31 * result + placeOfBirth.hashCode()
+        result = 31 * result + address.hashCode()
+        result = 31 * result + (gender?.hashCode() ?: 0)
+        result = 31 * result + (nationalities?.hashCode() ?: 0)
+        result = 31 * result + issuanceDate.hashCode()
+        result = 31 * result + expiryDate.hashCode()
+        result = 31 * result + issuingAuthority.hashCode()
+        result = 31 * result + (documentNumber?.hashCode() ?: 0)
+        result = 31 * result + (administrativeNumber?.hashCode() ?: 0)
+        result = 31 * result + issuingCountry.hashCode()
+        result = 31 * result + (issuingJurisdiction?.hashCode() ?: 0)
+        result = 31 * result + (personalAdministrativeNumber?.hashCode() ?: 0)
+        result = 31 * result + (portrait?.contentHashCode() ?: 0)
+        return result
+    }
+
+    override fun toString(): String {
+        return "EuPidCredentialSdJwt(" +
+                "familyName='$familyName', " +
+                "givenName='$givenName', " +
+                "birthDate=$birthDate, " +
+                "ageEqualOrOver=$ageEqualOrOver, " +
+                "ageInYears=$ageInYears, " +
+                "ageBirthYear=$ageBirthYear, " +
+                "familyNameBirth=$familyNameBirth, " +
+                "givenNameBirth=$givenNameBirth, " +
+                "placeOfBirth=$placeOfBirth, " +
+                "address=$address, " +
+                "gender=$gender, " +
+                "nationalities=$nationalities, " +
+                "issuanceDate=$issuanceDate, " +
+                "expiryDate=$expiryDate, " +
+                "issuingAuthority='$issuingAuthority', " +
+                "documentNumber=$documentNumber, " +
+                "administrativeNumber=$administrativeNumber, " +
+                "issuingCountry='$issuingCountry', " +
+                "issuingJurisdiction=$issuingJurisdiction, " +
+                "personalAdministrativeNumber=$personalAdministrativeNumber, " +
+                "portrait=${portrait?.encodeToString(Base64())}" +
+                ")"
+    }
+}
 
 @Serializable
 data class AgeEqualOrOverSdJwt(

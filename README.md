@@ -7,11 +7,11 @@
 ![Java](https://img.shields.io/badge/java-17-blue.svg?logo=OPENJDK)
 [![Maven Central](https://img.shields.io/maven-central/v/at.asitplus.wallet/eupidcredential)](https://mvnrepository.com/artifact/at.asitplus.wallet/eupidcredential/)
 
-Use data provided by EU Wallets as a W3C VC, or ISO 18013-5 Credential, with the help of [VC-K](https://github.com/a-sit-plus/vck).
+Use data provided by EU Wallets as a W3C VC, SD-JWT, or ISO 18013-5 credential, with the help of [VC-K](https://github.com/a-sit-plus/vck).
 
 Be sure to call `at.asitplus.wallet.eupid.Initializer.initWithVCK` first thing in your application.
 
-See [PID Rule Book](https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-06-pid-rulebook.md) for a list of attributes.
+See [ARF PID Rulebook](https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-3/annex-3.01-pid-rulebook.md) for a list of attributes.
 
 These are implemented for ISO:
 - `family_name`
@@ -46,6 +46,8 @@ These are implemented for ISO:
 - `administrative_number`
 - `issuing_country`
 - `issuing_jurisdiction`
+- `personal_administrative_number`
+- `portrait`
 
 These are implemented for SD-JWT:
 - `family_name`
@@ -79,11 +81,16 @@ These are implemented for SD-JWT:
 - `administrative_number`
 - `issuing_country`
 - `issuing_jurisdiction`
+- `personal_administrative_number`
+- `portrait`
 
 ## Changelog
 
+Release 2.3.1:
+- Add additional claims `personal_administrative_number` and `portrait` (acc. to Implementing Act)
+
 Release 2.3.0:
- - Implement mapping to SD-JWT claim names according to <https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/pull/160>
+- Implement mapping to SD-JWT claim names according to <https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/pull/160>
 
 Release 2.2.3:
  - VC-K 5.2.2
