@@ -436,7 +436,7 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
          * describe in their electronic identification schemes under which the person identification data is issued,
          * the policy that they apply to the values of this attribute, including, where applicable, specific conditions
          * for the processing of this value. */
-        const val PERSONAL_ADMINISTRATIVE_NUMBER = "administrative_number"
+        const val PERSONAL_ADMINISTRATIVE_NUMBER = "personal_administrative_number"
 
         /** Facial image of the wallet user compliant with ISO 19794-5 or ISO 39794 specifications. */
         const val PORTRAIT = "portrait"

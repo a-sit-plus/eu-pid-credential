@@ -86,6 +86,9 @@ These are implemented for SD-JWT:
 
 ## Changelog
 
+Release 2.3.2:
+ - VC-K 5.3.0
+
 Release 2.3.1:
 - Add additional claims `personal_administrative_number` and `portrait` (acc. to Implementing Act)
 
