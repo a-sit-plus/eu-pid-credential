@@ -1,5 +1,6 @@
 package at.asitplus.wallet.eupid
 
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes
 import at.asitplus.wallet.eupid.EuPidScheme.SdJwtAttributes
 import io.matthewnelson.encoding.base64.Base64
 import io.matthewnelson.encoding.core.Encoder.Companion.encodeToString
@@ -116,6 +117,24 @@ data class EuPidCredentialSdJwt(
     /** Facial image of the wallet user compliant with ISO 19794-5 or ISO 39794 specifications. */
     @SerialName(SdJwtAttributes.PORTRAIT)
     val portrait: ByteArray? = null,
+
+    /** Electronic mail address of the user to whom the person identification data relates, in conformance with [RFC 5322]. */
+    @SerialName(SdJwtAttributes.EMAIL)
+    val email: String? = null,
+
+    /** Mobile telephone number of the User to whom the person identification data relates, starting with the '+'
+     * symbol as the international code prefix and the country code, followed by numbers only. */
+    @SerialName(SdJwtAttributes.PHONE_NUMBER)
+    val phoneNumber: String? = null,
+
+    /** This attribute indicates at least the URL at which a machine-readable version of the trust anchor to be used for verifying the PID can be found or looked up */
+    @SerialName(SdJwtAttributes.TRUST_ANCHOR)
+    val trustAnchor: String? = null,
+
+    /** The location of validity status information on the person identification data where the providers of person identification data revoke person identification data. */
+    @SerialName(SdJwtAttributes.LOCATION_STATUS)
+    val locationStatus: String? = null,
+
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

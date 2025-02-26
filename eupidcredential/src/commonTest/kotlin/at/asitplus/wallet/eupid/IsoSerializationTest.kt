@@ -12,6 +12,7 @@ import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_21
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.BIRTH_DATE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.BIRTH_PLACE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.DOCUMENT_NUMBER
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.EMAIL_ADDRESS
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.EXPIRY_DATE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.FAMILY_NAME
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.FAMILY_NAME_BIRTH
@@ -22,6 +23,9 @@ import at.asitplus.wallet.eupid.EuPidScheme.Attributes.ISSUANCE_DATE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.ISSUING_AUTHORITY
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.ISSUING_COUNTRY
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.ISSUING_JURISDICTION
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.MOBILE_PHONE_NUMBER
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.TRUST_ANCHOR
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.LOCATION_STATUS
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.NATIONALITY
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.PERSONAL_ADMINISTRATIVE_NUMBER
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.PORTRAIT
@@ -129,6 +133,10 @@ private fun dataMap(): Map<String, Any> = mapOf(
     ISSUING_JURISDICTION to randomString(),
     PERSONAL_ADMINISTRATIVE_NUMBER to randomString(),
     PORTRAIT to Random.nextBytes(32),
+    EMAIL_ADDRESS to randomString(),
+    MOBILE_PHONE_NUMBER to "+${randomString()}",
+    TRUST_ANCHOR to randomString(),
+    LOCATION_STATUS to randomString(),
 )
 
 private fun deviceKeyInfo() =

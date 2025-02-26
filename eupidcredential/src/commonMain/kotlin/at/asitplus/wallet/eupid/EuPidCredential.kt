@@ -189,7 +189,23 @@ data class EuPidCredential(
     @SerialName(Attributes.PORTRAIT)
     val portrait: ByteArray? = null,
 
-    ) : CredentialSubject() {
+    /** Electronic mail address of the user to whom the person identification data relates, in conformance with [RFC 5322]. */
+    @SerialName(Attributes.EMAIL_ADDRESS)
+    val emailAddress: String? = null,
+
+    /** Mobile telephone number of the User to whom the person identification data relates, starting with the '+'
+     * symbol as the international code prefix and the country code, followed by numbers only. */
+    @SerialName(Attributes.MOBILE_PHONE_NUMBER)
+    val mobilePhoneNumber: String? = null,
+
+    /** This attribute indicates at least the URL at which a machine-readable version of the trust anchor to be used for verifying the PID can be found or looked up */
+    @SerialName(Attributes.TRUST_ANCHOR)
+    val trustAnchor: String? = null,
+
+    /** The location of validity status information on the person identification data where the providers of person identification data revoke person identification data. */
+    @SerialName(Attributes.LOCATION_STATUS)
+    val locationStatus: String? = null,
+) : CredentialSubject() {
 
 
     override fun equals(other: Any?): Boolean {

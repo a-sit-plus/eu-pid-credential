@@ -54,6 +54,10 @@ class SdJwtSerializationTest : FunSpec({
             issuingJurisdiction = randomString(),
             personalAdministrativeNumber = randomString(),
             portrait = Random.nextBytes(32),
+            email = randomString(),
+            phoneNumber = randomString(),
+            trustAnchor = randomString(),
+            locationStatus = randomString(),
         )
         val json = vckJsonSerializer.encodeToString(credential)
         vckJsonSerializer.decodeFromString<EuPidCredentialSdJwt>(json) shouldBe credential

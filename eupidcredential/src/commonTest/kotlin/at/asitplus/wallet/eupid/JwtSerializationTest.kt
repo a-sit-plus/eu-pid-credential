@@ -50,6 +50,10 @@ class JwtSerializationTest : FunSpec({
             issuingJurisdiction = randomString(),
             personalAdministrativeNumber = randomString(),
             portrait = Random.nextBytes(32),
+            emailAddress = randomString(),
+            mobilePhoneNumber = randomString(),
+            trustAnchor = randomString(),
+            locationStatus = randomString(),
         )
         val json = vckJsonSerializer.encodeToString(credential)
         vckJsonSerializer.decodeFromString<EuPidCredential>(json) shouldBe credential

@@ -57,6 +57,10 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
 
         Attributes.PERSONAL_ADMINISTRATIVE_NUMBER,
         Attributes.PORTRAIT,
+        Attributes.EMAIL_ADDRESS,
+        Attributes.MOBILE_PHONE_NUMBER,
+        Attributes.TRUST_ANCHOR,
+        Attributes.LOCATION_STATUS,
     )
 
     val requiredClaimNames: Collection<String> = listOf(
@@ -202,20 +206,16 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         /** Facial image of the wallet user compliant with ISO 19794-5 or ISO 39794 specifications. */
         const val PORTRAIT = "portrait"
 
-        // TODO New Attribute
         /** Electronic mail address of the user to whom the person identification data relates, in conformance with [RFC 5322]. */
         const val EMAIL_ADDRESS = "email_address"
 
-        // TODO New Attribute
         /** Mobile telephone number of the User to whom the person identification data relates, starting with the '+'
          * symbol as the international code prefix and the country code, followed by numbers only. */
         const val MOBILE_PHONE_NUMBER = "mobile_phone_number"
 
-        // TODO new attribute
         /** This attribute indicates at least the URL at which a machine-readable version of the trust anchor to be used for verifying the PID can be found or looked up */
         const val TRUST_ANCHOR = "trust_anchor"
 
-        // TODO new attribute
         /** The location of validity status information on the person identification data where the providers of person identification data revoke person identification data. */
         const val LOCATION_STATUS = "location_status"
     }
@@ -259,6 +259,10 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         Attributes.ISSUING_JURISDICTION to SdJwtAttributes.ISSUING_JURISDICTION,
         Attributes.PERSONAL_ADMINISTRATIVE_NUMBER to SdJwtAttributes.PERSONAL_ADMINISTRATIVE_NUMBER,
         Attributes.PORTRAIT to SdJwtAttributes.PORTRAIT,
+        Attributes.EMAIL_ADDRESS to SdJwtAttributes.EMAIL,
+        Attributes.MOBILE_PHONE_NUMBER to SdJwtAttributes.PHONE_NUMBER,
+        Attributes.TRUST_ANCHOR to SdJwtAttributes.TRUST_ANCHOR,
+        Attributes.LOCATION_STATUS to SdJwtAttributes.LOCATION_STATUS,
     )
 
     /**
@@ -289,6 +293,8 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         Attributes.NATIONALITY to SdJwtAttributes.NATIONALITIES,
         Attributes.ISSUANCE_DATE to SdJwtAttributes.ISSUANCE_DATE,
         Attributes.EXPIRY_DATE to SdJwtAttributes.EXPIRY_DATE,
+        Attributes.EMAIL_ADDRESS to SdJwtAttributes.EMAIL,
+        Attributes.MOBILE_PHONE_NUMBER to SdJwtAttributes.PHONE_NUMBER,
     )
 
     /**
@@ -488,6 +494,19 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
 
         /** Facial image of the wallet user compliant with ISO 19794-5 or ISO 39794 specifications. */
         const val PORTRAIT = "portrait"
+
+        /** Electronic mail address of the user to whom the person identification data relates, in conformance with [RFC 5322]. */
+        const val EMAIL = "email"
+
+        /** Mobile telephone number of the User to whom the person identification data relates, starting with the '+'
+         * symbol as the international code prefix and the country code, followed by numbers only. */
+        const val PHONE_NUMBER = "phone_number"
+
+        /** This attribute indicates at least the URL at which a machine-readable version of the trust anchor to be used for verifying the PID can be found or looked up */
+        const val TRUST_ANCHOR = "trust_anchor"
+
+        /** The location of validity status information on the person identification data where the providers of person identification data revoke person identification data. */
+        const val LOCATION_STATUS = "location_status"
     }
 
 }

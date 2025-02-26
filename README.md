@@ -48,6 +48,9 @@ These are implemented for ISO:
 - `issuing_jurisdiction`
 - `personal_administrative_number`
 - `portrait`
+- `email_address`
+- `trust_anchor`
+- `location_status`
 
 These are implemented for SD-JWT:
 - `family_name`
@@ -83,11 +86,14 @@ These are implemented for SD-JWT:
 - `issuing_jurisdiction`
 - `personal_administrative_number`
 - `portrait`
+- `email`
+- `trust_anchor`
+- `location_status`
 
 ## Changelog
 
 Release 2.4.0:
- - Update to ARF 1.5.0
+ - Update to ARF 1.5.0, deprecating removed claims, adding new claims
 
 Release 2.3.2:
  - VC-K 5.3.0
