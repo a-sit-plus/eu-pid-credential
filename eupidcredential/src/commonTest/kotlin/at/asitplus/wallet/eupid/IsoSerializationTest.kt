@@ -2,7 +2,6 @@ package at.asitplus.wallet.eupid
 
 import at.asitplus.signum.indispensable.CryptoSignature
 import at.asitplus.signum.indispensable.cosef.*
-import at.asitplus.wallet.eupid.EuPidScheme.Attributes.ADMINISTRATIVE_NUMBER
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_BIRTH_YEAR
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_IN_YEARS
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_12
@@ -10,11 +9,8 @@ import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_14
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_16
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_18
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_21
-import at.asitplus.wallet.eupid.EuPidScheme.Attributes.BIRTH_CITY
-import at.asitplus.wallet.eupid.EuPidScheme.Attributes.BIRTH_COUNTRY
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.BIRTH_DATE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.BIRTH_PLACE
-import at.asitplus.wallet.eupid.EuPidScheme.Attributes.BIRTH_STATE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.DOCUMENT_NUMBER
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.EXPIRY_DATE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.FAMILY_NAME
@@ -116,9 +112,6 @@ private fun dataMap(): Map<String, Any> = mapOf(
     FAMILY_NAME_BIRTH to randomString(),
     GIVEN_NAME_BIRTH to randomString(),
     BIRTH_PLACE to randomString(),
-    BIRTH_COUNTRY to randomString(),
-    BIRTH_STATE to randomString(),
-    BIRTH_CITY to randomString(),
     RESIDENT_ADDRESS to randomString(),
     RESIDENT_COUNTRY to randomString(),
     RESIDENT_STATE to randomString(),
@@ -132,7 +125,6 @@ private fun dataMap(): Map<String, Any> = mapOf(
     EXPIRY_DATE to randomInstant(),
     ISSUING_AUTHORITY to randomString(),
     DOCUMENT_NUMBER to randomString(),
-    ADMINISTRATIVE_NUMBER to randomString(),
     ISSUING_COUNTRY to randomString(),
     ISSUING_JURISDICTION to randomString(),
     PERSONAL_ADMINISTRATIVE_NUMBER to randomString(),

@@ -33,9 +33,6 @@ class SdJwtSerializationTest : FunSpec({
             familyNameBirth = randomString(),
             givenNameBirth = randomString(),
             placeOfBirth = PlaceOfBirthSdJwt(
-                //birthPlace = randomString(),
-                country = randomString(),
-                region = randomString(),
                 locality = randomString(),
             ),
             address = AddressSdJwt(
@@ -53,7 +50,6 @@ class SdJwtSerializationTest : FunSpec({
             expiryDate = Clock.System.now().plus(300.seconds),
             issuingAuthority = randomString(),
             documentNumber = randomString(),
-            administrativeNumber = randomString(),
             issuingCountry = randomString(),
             issuingJurisdiction = randomString(),
             personalAdministrativeNumber = randomString(),

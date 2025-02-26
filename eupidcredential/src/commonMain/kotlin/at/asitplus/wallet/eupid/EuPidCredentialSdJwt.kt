@@ -1,6 +1,5 @@
 package at.asitplus.wallet.eupid
 
-import at.asitplus.wallet.eupid.EuPidScheme.Attributes
 import at.asitplus.wallet.eupid.EuPidScheme.SdJwtAttributes
 import io.matthewnelson.encoding.base64.Base64
 import io.matthewnelson.encoding.core.Encoder.Companion.encodeToString
@@ -12,12 +11,12 @@ import kotlinx.serialization.Serializable
 
 
 /**
- * PID according to [EU PID Rule Book, v1.0.0 from November 2023](https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-06-pid-rulebook.md)
+ * PID according to [EU PID Rule Book, v1.5.0 from February 2025](https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-3/annex-3.01-pid-rulebook.md)
  * with mapping of claim names according to [PR #160](https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/pull/160)
  **/
 @Serializable
 data class EuPidCredentialSdJwt(
-    /** Current last name(s) or surname(s) of the PID User. */
+    /** Current last name(s) or surname(s) of the user to whom the person identification data relates. */
     @SerialName(SdJwtAttributes.FAMILY_NAME)
     val familyName: String,
 
@@ -25,7 +24,7 @@ data class EuPidCredentialSdJwt(
     @SerialName(SdJwtAttributes.GIVEN_NAME)
     val givenName: String,
 
-    /** Day, month, and year on which the PID User was born. */
+    /** Day, month, and year on which the user to whom the person identification data relates was born. */
     @SerialName(SdJwtAttributes.BIRTH_DATE)
     @Serializable(with = LocalDateIso8601Serializer::class)
     val birthDate: LocalDate,
@@ -34,19 +33,19 @@ data class EuPidCredentialSdJwt(
     @SerialName(SdJwtAttributes.PREFIX_AGE_EQUAL_OR_OVER)
     val ageEqualOrOver: AgeEqualOrOverSdJwt,
 
-    /** The current age of the PID User in years. */
+    /** The current age of the User to whom the person identification data relates in years. */
     @SerialName(SdJwtAttributes.AGE_IN_YEARS)
     val ageInYears: UInt? = null,
 
-    /** The year when the PID User was born. */
+    /** The year when the User to whom the person identification data relates was born. */
     @SerialName(SdJwtAttributes.AGE_BIRTH_YEAR)
     val ageBirthYear: UInt? = null,
 
-    /** Last name(s) or surname(s) of the PID User at the time of birth. */
+    /** Last name(s) or surname(s) of the User to whom the person identification data relates at the time of birth. */
     @SerialName(SdJwtAttributes.FAMILY_NAME_BIRTH)
     val familyNameBirth: String? = null,
 
-    /** First name(s), including middle name(s), of the PID User at the time of birth. */
+    /** First name(s), including middle name(s), of the User to whom the person identification data relates at the time of birth. */
     @SerialName(SdJwtAttributes.GIVEN_NAME_BIRTH)
     val givenNameBirth: String? = null,
 
@@ -66,11 +65,11 @@ data class EuPidCredentialSdJwt(
     @SerialName(SdJwtAttributes.NATIONALITIES)
     val nationalities: Set<String>? = null,
 
-    /** Date (and possibly time) when the PID was issued. */
+    /** Date (and if possible time) when the person identification data was issued and/or the administrative validity period of the person identification data began. */
     @SerialName(SdJwtAttributes.ISSUANCE_DATE)
     val issuanceDate: Instant,
 
-    /** Date (and possibly time) when the PID will expire. */
+    /** Date (and if possible time) when the person identification data will expire. */
     @SerialName(SdJwtAttributes.EXPIRY_DATE)
     val expiryDate: Instant,
 
@@ -87,6 +86,8 @@ data class EuPidCredentialSdJwt(
     val documentNumber: String? = null,
 
     /** A number assigned by the PID Provider for audit control or other purposes. */
+    @Suppress("DEPRECATION")
+    @Deprecated("Removed in ARF 1.5.0")
     @SerialName(SdJwtAttributes.ADMINISTRATIVE_NUMBER)
     val administrativeNumber: String? = null,
 
@@ -103,8 +104,8 @@ data class EuPidCredentialSdJwt(
     val issuingJurisdiction: String? = null,
 
     /**
-     * A value assigned to the natural person that is unique among all personal administrative numbers issued by
-     * the provider of person identification data. Where Member States opt to include this attribute, they shall
+     * A value assigned to the natural person that is unique among all personal administrative numbers issued by the
+     * provider of person identification data. Where Member States opt to include this attribute, they shall
      * describe in their electronic identification schemes under which the person identification data is issued,
      * the policy that they apply to the values of this attribute, including, where applicable, specific conditions
      * for the processing of this value.
@@ -213,7 +214,7 @@ data class AgeEqualOrOverSdJwt(
     @SerialName(SdJwtAttributes.AgeEqualOrOver.EQUAL_OR_OVER_16)
     val equalOrOver16: Boolean? = null,
 
-    /** Attesting whether the PID User is currently an adult (true) or a minor (false). */
+    /** Attesting whether the User to whom the person identification data relates is currently an adult (true) or a minor (false). */
     @SerialName(SdJwtAttributes.AgeEqualOrOver.EQUAL_OR_OVER_18)
     val equalOrOver18: Boolean? = null,
 
@@ -225,10 +226,14 @@ data class AgeEqualOrOverSdJwt(
 @Serializable
 data class PlaceOfBirthSdJwt(
     /** The country where the PID User was born, as an Alpha-2 country code as specified in ISO 3166-1. */
+    @Suppress("DEPRECATION")
+    @Deprecated("Removed in ARF 1.5.0")
     @SerialName(SdJwtAttributes.PlaceOfBirth.COUNTRY)
     val country: String? = null,
 
     /** The state, province, district, or local area where the PID User was born. */
+    @Suppress("DEPRECATION")
+    @Deprecated("Removed in ARF 1.5.0")
     @SerialName(SdJwtAttributes.PlaceOfBirth.REGION)
     val region: String? = null,
 
@@ -240,33 +245,37 @@ data class PlaceOfBirthSdJwt(
 @Serializable
 data class AddressSdJwt(
     /**
-     * The full address of the place where the PID User currently resides and/or can be contacted
-     * (street name, house number, city etc.).
+     * The full address of the place where the user to whom the person identification data relates currently resides
+     * or can be contacted (street name, house number, city etc.).
      */
     @SerialName(SdJwtAttributes.Address.FORMATTED)
     val formatted: String? = null,
 
-    /** The country where the PID User currently resides, as an Alpha-2 country code as specified in ISO 3166-1. */
+    /** The country where the user to whom the person identification data relates currently resides, as an alpha-2
+     *  country code as specified in ISO 3166-1. */
     @SerialName(SdJwtAttributes.Address.COUNTRY)
     val country: String? = null,
 
-    /** The state, province, district, or local area where the PID User currently resides. */
+    /** The state, province, district, or local area where the user to whom the person identification data relates
+     * currently resides. */
     @SerialName(SdJwtAttributes.Address.REGION)
     val region: String? = null,
 
-    /** The municipality, city, town, or village where the PID User currently resides. */
+    /** The municipality, city, town, or village where the user to whom the person identification data relates currently
+     *  resides. */
     @SerialName(SdJwtAttributes.Address.LOCALITY)
     val locality: String? = null,
 
-    /** Postal code of the place where the PID User currently resides. */
+    /** The postal code of the place where the user to whom the person identification data relates currently resides. */
     @SerialName(SdJwtAttributes.Address.POSTAL_CODE)
     val postalCode: String? = null,
 
-    /** The name of the street where the PID User currently resides. */
+    /** The name of the street where the user to whom the person identification data relates currently resides. */
     @SerialName(SdJwtAttributes.Address.STREET)
     val street: String? = null,
 
-    /** The house number where the PID User currently resides, including any affix or suffix. */
+    /** The house number where the user to whom the person identification data relates currently resides, including any
+     * affix or suffix. */
     @SerialName(SdJwtAttributes.Address.HOUSE_NUMBER)
     val houseNumber: String? = null,
 )

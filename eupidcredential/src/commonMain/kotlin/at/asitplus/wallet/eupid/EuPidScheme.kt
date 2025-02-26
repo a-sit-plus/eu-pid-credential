@@ -5,7 +5,7 @@ import at.asitplus.wallet.lib.data.ConstantIndex.CredentialRepresentation.*
 
 
 /**
- * PID scheme according to [EU PID Rule Book, v1.0.0 from November 2023](https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-06-pid-rulebook.md)
+ * PID scheme according to [EU PID Rule Book, v1.5.0 from February 2025](https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-3/annex-3.01-pid-rulebook.md)
  */
 object EuPidScheme : ConstantIndex.CredentialScheme {
     override val schemaUri: String = "https://wallet.a-sit.at/schemas/1.0.0/eupid.json"
@@ -16,6 +16,7 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
     override val supportedRepresentations: Collection<ConstantIndex.CredentialRepresentation> =
         listOf(PLAIN_JWT, SD_JWT, ISO_MDOC)
 
+    @Suppress("DEPRECATION")
     override val claimNames: Collection<String> = listOf(
         Attributes.FAMILY_NAME,
         Attributes.GIVEN_NAME,
@@ -70,13 +71,13 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
     )
 
     object Attributes {
-        /** Current last name(s) or surname(s) of the PID User. */
+        /** Current last name(s) or surname(s) of the user to whom the person identification data relates. */
         const val FAMILY_NAME = "family_name"
 
-        /** Current first name(s), including middle name(s), of the PID User. */
+        /** Current first name(s), including middle name(s) where applicable, of the user to whom the person identification data relates. */
         const val GIVEN_NAME = "given_name"
 
-        /** Day, month, and year on which the PID User was born. */
+        /** Day, month, and year on which the user to whom the person identification data relates was born. */
         const val BIRTH_DATE = "birth_date"
 
         /** Additional current age attestations: Attesting whether the PID User is currently over 12 years old. */
@@ -88,70 +89,81 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         /** Additional current age attestations: Attesting whether the PID User is currently over 16 years old. */
         const val AGE_OVER_16 = "age_over_16"
 
-        /** Attesting whether the PID User is currently an adult (true) or a minor (false). */
+        /** Attesting whether the User to whom the person identification data relates is currently an adult (true) or a minor (false). */
         const val AGE_OVER_18 = "age_over_18"
 
         /** Additional current age attestations: Attesting whether the PID User is currently over 21 years old. */
         const val AGE_OVER_21 = "age_over_21"
 
-        /** The current age of the PID User in years. */
+        /** The current age of the User to whom the person identification data relates in years.. */
         const val AGE_IN_YEARS = "age_in_years"
 
         /** The year when the PID User was born. */
         const val AGE_BIRTH_YEAR = "age_birth_year"
 
-        /** Last name(s) or surname(s) of the PID User at the time of birth. */
+        /** Last name(s) or surname(s) of the User to whom the person identification data relates at the time of birth. */
         const val FAMILY_NAME_BIRTH = "family_name_birth"
 
-        /** First name(s), including middle name(s), of the PID User at the time of birth. */
+        /** First name(s), including middle name(s), of the User to whom the person identification data relates at the time of birth. */
         const val GIVEN_NAME_BIRTH = "given_name_birth"
 
-        /** The country, state, and city where the PID User was born. */
+        /** The country as an alpha-2 country code as specified in ISO 3166-1, or the state, province, district, or
+         * local area or the municipality, city, town, or village where the user to whom the person identification data
+         * relates was born. */
         const val BIRTH_PLACE = "birth_place"
 
         /** The country where the PID User was born, as an Alpha-2 country code as specified in ISO 3166-1. */
+        @Deprecated("Removed in ARF 1.5.0")
         const val BIRTH_COUNTRY = "birth_country"
 
         /** The state, province, district, or local area where the PID User was born. */
+        @Deprecated("Removed in ARF 1.5.0")
         const val BIRTH_STATE = "birth_state"
 
         /** The municipality, city, town, or village where the PID User was born. */
+        @Deprecated("Removed in ARF 1.5.0")
         const val BIRTH_CITY = "birth_city"
 
         /**
-         * The full address of the place where the PID User currently resides and/or can be contacted
-         * (street name, house number, city etc.).
+         * The full address of the place where the user to whom the person identification data relates currently
+         * resides or can be contacted (street name, house number, city etc.).
          */
         const val RESIDENT_ADDRESS = "resident_address"
 
-        /** The country where the PID User currently resides, as an Alpha-2 country code as specified in ISO 3166-1. */
+        /** The country where the user to whom the person identification data relates currently resides, as an alpha-2
+         *  country code as specified in ISO 3166-1. */
         const val RESIDENT_COUNTRY = "resident_country"
 
-        /** The state, province, district, or local area where the PID User currently resides. */
+        /** The state, province, district, or local area where the user to whom the person identification data relates
+         * currently resides. */
         const val RESIDENT_STATE = "resident_state"
 
         /** The municipality, city, town, or village where the PID User currently resides. */
         const val RESIDENT_CITY = "resident_city"
 
-        /** Postal code of the place where the PID User currently resides. */
+        /** The postal code of the place where the user to whom the person identification data relates currently resides. */
         const val RESIDENT_POSTAL_CODE = "resident_postal_code"
 
-        /** The name of the street where the PID User currently resides. */
+        /** The name of the street where the user to whom the person identification data relates currently resides. */
         const val RESIDENT_STREET = "resident_street"
 
-        /** The house number where the PID User currently resides, including any affix or suffix. */
+        /** The house number where the user to whom the person identification data relates currently resides, including
+         *  any affix or suffix. */
         const val RESIDENT_HOUSE_NUMBER = "resident_house_number"
 
+        // TODO Renamed to sex, also is an uint
         /** PID User’s gender, using a value as defined in ISO/IEC 5218. */
         const val GENDER = "gender"
 
-        /** Alpha-2 country code as specified in ISO 3166-1, representing the nationality of the PID User. */
+        // TODO one or more
+        /** One or more alpha-2 country codes as specified in ISO 3166-1, representing the nationality of the user to
+         *  whom the person identification data relates. */
         const val NATIONALITY = "nationality"
 
-        /** Date (and possibly time) when the PID was issued. */
+        /** Date (and if possible time) when the person identification data was issued and/or the administrative validity period of the person identification data began. */
         const val ISSUANCE_DATE = "issuance_date"
 
-        /** Date (and possibly time) when the PID will expire. */
+        /** Date (and if possible time) when the person identification data will expire. */
         const val EXPIRY_DATE = "expiry_date"
 
         /**
@@ -165,6 +177,7 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         const val DOCUMENT_NUMBER = "document_number"
 
         /** A number assigned by the PID Provider for audit control or other purposes. */
+        @Deprecated("Removed in ARF 1.5.0")
         const val ADMINISTRATIVE_NUMBER = "administrative_number"
 
         /** Alpha-2 country code, as defined in ISO 3166-1, of the PID Provider's country or territory. */
@@ -178,21 +191,39 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         const val ISSUING_JURISDICTION = "issuing_jurisdiction"
 
         /**
-         * A value assigned to the natural person that is unique among all personal administrative numbers issued by
-         * the provider of person identification data. Where Member States opt to include this attribute, they shall
+         * A value assigned to the natural person that is unique among all personal administrative numbers issued by the
+         * provider of person identification data. Where Member States opt to include this attribute, they shall
          * describe in their electronic identification schemes under which the person identification data is issued,
          * the policy that they apply to the values of this attribute, including, where applicable, specific conditions
-         * for the processing of this value. */
+         * for the processing of this value.
+         */
         const val PERSONAL_ADMINISTRATIVE_NUMBER = "personal_administrative_number"
 
         /** Facial image of the wallet user compliant with ISO 19794-5 or ISO 39794 specifications. */
         const val PORTRAIT = "portrait"
 
+        // TODO New Attribute
+        /** Electronic mail address of the user to whom the person identification data relates, in conformance with [RFC 5322]. */
+        const val EMAIL_ADDRESS = "email_address"
+
+        // TODO New Attribute
+        /** Mobile telephone number of the User to whom the person identification data relates, starting with the '+'
+         * symbol as the international code prefix and the country code, followed by numbers only. */
+        const val MOBILE_PHONE_NUMBER = "mobile_phone_number"
+
+        // TODO new attribute
+        /** This attribute indicates at least the URL at which a machine-readable version of the trust anchor to be used for verifying the PID can be found or looked up */
+        const val TRUST_ANCHOR = "trust_anchor"
+
+        // TODO new attribute
+        /** The location of validity status information on the person identification data where the providers of person identification data revoke person identification data. */
+        const val LOCATION_STATUS = "location_status"
     }
 
     /**
      * Maps entries of [Attributes] to entries of [SdJwtAttributes]
      */
+    @Suppress("DEPRECATION")
     val mapIsoToSdJwtAttributes = mapOf(
         Attributes.FAMILY_NAME to SdJwtAttributes.FAMILY_NAME,
         Attributes.GIVEN_NAME to SdJwtAttributes.GIVEN_NAME,
@@ -206,7 +237,7 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         Attributes.AGE_BIRTH_YEAR to SdJwtAttributes.AGE_BIRTH_YEAR,
         Attributes.FAMILY_NAME_BIRTH to SdJwtAttributes.FAMILY_NAME_BIRTH,
         Attributes.GIVEN_NAME_BIRTH to SdJwtAttributes.GIVEN_NAME_BIRTH,
-        // not specified Attributes.BIRTH_PLACE to SdJwtAttributes.BIRTH_PLACE,
+        Attributes.BIRTH_PLACE to SdJwtAttributes.PLACE_OF_BIRTH_LOCALITY,
         Attributes.BIRTH_COUNTRY to SdJwtAttributes.PLACE_OF_BIRTH_COUNTRY,
         Attributes.BIRTH_STATE to SdJwtAttributes.PLACE_OF_BIRTH_REGION,
         Attributes.BIRTH_CITY to SdJwtAttributes.PLACE_OF_BIRTH_LOCALITY,
@@ -234,6 +265,7 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
      * Maps entries of [Attributes] to entries of [SdJwtAttributes],
      * but only those attribute names that change (from ISO to SD-JWT)
      */
+    @Suppress("DEPRECATION")
     val mapIsoToSdJwtAttributesDifferences = mapOf(
         Attributes.BIRTH_DATE to SdJwtAttributes.BIRTH_DATE,
         Attributes.AGE_OVER_12 to SdJwtAttributes.AGE_EQUAL_OR_OVER_12,
@@ -243,7 +275,7 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         Attributes.AGE_OVER_21 to SdJwtAttributes.AGE_EQUAL_OR_OVER_21,
         Attributes.FAMILY_NAME_BIRTH to SdJwtAttributes.FAMILY_NAME_BIRTH,
         Attributes.GIVEN_NAME_BIRTH to SdJwtAttributes.GIVEN_NAME_BIRTH,
-        // not specified Attributes.BIRTH_PLACE to SdJwtAttributes.BIRTH_PLACE,
+        Attributes.BIRTH_PLACE to SdJwtAttributes.PLACE_OF_BIRTH_LOCALITY,
         Attributes.BIRTH_COUNTRY to SdJwtAttributes.PLACE_OF_BIRTH_COUNTRY,
         Attributes.BIRTH_STATE to SdJwtAttributes.PLACE_OF_BIRTH_REGION,
         Attributes.BIRTH_CITY to SdJwtAttributes.PLACE_OF_BIRTH_LOCALITY,
@@ -263,13 +295,13 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
      * Per <https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/pull/160>
      */
     object SdJwtAttributes {
-        /** Current last name(s) or surname(s) of the PID User. */
+        /** Current last name(s) or surname(s) of the user to whom the person identification data relates. */
         const val FAMILY_NAME = "family_name"
 
-        /** Current first name(s), including middle name(s), of the PID User. */
+        /** Current first name(s), including middle name(s) where applicable, of the user to whom the person identification data relates. */
         const val GIVEN_NAME = "given_name"
 
-        /** Day, month, and year on which the PID User was born. */
+        /** Day, month, and year on which the user to whom the person identification data relates was born. */
         const val BIRTH_DATE = "birthdate"
 
         /** Additional current age attestations, prefix, see [AgeEqualOrOver] */
@@ -284,7 +316,7 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         /** Additional current age attestations: Attesting whether the PID User is currently over 16 years old. */
         const val AGE_EQUAL_OR_OVER_16 = "$PREFIX_AGE_EQUAL_OR_OVER.16"
 
-        /** Attesting whether the PID User is currently an adult (true) or a minor (false). */
+        /** Attesting whether the User to whom the person identification data relates is currently an adult (true) or a minor (false). */
         const val AGE_EQUAL_OR_OVER_18 = "$PREFIX_AGE_EQUAL_OR_OVER.18"
 
         /** Additional current age attestations: Attesting whether the PID User is currently over 21 years old. */
@@ -300,45 +332,53 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
             /** Additional current age attestations: Attesting whether the PID User is currently over 16 years old. */
             const val EQUAL_OR_OVER_16 = "16"
 
-            /** Attesting whether the PID User is currently an adult (true) or a minor (false). */
+            /** Attesting whether the User to whom the person identification data relates is currently an adult (true) or a minor (false). */
             const val EQUAL_OR_OVER_18 = "18"
 
             /** Additional current age attestations: Attesting whether the PID User is currently over 21 years old. */
             const val EQUAL_OR_OVER_21 = "21"
         }
 
-        /** The current age of the PID User in years. */
+        /** The current age of the User to whom the person identification data relates in years. */
         const val AGE_IN_YEARS = "age_in_years"
 
-        /** The year when the PID User was born. */
+        /** The year when the User to whom the person identification data relates was born. */
         const val AGE_BIRTH_YEAR = "age_birth_year"
 
-        /** Last name(s) or surname(s) of the PID User at the time of birth. */
+        /** Last name(s) or surname(s) of the User to whom the person identification data relates at the time of birth. */
         const val FAMILY_NAME_BIRTH = "birth_family_name"
 
-        /** First name(s), including middle name(s), of the PID User at the time of birth. */
+        /** First name(s), including middle name(s), of the User to whom the person identification data relates at the time of birth. */
         const val GIVEN_NAME_BIRTH = "birth_given_name"
 
         /** Place of birth prefix, see [PlaceOfBirth] */
         const val PREFIX_PLACE_OF_BIRTH = "place_of_birth"
 
         /** The country where the PID User was born, as an Alpha-2 country code as specified in ISO 3166-1. */
+        @Deprecated("Removed in ARF 1.5.0")
         const val PLACE_OF_BIRTH_COUNTRY = "$PREFIX_PLACE_OF_BIRTH.country"
 
         /** The state, province, district, or local area where the PID User was born. */
+        @Deprecated("Removed in ARF 1.5.0")
         const val PLACE_OF_BIRTH_REGION = "$PREFIX_PLACE_OF_BIRTH.region"
 
-        /** The municipality, city, town, or village where the PID User was born. */
+        /** The country as an alpha-2 country code as specified in ISO 3166-1, or the state, province, district, or
+         *  local area or the municipality, city, town, or village where the user to whom the person identification
+         *  data relates was born. */
         const val PLACE_OF_BIRTH_LOCALITY = "$PREFIX_PLACE_OF_BIRTH.locality"
 
         object PlaceOfBirth {
             /** The country where the PID User was born, as an Alpha-2 country code as specified in ISO 3166-1. */
+            @Deprecated("Removed in ARF 1.5.0")
             const val COUNTRY = "country"
 
             /** The state, province, district, or local area where the PID User was born. */
+            @Deprecated("Removed in ARF 1.5.0")
             const val REGION = "region"
 
-            /** The municipality, city, town, or village where the PID User was born. */
+            /** The country as an alpha-2 country code as specified in ISO 3166-1, or the state, province, district, or
+             *  local area or the municipality, city, town, or village where the user to whom the person identification
+             *  data relates was born. */
             const val LOCALITY = "locality"
         }
 
@@ -371,40 +411,46 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
 
         object Address {
             /**
-             * The full address of the place where the PID User currently resides and/or can be contacted
-             * (street name, house number, city etc.).
+             * The full address of the place where the user to whom the person identification data relates currently
+             * resides or can be contacted (street name, house number, city etc.).
              */
             const val FORMATTED = "formatted"
 
-            /** The country where the PID User currently resides, as an Alpha-2 country code as specified in ISO 3166-1. */
+            /** The country where the user to whom the person identification data relates currently resides, as an
+             * alpha-2 country code as specified in ISO 3166-1. */
             const val COUNTRY = "country"
 
-            /** The state, province, district, or local area where the PID User currently resides. */
+            /** The state, province, district, or local area where the user to whom the person identification data
+             * relates currently resides. */
             const val REGION = "region"
 
-            /** The municipality, city, town, or village where the PID User currently resides. */
+            /** The municipality, city, town, or village where the user to whom the person identification data relates
+             *  currently resides. */
             const val LOCALITY = "locality"
 
-            /** Postal code of the place where the PID User currently resides. */
+            /** The postal code of the place where the user to whom the person identification data relates currently
+             * resides. */
             const val POSTAL_CODE = "postal_code"
 
-            /** The name of the street where the PID User currently resides. */
+            /** The name of the street where the user to whom the person identification data relates currently resides. */
             const val STREET = "street_address"
 
-            /** The house number where the PID User currently resides, including any affix or suffix. */
+            /** The house number where the user to whom the person identification data relates currently resides,
+             *  including any affix or suffix. */
             const val HOUSE_NUMBER = "house_number"
         }
 
         /** PID User’s gender, using a string value like `female`, `male`, or custom text values. */
         const val GENDER = "gender"
 
-        /** Array of Alpha-2 country code as specified in ISO 3166-1, representing the nationality of the PID User. */
+        /** One or more alpha-2 country codes as specified in ISO 3166-1, representing the nationality of the user to
+         *  whom the person identification data relates. */
         const val NATIONALITIES = "nationalities"
 
-        /** Date (and possibly time) when the PID was issued. */
+        /** Date (and if possible time) when the person identification data was issued and/or the administrative validity period of the person identification data began. */
         const val ISSUANCE_DATE = "iat"
 
-        /** Date (and possibly time) when the PID will expire. */
+        /** Date (and if possible time) when the person identification data will expire. */
         const val EXPIRY_DATE = "exp"
 
         /**
@@ -418,6 +464,7 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         const val DOCUMENT_NUMBER = "document_number"
 
         /** A number assigned by the PID Provider for audit control or other purposes. */
+        @Deprecated("Removed in ARF 1.5.0")
         const val ADMINISTRATIVE_NUMBER = "administrative_number"
 
         /** Alpha-2 country code, as defined in ISO 3166-1, of the PID Provider's country or territory. */
@@ -431,11 +478,12 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         const val ISSUING_JURISDICTION = "issuing_jurisdiction"
 
         /**
-         * A value assigned to the natural person that is unique among all personal administrative numbers issued by
-         * the provider of person identification data. Where Member States opt to include this attribute, they shall
+         * A value assigned to the natural person that is unique among all personal administrative numbers issued by the
+         * provider of person identification data. Where Member States opt to include this attribute, they shall
          * describe in their electronic identification schemes under which the person identification data is issued,
          * the policy that they apply to the values of this attribute, including, where applicable, specific conditions
-         * for the processing of this value. */
+         * for the processing of this value.
+         */
         const val PERSONAL_ADMINISTRATIVE_NUMBER = "personal_administrative_number"
 
         /** Facial image of the wallet user compliant with ISO 19794-5 or ISO 39794 specifications. */

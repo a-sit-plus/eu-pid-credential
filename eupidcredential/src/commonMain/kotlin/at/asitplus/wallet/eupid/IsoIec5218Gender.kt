@@ -9,11 +9,18 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
+/**
+ * Extended with values from [EU PID Rule Book, v1.5.0 from February 2025](https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-3/annex-3.01-pid-rulebook.md)
+ */
 @Serializable(with = IsoIec5218GenderSerializer::class)
 enum class IsoIec5218Gender(val code: Int) {
     NOT_KNOWN(0),
     MALE(1),
     FEMALE(2),
+    OTHER(3),
+    INTER(4),
+    DIVERSE(5),
+    OPEN(6),
     NOT_APPLICABLE(9)
 }
 

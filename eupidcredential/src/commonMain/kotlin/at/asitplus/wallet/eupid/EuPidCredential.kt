@@ -12,7 +12,7 @@ import kotlinx.serialization.Serializable
 
 
 /**
- * PID according to [EU PID Rule Book, v1.0.0 from November 2023](https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-06-pid-rulebook.md)
+ * PID according to [EU PID Rule Book, v1.5.0 from February 2025](https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-3/annex-3.01-pid-rulebook.md)
  */
 @Serializable
 @SerialName("EuPid2023")
@@ -20,15 +20,15 @@ data class EuPidCredential(
 
     override val id: String,
 
-    /** Current last name(s) or surname(s) of the PID User. */
+    /** Current last name(s) or surname(s) of the user to whom the person identification data relates. */
     @SerialName(Attributes.FAMILY_NAME)
     val familyName: String,
 
-    /** Current first name(s), including middle name(s), of the PID User. */
+    /** Current first name(s), including middle name(s) where applicable, of the user to whom the person identification data relates. */
     @SerialName(Attributes.GIVEN_NAME)
     val givenName: String,
 
-    /** Day, month, and year on which the PID User was born. */
+    /** Day, month, and year on which the user to whom the person identification data relates was born. */
     @SerialName(Attributes.BIRTH_DATE)
     @Serializable(with = LocalDateIso8601Serializer::class)
     val birthDate: LocalDate,
@@ -45,7 +45,7 @@ data class EuPidCredential(
     @SerialName(Attributes.AGE_OVER_16)
     val ageOver16: Boolean? = null,
 
-    /** Attesting whether the PID User is currently an adult (true) or a minor (false). */
+    /** Attesting whether the User to whom the person identification data relates is currently an adult (true) or a minor (false). */
     @SerialName(Attributes.AGE_OVER_18)
     val ageOver18: Boolean? = null,
 
@@ -53,66 +53,78 @@ data class EuPidCredential(
     @SerialName(Attributes.AGE_OVER_21)
     val ageOver21: Boolean? = null,
 
-    /** The current age of the PID User in years. */
+    /** The current age of the User to whom the person identification data relates in years. */
     @SerialName(Attributes.AGE_IN_YEARS)
     val ageInYears: UInt? = null,
 
-    /** The year when the PID User was born. */
+    /** The year when the User to whom the person identification data relates was born. */
     @SerialName(Attributes.AGE_BIRTH_YEAR)
     val ageBirthYear: UInt? = null,
 
-    /** Last name(s) or surname(s) of the PID User at the time of birth. */
+    /** Last name(s) or surname(s) of the User to whom the person identification data relates at the time of birth. */
     @SerialName(Attributes.FAMILY_NAME_BIRTH)
     val familyNameBirth: String? = null,
 
-    /** First name(s), including middle name(s), of the PID User at the time of birth. */
+    /** First name(s), including middle name(s), of the User to whom the person identification data relates at the time of birth. */
     @SerialName(Attributes.GIVEN_NAME_BIRTH)
     val givenNameBirth: String? = null,
 
-    /** The country, state, and city where the PID User was born. */
+    /** The country as an alpha-2 country code as specified in ISO 3166-1, or the state, province, district, or local
+     * area or the municipality, city, town, or village where the user to whom the person identification data relates
+     * was born. */
     @SerialName(Attributes.BIRTH_PLACE)
     val birthPlace: String? = null,
 
     /** The country where the PID User was born, as an Alpha-2 country code as specified in ISO 3166-1. */
+    @Suppress("DEPRECATION")
+    @Deprecated("Removed in ARF 1.5.0")
     @SerialName(Attributes.BIRTH_COUNTRY)
     val birthCountry: String? = null,
 
     /** The state, province, district, or local area where the PID User was born. */
+    @Suppress("DEPRECATION")
+    @Deprecated("Removed in ARF 1.5.0")
     @SerialName(Attributes.BIRTH_STATE)
     val birthState: String? = null,
 
     /** The municipality, city, town, or village where the PID User was born. */
+    @Suppress("DEPRECATION")
+    @Deprecated("Removed in ARF 1.5.0")
     @SerialName(Attributes.BIRTH_CITY)
     val birthCity: String? = null,
 
     /**
-     * The full address of the place where the PID User currently resides and/or can be contacted
-     * (street name, house number, city etc.).
+     * The full address of the place where the user to whom the person identification data relates currently resides or
+     * can be contacted (street name, house number, city etc.).
      */
     @SerialName(Attributes.RESIDENT_ADDRESS)
     val residentAddress: String? = null,
 
-    /** The country where the PID User currently resides, as an Alpha-2 country code as specified in ISO 3166-1. */
+    /** The country where the user to whom the person identification data relates currently resides, as an alpha-2
+     * country code as specified in ISO 3166-1. */
     @SerialName(Attributes.RESIDENT_COUNTRY)
     val residentCountry: String? = null,
 
-    /** The state, province, district, or local area where the PID User currently resides. */
+    /** The state, province, district, or local area where the user to whom the person identification data relates
+     * currently resides. */
     @SerialName(Attributes.RESIDENT_STATE)
     val residentState: String? = null,
 
-    /** The municipality, city, town, or village where the PID User currently resides. */
+    /** The municipality, city, town, or village where the user to whom the person identification data relates currently
+     *  resides. */
     @SerialName(Attributes.RESIDENT_CITY)
     val residentCity: String? = null,
 
-    /** Postal code of the place where the PID User currently resides. */
+    /** The postal code of the place where the user to whom the person identification data relates currently resides. */
     @SerialName(Attributes.RESIDENT_POSTAL_CODE)
     val residentPostalCode: String? = null,
 
-    /** The name of the street where the PID User currently resides. */
+    /** The name of the street where the user to whom the person identification data relates currently resides. */
     @SerialName(Attributes.RESIDENT_STREET)
     val residentStreet: String? = null,
 
-    /** The house number where the PID User currently resides, including any affix or suffix. */
+    /** The house number where the user to whom the person identification data relates currently resides, including any
+     *  affix or suffix. */
     @SerialName(Attributes.RESIDENT_HOUSE_NUMBER)
     val residentHouseNumber: String? = null,
 
@@ -120,15 +132,16 @@ data class EuPidCredential(
     @SerialName(Attributes.GENDER)
     val gender: IsoIec5218Gender? = null,
 
-    /** Alpha-2 country code as specified in ISO 3166-1, representing the nationality of the PID User. */
+    /** One or more alpha-2 country codes as specified in ISO 3166-1, representing the nationality of the user to whom
+     *  the person identification data relates. */
     @SerialName(Attributes.NATIONALITY)
     val nationality: String? = null,
 
-    /** Date (and possibly time) when the PID was issued. */
+    /** Date (and if possible time) when the person identification data was issued and/or the administrative validity period of the person identification data began. */
     @SerialName(Attributes.ISSUANCE_DATE)
     val issuanceDate: Instant,
 
-    /** Date (and possibly time) when the PID will expire. */
+    /** Date (and if possible time) when the person identification data will expire. */
     @SerialName(Attributes.EXPIRY_DATE)
     val expiryDate: Instant,
 
@@ -145,6 +158,8 @@ data class EuPidCredential(
     val documentNumber: String? = null,
 
     /** A number assigned by the PID Provider for audit control or other purposes. */
+    @Suppress("DEPRECATION")
+    @Deprecated("Removed in ARF 1.5.0")
     @SerialName(Attributes.ADMINISTRATIVE_NUMBER)
     val administrativeNumber: String? = null,
 
@@ -161,8 +176,8 @@ data class EuPidCredential(
     val issuingJurisdiction: String? = null,
 
     /**
-     * A value assigned to the natural person that is unique among all personal administrative numbers issued by
-     * the provider of person identification data. Where Member States opt to include this attribute, they shall
+     * A value assigned to the natural person that is unique among all personal administrative numbers issued by the
+     * provider of person identification data. Where Member States opt to include this attribute, they shall
      * describe in their electronic identification schemes under which the person identification data is issued,
      * the policy that they apply to the values of this attribute, including, where applicable, specific conditions
      * for the processing of this value.
@@ -174,7 +189,7 @@ data class EuPidCredential(
     @SerialName(Attributes.PORTRAIT)
     val portrait: ByteArray? = null,
 
-) : CredentialSubject() {
+    ) : CredentialSubject() {
 
 
     override fun equals(other: Any?): Boolean {
