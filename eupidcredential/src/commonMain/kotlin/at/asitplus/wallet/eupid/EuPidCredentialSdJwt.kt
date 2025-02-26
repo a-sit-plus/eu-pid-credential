@@ -109,11 +109,11 @@ data class EuPidCredentialSdJwt(
      * the policy that they apply to the values of this attribute, including, where applicable, specific conditions
      * for the processing of this value.
      */
-    @SerialName(Attributes.PERSONAL_ADMINISTRATIVE_NUMBER)
+    @SerialName(SdJwtAttributes.PERSONAL_ADMINISTRATIVE_NUMBER)
     val personalAdministrativeNumber: String? = null,
 
     /** Facial image of the wallet user compliant with ISO 19794-5 or ISO 39794 specifications. */
-    @SerialName(Attributes.PORTRAIT)
+    @SerialName(SdJwtAttributes.PORTRAIT)
     val portrait: ByteArray? = null,
 ) {
     override fun equals(other: Any?): Boolean {

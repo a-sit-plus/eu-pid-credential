@@ -342,7 +342,7 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
             const val LOCALITY = "locality"
         }
 
-        /** Place of birth prefix, see [Address] */
+        /** Address prefix, see [Address] */
         const val PREFIX_ADDRESS = "address"
 
         /**
