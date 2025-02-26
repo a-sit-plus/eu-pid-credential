@@ -68,8 +68,7 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         Attributes.FAMILY_NAME,
         Attributes.GIVEN_NAME,
         Attributes.BIRTH_DATE,
-        Attributes.AGE_OVER_18,
-        Attributes.ISSUANCE_DATE,
+        Attributes.NATIONALITY,
         Attributes.EXPIRY_DATE,
         Attributes.ISSUING_AUTHORITY,
         Attributes.ISSUING_COUNTRY,
@@ -164,7 +163,6 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
          * 5 = diverse; 6 = open; 9 = not applicable. For values 0, 1, 2 and 9, ISO/IEC 5218 applies. */
         const val SEX = "sex"
 
-        // TODO one or more
         /** One or more alpha-2 country codes as specified in ISO 3166-1, representing the nationality of the user to
          *  whom the person identification data relates. */
         const val NATIONALITY = "nationality"

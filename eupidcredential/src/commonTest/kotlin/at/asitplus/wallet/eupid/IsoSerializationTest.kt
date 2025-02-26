@@ -124,7 +124,7 @@ private fun dataMap(): Map<String, Any> = mapOf(
     RESIDENT_STREET to randomString(),
     RESIDENT_HOUSE_NUMBER to randomString(),
     SEX to IsoIec5218Gender.entries.random().code,
-    NATIONALITY to randomString(),
+    NATIONALITY to setOf(randomString()),
     ISSUANCE_DATE to randomInstant(),
     EXPIRY_DATE to randomInstant(),
     ISSUING_AUTHORITY to randomString(),

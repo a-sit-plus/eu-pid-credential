@@ -92,8 +92,8 @@ These are implemented for SD-JWT:
 
 ## Changelog
 
-Release 2.4.0:
- - Update to ARF 1.5.0, deprecating removed claims, adding new claims
+Release 3.0.0:
+ - Update to ARF 1.5.0, deprecating removed claims, adding new claims, changing `nationality` from single element to collection
 
 Release 2.3.2:
  - VC-K 5.3.0

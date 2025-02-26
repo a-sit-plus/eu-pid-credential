@@ -9,6 +9,9 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.serializers.LocalDateIso8601Serializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonPrimitive
 
 
 /**
@@ -139,9 +142,10 @@ data class EuPidCredential(
     val sex: UInt? = null,
 
     /** One or more alpha-2 country codes as specified in ISO 3166-1, representing the nationality of the user to whom
-     *  the person identification data relates. */
+     *  the person identification data relates.
+     *  Before ARF 1.5.0, this has been a single string, now it may contain more than one entry. */
     @SerialName(Attributes.NATIONALITY)
-    val nationality: String? = null,
+    val nationalityElement: JsonElement? = null,
 
     /** Date (and if possible time) when the person identification data was issued and/or the administrative validity period of the person identification data began. */
     @SerialName(Attributes.ISSUANCE_DATE)
@@ -213,8 +217,22 @@ data class EuPidCredential(
     val locationStatus: String? = null,
 ) : CredentialSubject() {
 
+    /** Values shall be one of the following: 0 = not known; 1 = male; 2 = female; 3 = other; 4 = inter; 5 = diverse;
+     * 6 = open; 9 = not applicable. For values 0, 1, 2 and 9, ISO/IEC 5218 applies. */
     val sexAsEnum: IsoIec5218Gender? by lazy {
         sex?.let { IsoIec5218Gender.entries.firstOrNull { it.code == sex } }
+    }
+
+    /** One or more alpha-2 country codes as specified in ISO 3166-1, representing the nationality of the user to whom
+     *  the person identification data relates.*/
+    val nationality: String? by lazy {
+        nationalityElement?.let { runCatching { it.jsonPrimitive.content }.getOrNull() }
+    }
+
+    /** One or more alpha-2 country codes as specified in ISO 3166-1, representing the nationality of the user to whom
+     *  the person identification data relates.*/
+    val nationalities: Collection<String>? by lazy {
+        nationalityElement?.let { runCatching { it.jsonArray.map { it.jsonPrimitive.toString() } }.getOrNull() }
     }
 
     override fun equals(other: Any?): Boolean {

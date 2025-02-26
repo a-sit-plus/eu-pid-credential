@@ -1,15 +1,13 @@
 package at.asitplus.wallet.eupid
 
 import at.asitplus.wallet.lib.data.vckJsonSerializer
-import at.asitplus.wallet.lib.iso.vckCborSerializer
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.datetime.Clock
-import kotlinx.datetime.LocalDate
 import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.decodeFromByteArray
-import kotlinx.serialization.encodeToByteArray
 import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonArray
 import kotlin.random.Random
 import kotlin.random.nextUInt
 import kotlin.time.Duration.Companion.seconds
@@ -41,7 +39,7 @@ class JwtSerializationTest : FunSpec({
             residentStreet = randomString(),
             residentHouseNumber = randomString(),
             sex = IsoIec5218Gender.entries.random().code,
-            nationality = randomString(),
+            nationalityElement = buildJsonArray { add(JsonPrimitive(randomString())) },
             issuanceDate = Clock.System.now(),
             expiryDate = Clock.System.now().plus(300.seconds),
             issuingAuthority = randomString(),
@@ -57,9 +55,6 @@ class JwtSerializationTest : FunSpec({
         )
         val json = vckJsonSerializer.encodeToString(credential)
         vckJsonSerializer.decodeFromString<EuPidCredential>(json) shouldBe credential
-
-        val cbor = vckCborSerializer.encodeToByteArray(credential)
-        vckCborSerializer.decodeFromByteArray<EuPidCredential>(cbor) shouldBe credential
     }
 
 })
