@@ -45,6 +45,7 @@ object Initializer {
                 EuPidScheme.Attributes.AGE_IN_YEARS to UInt.serializer(),
                 EuPidScheme.Attributes.AGE_BIRTH_YEAR to UInt.serializer(),
                 EuPidScheme.Attributes.GENDER to IsoIec5218GenderSerializer,
+                EuPidScheme.Attributes.SEX to UInt.serializer(),
                 EuPidScheme.Attributes.ISSUANCE_DATE to Instant.serializer(),
                 EuPidScheme.Attributes.EXPIRY_DATE to Instant.serializer(),
                 EuPidScheme.Attributes.PORTRAIT to ByteArraySerializer(),

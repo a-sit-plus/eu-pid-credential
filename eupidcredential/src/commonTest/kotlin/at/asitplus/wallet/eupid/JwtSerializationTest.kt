@@ -40,7 +40,7 @@ class JwtSerializationTest : FunSpec({
             residentPostalCode = randomString(),
             residentStreet = randomString(),
             residentHouseNumber = randomString(),
-            gender = IsoIec5218Gender.NOT_APPLICABLE,
+            sex = IsoIec5218Gender.entries.random().code,
             nationality = randomString(),
             issuanceDate = Clock.System.now(),
             expiryDate = Clock.System.now().plus(300.seconds),

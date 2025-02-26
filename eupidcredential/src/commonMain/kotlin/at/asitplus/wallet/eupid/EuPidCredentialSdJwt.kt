@@ -136,6 +136,7 @@ data class EuPidCredentialSdJwt(
     val locationStatus: String? = null,
 
 ) {
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || this::class != other::class) return false
@@ -163,6 +164,10 @@ data class EuPidCredentialSdJwt(
         if (issuingJurisdiction != other.issuingJurisdiction) return false
         if (personalAdministrativeNumber != other.personalAdministrativeNumber) return false
         if (!portrait.contentEquals(other.portrait)) return false
+        if (email != other.email) return false
+        if (phoneNumber != other.phoneNumber) return false
+        if (trustAnchor != other.trustAnchor) return false
+        if (locationStatus != other.locationStatus) return false
 
         return true
     }
@@ -189,6 +194,10 @@ data class EuPidCredentialSdJwt(
         result = 31 * result + (issuingJurisdiction?.hashCode() ?: 0)
         result = 31 * result + (personalAdministrativeNumber?.hashCode() ?: 0)
         result = 31 * result + (portrait?.contentHashCode() ?: 0)
+        result = 31 * result + (email?.hashCode() ?: 0)
+        result = 31 * result + (phoneNumber?.hashCode() ?: 0)
+        result = 31 * result + (trustAnchor?.hashCode() ?: 0)
+        result = 31 * result + (locationStatus?.hashCode() ?: 0)
         return result
     }
 
@@ -214,7 +223,11 @@ data class EuPidCredentialSdJwt(
                 "issuingCountry='$issuingCountry', " +
                 "issuingJurisdiction=$issuingJurisdiction, " +
                 "personalAdministrativeNumber=$personalAdministrativeNumber, " +
-                "portrait=${portrait?.encodeToString(Base64())}" +
+                "portrait=${portrait?.encodeToString(Base64())}, " +
+                "email=$email, " +
+                "phoneNumber=$phoneNumber, " +
+                "trustAnchor=$trustAnchor, " +
+                "locationStatus=$locationStatus" +
                 ")"
     }
 }

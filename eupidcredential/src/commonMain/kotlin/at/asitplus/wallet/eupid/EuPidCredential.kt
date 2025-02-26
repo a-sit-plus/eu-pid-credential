@@ -130,7 +130,13 @@ data class EuPidCredential(
 
     /** PID User’s gender, using a value as defined in ISO/IEC 5218. */
     @SerialName(Attributes.GENDER)
+    @Deprecated("Replaced with sex in ARF 1.5.0", ReplaceWith("sex"))
     val gender: IsoIec5218Gender? = null,
+
+    /** Values shall be one of the following: 0 = not known; 1 = male; 2 = female; 3 = other; 4 = inter; 5 = diverse;
+     * 6 = open; 9 = not applicable. For values 0, 1, 2 and 9, ISO/IEC 5218 applies. */
+    @SerialName(Attributes.SEX)
+    val sex: UInt? = null,
 
     /** One or more alpha-2 country codes as specified in ISO 3166-1, representing the nationality of the user to whom
      *  the person identification data relates. */
@@ -207,6 +213,9 @@ data class EuPidCredential(
     val locationStatus: String? = null,
 ) : CredentialSubject() {
 
+    val sexAsEnum: IsoIec5218Gender? by lazy {
+        sex?.let { IsoIec5218Gender.entries.firstOrNull { it.code == sex } }
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -239,6 +248,7 @@ data class EuPidCredential(
         if (residentStreet != other.residentStreet) return false
         if (residentHouseNumber != other.residentHouseNumber) return false
         if (gender != other.gender) return false
+        if (sex != other.sex) return false
         if (nationality != other.nationality) return false
         if (issuanceDate != other.issuanceDate) return false
         if (expiryDate != other.expiryDate) return false
@@ -249,6 +259,10 @@ data class EuPidCredential(
         if (issuingJurisdiction != other.issuingJurisdiction) return false
         if (personalAdministrativeNumber != other.personalAdministrativeNumber) return false
         if (!portrait.contentEquals(other.portrait)) return false
+        if (emailAddress != other.emailAddress) return false
+        if (mobilePhoneNumber != other.mobilePhoneNumber) return false
+        if (trustAnchor != other.trustAnchor) return false
+        if (locationStatus != other.locationStatus) return false
 
         return true
     }
@@ -279,6 +293,7 @@ data class EuPidCredential(
         result = 31 * result + (residentStreet?.hashCode() ?: 0)
         result = 31 * result + (residentHouseNumber?.hashCode() ?: 0)
         result = 31 * result + (gender?.hashCode() ?: 0)
+        result = 31 * result + (sex?.hashCode() ?: 0)
         result = 31 * result + (nationality?.hashCode() ?: 0)
         result = 31 * result + issuanceDate.hashCode()
         result = 31 * result + expiryDate.hashCode()
@@ -289,6 +304,10 @@ data class EuPidCredential(
         result = 31 * result + (issuingJurisdiction?.hashCode() ?: 0)
         result = 31 * result + (personalAdministrativeNumber?.hashCode() ?: 0)
         result = 31 * result + (portrait?.contentHashCode() ?: 0)
+        result = 31 * result + (emailAddress?.hashCode() ?: 0)
+        result = 31 * result + (mobilePhoneNumber?.hashCode() ?: 0)
+        result = 31 * result + (trustAnchor?.hashCode() ?: 0)
+        result = 31 * result + (locationStatus?.hashCode() ?: 0)
         return result
     }
 
@@ -319,6 +338,7 @@ data class EuPidCredential(
                 "residentStreet=$residentStreet, " +
                 "residentHouseNumber=$residentHouseNumber, " +
                 "gender=$gender, " +
+                "sex=$sex, " +
                 "nationality=$nationality, " +
                 "issuanceDate=$issuanceDate, " +
                 "expiryDate=$expiryDate, " +
@@ -328,7 +348,11 @@ data class EuPidCredential(
                 "issuingCountry='$issuingCountry', " +
                 "issuingJurisdiction=$issuingJurisdiction, " +
                 "personalAdministrativeNumber=$personalAdministrativeNumber, " +
-                "portrait=${portrait?.encodeToString(Base64())}" +
+                "portrait=${portrait?.encodeToString(Base64())}, " +
+                "emailAddress=$emailAddress, " +
+                "mobilePhoneNumber=$mobilePhoneNumber, " +
+                "trustAnchor=$trustAnchor, " +
+                "locationStatus=$locationStatus" +
                 ")"
     }
 

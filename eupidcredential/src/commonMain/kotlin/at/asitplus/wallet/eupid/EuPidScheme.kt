@@ -45,6 +45,7 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         Attributes.RESIDENT_HOUSE_NUMBER,
 
         Attributes.GENDER,
+        Attributes.SEX,
         Attributes.NATIONALITY,
 
         Attributes.ISSUANCE_DATE,
@@ -155,9 +156,13 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
          *  any affix or suffix. */
         const val RESIDENT_HOUSE_NUMBER = "resident_house_number"
 
-        // TODO Renamed to sex, also is an uint
         /** PID User’s gender, using a value as defined in ISO/IEC 5218. */
+        @Deprecated("Removed in ARF 1.5.0", ReplaceWith("SEX"))
         const val GENDER = "gender"
+
+        /** Values shall be one of the following: 0 = not known; 1 = male; 2 = female; 3 = other; 4 = inter;
+         * 5 = diverse; 6 = open; 9 = not applicable. For values 0, 1, 2 and 9, ISO/IEC 5218 applies. */
+        const val SEX = "sex"
 
         // TODO one or more
         /** One or more alpha-2 country codes as specified in ISO 3166-1, representing the nationality of the user to
@@ -248,7 +253,7 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         Attributes.RESIDENT_POSTAL_CODE to SdJwtAttributes.ADDRESS_POSTAL_CODE,
         Attributes.RESIDENT_STREET to SdJwtAttributes.ADDRESS_STREET,
         Attributes.RESIDENT_HOUSE_NUMBER to SdJwtAttributes.ADDRESS_HOUSE_NUMBER,
-        Attributes.GENDER to SdJwtAttributes.GENDER,
+        Attributes.SEX to SdJwtAttributes.GENDER,
         Attributes.NATIONALITY to SdJwtAttributes.NATIONALITIES,
         Attributes.ISSUANCE_DATE to SdJwtAttributes.ISSUANCE_DATE,
         Attributes.EXPIRY_DATE to SdJwtAttributes.EXPIRY_DATE,
@@ -290,6 +295,7 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         Attributes.RESIDENT_POSTAL_CODE to SdJwtAttributes.ADDRESS_POSTAL_CODE,
         Attributes.RESIDENT_STREET to SdJwtAttributes.ADDRESS_STREET,
         Attributes.RESIDENT_HOUSE_NUMBER to SdJwtAttributes.ADDRESS_HOUSE_NUMBER,
+        Attributes.SEX to SdJwtAttributes.GENDER,
         Attributes.NATIONALITY to SdJwtAttributes.NATIONALITIES,
         Attributes.ISSUANCE_DATE to SdJwtAttributes.ISSUANCE_DATE,
         Attributes.EXPIRY_DATE to SdJwtAttributes.EXPIRY_DATE,

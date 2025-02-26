@@ -16,7 +16,6 @@ import at.asitplus.wallet.eupid.EuPidScheme.Attributes.EMAIL_ADDRESS
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.EXPIRY_DATE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.FAMILY_NAME
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.FAMILY_NAME_BIRTH
-import at.asitplus.wallet.eupid.EuPidScheme.Attributes.GENDER
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.GIVEN_NAME
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.GIVEN_NAME_BIRTH
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.ISSUANCE_DATE
@@ -36,6 +35,7 @@ import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_HOUSE_NUMBER
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_POSTAL_CODE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_STATE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_STREET
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.SEX
 import at.asitplus.wallet.lib.agent.SubjectCredentialStore
 import at.asitplus.wallet.lib.data.CredentialToJsonConverter
 import at.asitplus.wallet.lib.iso.*
@@ -123,7 +123,7 @@ private fun dataMap(): Map<String, Any> = mapOf(
     RESIDENT_POSTAL_CODE to randomString(),
     RESIDENT_STREET to randomString(),
     RESIDENT_HOUSE_NUMBER to randomString(),
-    GENDER to IsoIec5218Gender.NOT_APPLICABLE,
+    SEX to IsoIec5218Gender.entries.random().code,
     NATIONALITY to randomString(),
     ISSUANCE_DATE to randomInstant(),
     EXPIRY_DATE to randomInstant(),
