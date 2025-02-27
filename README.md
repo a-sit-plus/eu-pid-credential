@@ -37,7 +37,7 @@ These are implemented for ISO:
 - `resident_postal_code`
 - `resident_street`
 - `resident_house_number`
-- `gender`
+- `sex`
 - `nationality`
 - `issuance_date`
 - `expiry_date`
@@ -49,6 +49,7 @@ These are implemented for ISO:
 - `personal_administrative_number`
 - `portrait`
 - `email_address`
+- `mobile_phone_number`
 - `trust_anchor`
 - `location_status`
 
@@ -87,6 +88,7 @@ These are implemented for SD-JWT:
 - `personal_administrative_number`
 - `portrait`
 - `email`
+- `phone_number`
 - `trust_anchor`
 - `location_status`
 
