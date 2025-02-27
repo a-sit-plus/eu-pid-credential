@@ -27,9 +27,9 @@ These are implemented for ISO:
 - `family_name_birth`
 - `given_name_birth`
 - `birth_place`
-- `birth_country`
-- `birth_state`
-- `birth_city`
+- `birth_country` (removed in ARF 1.5.0)
+- `birth_state` (removed in ARF 1.5.0)
+- `birth_city` (removed in ARF 1.5.0)
 - `resident_address`
 - `resident_country`
 - `resident_state`
@@ -43,11 +43,14 @@ These are implemented for ISO:
 - `expiry_date`
 - `issuing_authority`
 - `document_number`
-- `administrative_number`
+- `administrative_number` (removed in ARF 1.5.0)
 - `issuing_country`
 - `issuing_jurisdiction`
 - `personal_administrative_number`
 - `portrait`
+- `email_address`
+- `trust_anchor`
+- `location_status`
 
 These are implemented for SD-JWT:
 - `family_name`
@@ -63,8 +66,8 @@ These are implemented for SD-JWT:
 - `birth_family_name`
 - `birth_given_name`
 - `place_of_birth.locality`
-- `place_of_birth.country`
-- `place_of_birth.region`
+- `place_of_birth.country` (removed in ARF 1.5.0)
+- `place_of_birth.region` (removed in ARF 1.5.0)
 - `address.formatted`
 - `address.country`
 - `address.region`
@@ -78,13 +81,19 @@ These are implemented for SD-JWT:
 - `exp`
 - `issuing_authority`
 - `document_number`
-- `administrative_number`
+- `administrative_number` (removed in ARF 1.5.0)
 - `issuing_country`
 - `issuing_jurisdiction`
 - `personal_administrative_number`
 - `portrait`
+- `email`
+- `trust_anchor`
+- `location_status`
 
 ## Changelog
+
+Release 3.0.0:
+ - Update to ARF 1.5.0, deprecating removed claims, adding new claims, changing `nationality` from single element to collection
 
 Release 2.3.2:
  - VC-K 5.3.0

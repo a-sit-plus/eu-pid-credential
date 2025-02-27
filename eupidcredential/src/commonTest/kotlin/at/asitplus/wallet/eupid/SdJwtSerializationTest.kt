@@ -33,9 +33,6 @@ class SdJwtSerializationTest : FunSpec({
             familyNameBirth = randomString(),
             givenNameBirth = randomString(),
             placeOfBirth = PlaceOfBirthSdJwt(
-                //birthPlace = randomString(),
-                country = randomString(),
-                region = randomString(),
                 locality = randomString(),
             ),
             address = AddressSdJwt(
@@ -53,11 +50,14 @@ class SdJwtSerializationTest : FunSpec({
             expiryDate = Clock.System.now().plus(300.seconds),
             issuingAuthority = randomString(),
             documentNumber = randomString(),
-            administrativeNumber = randomString(),
             issuingCountry = randomString(),
             issuingJurisdiction = randomString(),
             personalAdministrativeNumber = randomString(),
             portrait = Random.nextBytes(32),
+            email = randomString(),
+            phoneNumber = randomString(),
+            trustAnchor = randomString(),
+            locationStatus = randomString(),
         )
         val json = vckJsonSerializer.encodeToString(credential)
         vckJsonSerializer.decodeFromString<EuPidCredentialSdJwt>(json) shouldBe credential

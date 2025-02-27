@@ -2,7 +2,6 @@ package at.asitplus.wallet.eupid
 
 import at.asitplus.signum.indispensable.CryptoSignature
 import at.asitplus.signum.indispensable.cosef.*
-import at.asitplus.wallet.eupid.EuPidScheme.Attributes.ADMINISTRATIVE_NUMBER
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_BIRTH_YEAR
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_IN_YEARS
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_12
@@ -10,22 +9,22 @@ import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_14
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_16
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_18
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_21
-import at.asitplus.wallet.eupid.EuPidScheme.Attributes.BIRTH_CITY
-import at.asitplus.wallet.eupid.EuPidScheme.Attributes.BIRTH_COUNTRY
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.BIRTH_DATE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.BIRTH_PLACE
-import at.asitplus.wallet.eupid.EuPidScheme.Attributes.BIRTH_STATE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.DOCUMENT_NUMBER
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.EMAIL_ADDRESS
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.EXPIRY_DATE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.FAMILY_NAME
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.FAMILY_NAME_BIRTH
-import at.asitplus.wallet.eupid.EuPidScheme.Attributes.GENDER
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.GIVEN_NAME
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.GIVEN_NAME_BIRTH
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.ISSUANCE_DATE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.ISSUING_AUTHORITY
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.ISSUING_COUNTRY
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.ISSUING_JURISDICTION
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.MOBILE_PHONE_NUMBER
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.TRUST_ANCHOR
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.LOCATION_STATUS
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.NATIONALITY
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.PERSONAL_ADMINISTRATIVE_NUMBER
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.PORTRAIT
@@ -36,6 +35,7 @@ import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_HOUSE_NUMBER
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_POSTAL_CODE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_STATE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_STREET
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.SEX
 import at.asitplus.wallet.lib.agent.SubjectCredentialStore
 import at.asitplus.wallet.lib.data.CredentialToJsonConverter
 import at.asitplus.wallet.lib.iso.*
@@ -116,9 +116,6 @@ private fun dataMap(): Map<String, Any> = mapOf(
     FAMILY_NAME_BIRTH to randomString(),
     GIVEN_NAME_BIRTH to randomString(),
     BIRTH_PLACE to randomString(),
-    BIRTH_COUNTRY to randomString(),
-    BIRTH_STATE to randomString(),
-    BIRTH_CITY to randomString(),
     RESIDENT_ADDRESS to randomString(),
     RESIDENT_COUNTRY to randomString(),
     RESIDENT_STATE to randomString(),
@@ -126,17 +123,20 @@ private fun dataMap(): Map<String, Any> = mapOf(
     RESIDENT_POSTAL_CODE to randomString(),
     RESIDENT_STREET to randomString(),
     RESIDENT_HOUSE_NUMBER to randomString(),
-    GENDER to IsoIec5218Gender.NOT_APPLICABLE,
-    NATIONALITY to randomString(),
+    SEX to IsoIec5218Gender.entries.random().code,
+    NATIONALITY to setOf(randomString()),
     ISSUANCE_DATE to randomInstant(),
     EXPIRY_DATE to randomInstant(),
     ISSUING_AUTHORITY to randomString(),
     DOCUMENT_NUMBER to randomString(),
-    ADMINISTRATIVE_NUMBER to randomString(),
     ISSUING_COUNTRY to randomString(),
     ISSUING_JURISDICTION to randomString(),
     PERSONAL_ADMINISTRATIVE_NUMBER to randomString(),
     PORTRAIT to Random.nextBytes(32),
+    EMAIL_ADDRESS to randomString(),
+    MOBILE_PHONE_NUMBER to "+${randomString()}",
+    TRUST_ANCHOR to randomString(),
+    LOCATION_STATUS to randomString(),
 )
 
 private fun deviceKeyInfo() =

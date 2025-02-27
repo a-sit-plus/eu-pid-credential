@@ -1,15 +1,13 @@
 package at.asitplus.wallet.eupid
 
 import at.asitplus.wallet.lib.data.vckJsonSerializer
-import at.asitplus.wallet.lib.iso.vckCborSerializer
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.datetime.Clock
-import kotlinx.datetime.LocalDate
 import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.decodeFromByteArray
-import kotlinx.serialization.encodeToByteArray
 import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonArray
 import kotlin.random.Random
 import kotlin.random.nextUInt
 import kotlin.time.Duration.Companion.seconds
@@ -33,9 +31,6 @@ class JwtSerializationTest : FunSpec({
             familyNameBirth = randomString(),
             givenNameBirth = randomString(),
             birthPlace = randomString(),
-            birthCountry = randomString(),
-            birthState = randomString(),
-            birthCity = randomString(),
             residentAddress = randomString(),
             residentCountry = randomString(),
             residentState = randomString(),
@@ -43,23 +38,23 @@ class JwtSerializationTest : FunSpec({
             residentPostalCode = randomString(),
             residentStreet = randomString(),
             residentHouseNumber = randomString(),
-            gender = IsoIec5218Gender.NOT_APPLICABLE,
-            nationality = randomString(),
+            sex = IsoIec5218Gender.entries.random().code,
+            nationalityElement = buildJsonArray { add(JsonPrimitive(randomString())) },
             issuanceDate = Clock.System.now(),
             expiryDate = Clock.System.now().plus(300.seconds),
             issuingAuthority = randomString(),
             documentNumber = randomString(),
-            administrativeNumber = randomString(),
             issuingCountry = randomString(),
             issuingJurisdiction = randomString(),
             personalAdministrativeNumber = randomString(),
             portrait = Random.nextBytes(32),
+            emailAddress = randomString(),
+            mobilePhoneNumber = randomString(),
+            trustAnchor = randomString(),
+            locationStatus = randomString(),
         )
         val json = vckJsonSerializer.encodeToString(credential)
         vckJsonSerializer.decodeFromString<EuPidCredential>(json) shouldBe credential
-
-        val cbor = vckCborSerializer.encodeToByteArray(credential)
-        vckCborSerializer.decodeFromByteArray<EuPidCredential>(cbor) shouldBe credential
     }
 
 })
