@@ -7,9 +7,9 @@
 ![Java](https://img.shields.io/badge/java-17-blue.svg?logo=OPENJDK)
 [![Maven Central](https://img.shields.io/maven-central/v/at.asitplus.wallet/eupidcredential)](https://mvnrepository.com/artifact/at.asitplus.wallet/eupidcredential/)
 
-Use data provided by EU Wallets as a W3C VC, SD-JWT, or ISO 18013-5 credential, with the help of [VC-K](https://github.com/a-sit-plus/vck).
+Use data provided by EU Wallets as a W3C VC, SD-JWT (prior to ARF 1.8.0), or ISO 18013-5 credential, with the help of [VC-K](https://github.com/a-sit-plus/vck).
 
-Be sure to call `at.asitplus.wallet.eupid.Initializer.initWithVCK` first thing in your application.
+Be sure to call `at.asitplus.wallet.eupid.Initializer.initWithVCK()` first thing in your application.
 
 See [ARF PID Rulebook](https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-3/annex-3.01-pid-rulebook.md) for a list of attributes.
 
@@ -53,46 +53,10 @@ These are implemented for ISO:
 - `trust_anchor`
 - `location_status`
 
-These are implemented for SD-JWT:
-- `family_name`
-- `given_name`
-- `birthdate`
-- `age_equal_or_over.12`
-- `age_equal_or_over.14`
-- `age_equal_or_over.16`
-- `age_equal_or_over.18`
-- `age_equal_or_over.21`
-- `age_in_years`
-- `age_birth_year`
-- `birth_family_name`
-- `birth_given_name`
-- `place_of_birth.locality`
-- `place_of_birth.country` (removed in ARF 1.5.0)
-- `place_of_birth.region` (removed in ARF 1.5.0)
-- `address.formatted`
-- `address.country`
-- `address.region`
-- `address.locality`
-- `address.postal_code`
-- `address.street_address`
-- `address.house_number`
-- `gender`
-- `nationalities`
-- `iat`
-- `exp`
-- `issuing_authority`
-- `document_number`
-- `administrative_number` (removed in ARF 1.5.0)
-- `issuing_country`
-- `issuing_jurisdiction`
-- `personal_administrative_number`
-- `portrait`
-- `email`
-- `phone_number`
-- `trust_anchor`
-- `location_status`
-
 ## Changelog
+
+Release 3.0.1:
+ - Deprecate SD-JWT claim name mapping introduced in 2.3.0, please migrate to `at.asitplus.wallet:eupidcredential-sdjwt`, see <https://github.com/a-sit-plus/eu-pid-credential-sdjwt/>
 
 Release 3.0.0:
  - Update to ARF 1.5.0, deprecating removed claims, adding new claims, changing `nationality` from single element to collection

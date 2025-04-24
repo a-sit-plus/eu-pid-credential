@@ -226,7 +226,7 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
     /**
      * Maps entries of [Attributes] to entries of [SdJwtAttributes]
      */
-    @Suppress("DEPRECATION")
+    @Deprecated("Migrate to separate artifact")
     val mapIsoToSdJwtAttributes = mapOf(
         Attributes.FAMILY_NAME to SdJwtAttributes.FAMILY_NAME,
         Attributes.GIVEN_NAME to SdJwtAttributes.GIVEN_NAME,
@@ -272,7 +272,7 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
      * Maps entries of [Attributes] to entries of [SdJwtAttributes],
      * but only those attribute names that change (from ISO to SD-JWT)
      */
-    @Suppress("DEPRECATION")
+    @Deprecated("Migrate to separate artifact")
     val mapIsoToSdJwtAttributesDifferences = mapOf(
         Attributes.BIRTH_DATE to SdJwtAttributes.BIRTH_DATE,
         Attributes.AGE_OVER_12 to SdJwtAttributes.AGE_EQUAL_OR_OVER_12,
@@ -301,9 +301,8 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         Attributes.MOBILE_PHONE_NUMBER to SdJwtAttributes.PHONE_NUMBER,
     )
 
-    /**
-     * Per <https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/pull/160>
-     */
+    /** PID with SD-JWT names will be represented in a separate artifact. **/
+    @Deprecated("Migrate to separate artifact")
     object SdJwtAttributes {
         /** Current last name(s) or surname(s) of the user to whom the person identification data relates. */
         const val FAMILY_NAME = "family_name"

@@ -11,11 +11,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
-/**
- * PID according to [EU PID Rule Book, v1.5.0 from February 2025](https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-3/annex-3.01-pid-rulebook.md)
- * with mapping of claim names according to [PR #160](https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/pull/160)
- **/
+/** PID with SD-JWT names will be represented in a separate artifact. **/
 @Serializable
+@Deprecated("Migrate to separate artifact")
 data class EuPidCredentialSdJwt(
     /** Current last name(s) or surname(s) of the user to whom the person identification data relates. */
     @SerialName(SdJwtAttributes.FAMILY_NAME)
@@ -135,7 +133,7 @@ data class EuPidCredentialSdJwt(
     @SerialName(SdJwtAttributes.LOCATION_STATUS)
     val locationStatus: String? = null,
 
-) {
+    ) {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -232,6 +230,8 @@ data class EuPidCredentialSdJwt(
     }
 }
 
+/** PID with SD-JWT names will be represented in a separate artifact. **/
+@Deprecated("Migrate to separate artifact")
 @Serializable
 data class AgeEqualOrOverSdJwt(
     /** Additional current age attestations: Attesting whether the PID User is currently over 12 years old. */
@@ -255,6 +255,8 @@ data class AgeEqualOrOverSdJwt(
     val equalOrOver21: Boolean? = null,
 )
 
+/** PID with SD-JWT names will be represented in a separate artifact. **/
+@Deprecated("Migrate to separate artifact")
 @Serializable
 data class PlaceOfBirthSdJwt(
     /** The country where the PID User was born, as an Alpha-2 country code as specified in ISO 3166-1. */
@@ -274,6 +276,8 @@ data class PlaceOfBirthSdJwt(
     val locality: String? = null,
 )
 
+/** PID with SD-JWT names will be represented in a separate artifact. **/
+@Deprecated("Migrate to separate artifact")
 @Serializable
 data class AddressSdJwt(
     /**
