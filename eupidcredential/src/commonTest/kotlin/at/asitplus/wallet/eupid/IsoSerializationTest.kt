@@ -5,10 +5,16 @@ import at.asitplus.signum.indispensable.cosef.*
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_BIRTH_YEAR
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_IN_YEARS
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_12
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_13
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_14
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_16
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_18
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_21
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_25
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_60
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_62
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_65
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_68
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.BIRTH_DATE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.BIRTH_PLACE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.DOCUMENT_NUMBER
@@ -28,6 +34,7 @@ import at.asitplus.wallet.eupid.EuPidScheme.Attributes.LOCATION_STATUS
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.NATIONALITY
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.PERSONAL_ADMINISTRATIVE_NUMBER
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.PORTRAIT
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.PORTRAIT_CAPTURE_DATE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_ADDRESS
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_CITY
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_COUNTRY
@@ -107,10 +114,16 @@ private fun dataMap(): Map<String, Any> = mapOf(
     GIVEN_NAME to randomString(),
     BIRTH_DATE to randomLocalDate(),
     AGE_OVER_12 to Random.nextBoolean(),
+    AGE_OVER_13 to Random.nextBoolean(),
     AGE_OVER_14 to Random.nextBoolean(),
     AGE_OVER_16 to Random.nextBoolean(),
     AGE_OVER_18 to Random.nextBoolean(),
     AGE_OVER_21 to Random.nextBoolean(),
+    AGE_OVER_25 to Random.nextBoolean(),
+    AGE_OVER_60 to Random.nextBoolean(),
+    AGE_OVER_62 to Random.nextBoolean(),
+    AGE_OVER_65 to Random.nextBoolean(),
+    AGE_OVER_68 to Random.nextBoolean(),
     AGE_IN_YEARS to Random.nextUInt(1u, 99u),
     AGE_BIRTH_YEAR to Random.nextUInt(1900u, 2100u),
     FAMILY_NAME_BIRTH to randomString(),
@@ -133,6 +146,7 @@ private fun dataMap(): Map<String, Any> = mapOf(
     ISSUING_JURISDICTION to randomString(),
     PERSONAL_ADMINISTRATIVE_NUMBER to randomString(),
     PORTRAIT to Random.nextBytes(32),
+    PORTRAIT_CAPTURE_DATE to randomLocalDate(),
     EMAIL_ADDRESS to randomString(),
     MOBILE_PHONE_NUMBER to "+${randomString()}",
     TRUST_ANCHOR to randomString(),

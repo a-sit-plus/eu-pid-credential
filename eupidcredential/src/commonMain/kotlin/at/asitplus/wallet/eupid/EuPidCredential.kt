@@ -40,6 +40,10 @@ data class EuPidCredential(
     @SerialName(Attributes.AGE_OVER_12)
     val ageOver12: Boolean? = null,
 
+    /** Additional current age attestations: Attesting whether the PID User is currently over 13 years old. */
+    @SerialName(Attributes.AGE_OVER_13)
+    val ageOver13: Boolean? = null,
+
     /** Additional current age attestations: Attesting whether the PID User is currently over 14 years old. */
     @SerialName(Attributes.AGE_OVER_14)
     val ageOver14: Boolean? = null,
@@ -55,6 +59,26 @@ data class EuPidCredential(
     /** Additional current age attestations: Attesting whether the PID User is currently over 21 years old. */
     @SerialName(Attributes.AGE_OVER_21)
     val ageOver21: Boolean? = null,
+
+    /** Additional current age attestations: Attesting whether the PID User is currently over 25 years old. */
+    @SerialName(Attributes.AGE_OVER_25)
+    val ageOver25: Boolean? = null,
+
+    /** Additional current age attestations: Attesting whether the PID User is currently over 60 years old. */
+    @SerialName(Attributes.AGE_OVER_60)
+    val ageOver60: Boolean? = null,
+
+    /** Additional current age attestations: Attesting whether the PID User is currently over 62 years old. */
+    @SerialName(Attributes.AGE_OVER_62)
+    val ageOver62: Boolean? = null,
+
+    /** Additional current age attestations: Attesting whether the PID User is currently over 65 years old. */
+    @SerialName(Attributes.AGE_OVER_65)
+    val ageOver65: Boolean? = null,
+
+    /** Additional current age attestations: Attesting whether the PID User is currently over 68 years old. */
+    @SerialName(Attributes.AGE_OVER_68)
+    val ageOver68: Boolean? = null,
 
     /** The current age of the User to whom the person identification data relates in years. */
     @SerialName(Attributes.AGE_IN_YEARS)

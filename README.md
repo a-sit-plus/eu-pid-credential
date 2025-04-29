@@ -18,10 +18,16 @@ These are implemented for ISO:
 - `given_name`
 - `birth_date`
 - `age_over_12`
+- `age_over_13`
 - `age_over_14`
 - `age_over_16`
 - `age_over_18`
 - `age_over_21`
+- `age_over_25`
+- `age_over_60`
+- `age_over_62`
+- `age_over_65`
+- `age_over_68`
 - `age_in_years`
 - `age_birth_year`
 - `family_name_birth`
@@ -48,6 +54,7 @@ These are implemented for ISO:
 - `issuing_jurisdiction`
 - `personal_administrative_number`
 - `portrait`
+- `portrait_capture_date`
 - `email_address`
 - `mobile_phone_number`
 - `trust_anchor`
@@ -57,6 +64,7 @@ These are implemented for ISO:
 
 Release 3.0.1:
  - Deprecate SD-JWT claim name mapping introduced in 2.3.0, please migrate to `at.asitplus.wallet:eupidcredential-sdjwt`, see <https://github.com/a-sit-plus/eu-pid-credential-sdjwt/>
+ - Add additional claims `age_over_13`, `age_over_25`, `age_over_60`, `age_over_62`, `age_over_65`, `age_over_68`, `portrait_capture_date`
 
 Release 3.0.0:
  - Update to ARF 1.5.0, deprecating removed claims, adding new claims, changing `nationality` from single element to collection

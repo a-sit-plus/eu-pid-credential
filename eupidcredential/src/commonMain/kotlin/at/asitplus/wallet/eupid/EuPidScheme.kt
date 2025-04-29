@@ -23,10 +23,16 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         Attributes.BIRTH_DATE,
 
         Attributes.AGE_OVER_12,
+        Attributes.AGE_OVER_13,
         Attributes.AGE_OVER_14,
         Attributes.AGE_OVER_16,
         Attributes.AGE_OVER_18,
         Attributes.AGE_OVER_21,
+        Attributes.AGE_OVER_25,
+        Attributes.AGE_OVER_60,
+        Attributes.AGE_OVER_62,
+        Attributes.AGE_OVER_65,
+        Attributes.AGE_OVER_68,
         Attributes.AGE_IN_YEARS,
         Attributes.AGE_BIRTH_YEAR,
         Attributes.FAMILY_NAME_BIRTH,
@@ -87,6 +93,9 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         /** Additional current age attestations: Attesting whether the PID User is currently over 12 years old. */
         const val AGE_OVER_12 = "age_over_12"
 
+        /** Additional current age attestations: Attesting whether the PID User is currently over 13 years old. */
+        const val AGE_OVER_13 = "age_over_13"
+
         /** Additional current age attestations: Attesting whether the PID User is currently over 14 years old. */
         const val AGE_OVER_14 = "age_over_14"
 
@@ -98,6 +107,21 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
 
         /** Additional current age attestations: Attesting whether the PID User is currently over 21 years old. */
         const val AGE_OVER_21 = "age_over_21"
+
+        /** Additional current age attestations: Attesting whether the PID User is currently over 25 years old. */
+        const val AGE_OVER_25 = "age_over_25"
+
+        /** Additional current age attestations: Attesting whether the PID User is currently over 60 years old. */
+        const val AGE_OVER_60 = "age_over_60"
+
+        /** Additional current age attestations: Attesting whether the PID User is currently over 62 years old. */
+        const val AGE_OVER_62 = "age_over_62"
+
+        /** Additional current age attestations: Attesting whether the PID User is currently over 65 years old. */
+        const val AGE_OVER_65 = "age_over_65"
+
+        /** Additional current age attestations: Attesting whether the PID User is currently over 68 years old. */
+        const val AGE_OVER_68 = "age_over_68"
 
         /** The current age of the User to whom the person identification data relates in years.. */
         const val AGE_IN_YEARS = "age_in_years"
@@ -208,6 +232,9 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
 
         /** Facial image of the wallet user compliant with ISO 19794-5 or ISO 39794 specifications. */
         const val PORTRAIT = "portrait"
+
+        /** Date when portrait was taken. */
+        const val PORTRAIT_CAPTURE_DATE = "portrait_capture_date"
 
         /** Electronic mail address of the user to whom the person identification data relates, in conformance with [RFC 5322]. */
         const val EMAIL_ADDRESS = "email_address"
