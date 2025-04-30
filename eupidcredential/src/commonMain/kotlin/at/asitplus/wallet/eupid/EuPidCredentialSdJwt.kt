@@ -13,7 +13,7 @@ import kotlinx.serialization.Serializable
 
 /** PID with SD-JWT names will be represented in a separate artifact. **/
 @Serializable
-@Deprecated("Migrate to separate artifact")
+@Deprecated("Migrate to separate artifact, see https://github.com/a-sit-plus/eu-pid-credential-sdjwt/")
 data class EuPidCredentialSdJwt(
     /** Current last name(s) or surname(s) of the user to whom the person identification data relates. */
     @SerialName(SdJwtAttributes.FAMILY_NAME)
@@ -231,7 +231,7 @@ data class EuPidCredentialSdJwt(
 }
 
 /** PID with SD-JWT names will be represented in a separate artifact. **/
-@Deprecated("Migrate to separate artifact")
+@Deprecated("Migrate to separate artifact, see https://github.com/a-sit-plus/eu-pid-credential-sdjwt/")
 @Serializable
 data class AgeEqualOrOverSdJwt(
     /** Additional current age attestations: Attesting whether the PID User is currently over 12 years old. */
@@ -256,7 +256,7 @@ data class AgeEqualOrOverSdJwt(
 )
 
 /** PID with SD-JWT names will be represented in a separate artifact. **/
-@Deprecated("Migrate to separate artifact")
+@Deprecated("Migrate to separate artifact, see https://github.com/a-sit-plus/eu-pid-credential-sdjwt/")
 @Serializable
 data class PlaceOfBirthSdJwt(
     /** The country where the PID User was born, as an Alpha-2 country code as specified in ISO 3166-1. */
@@ -277,7 +277,7 @@ data class PlaceOfBirthSdJwt(
 )
 
 /** PID with SD-JWT names will be represented in a separate artifact. **/
-@Deprecated("Migrate to separate artifact")
+@Deprecated("Migrate to separate artifact, see https://github.com/a-sit-plus/eu-pid-credential-sdjwt/")
 @Serializable
 data class AddressSdJwt(
     /**

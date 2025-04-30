@@ -253,7 +253,7 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
     /**
      * Maps entries of [Attributes] to entries of [SdJwtAttributes]
      */
-    @Deprecated("Migrate to separate artifact")
+    @Deprecated("Migrate to separate artifact, see https://github.com/a-sit-plus/eu-pid-credential-sdjwt/")
     val mapIsoToSdJwtAttributes = mapOf(
         Attributes.FAMILY_NAME to SdJwtAttributes.FAMILY_NAME,
         Attributes.GIVEN_NAME to SdJwtAttributes.GIVEN_NAME,
@@ -299,7 +299,7 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
      * Maps entries of [Attributes] to entries of [SdJwtAttributes],
      * but only those attribute names that change (from ISO to SD-JWT)
      */
-    @Deprecated("Migrate to separate artifact")
+    @Deprecated("Migrate to separate artifact, see https://github.com/a-sit-plus/eu-pid-credential-sdjwt/")
     val mapIsoToSdJwtAttributesDifferences = mapOf(
         Attributes.BIRTH_DATE to SdJwtAttributes.BIRTH_DATE,
         Attributes.AGE_OVER_12 to SdJwtAttributes.AGE_EQUAL_OR_OVER_12,
@@ -329,7 +329,7 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
     )
 
     /** PID with SD-JWT names will be represented in a separate artifact. **/
-    @Deprecated("Migrate to separate artifact")
+    @Deprecated("Migrate to separate artifact, see https://github.com/a-sit-plus/eu-pid-credential-sdjwt/")
     object SdJwtAttributes {
         /** Current last name(s) or surname(s) of the user to whom the person identification data relates. */
         const val FAMILY_NAME = "family_name"
