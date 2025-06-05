@@ -45,6 +45,7 @@ import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_STREET
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.SEX
 import at.asitplus.wallet.lib.agent.SubjectCredentialStore
 import at.asitplus.wallet.lib.data.CredentialToJsonConverter
+import at.asitplus.wallet.lib.data.LocalDateOrInstant
 import at.asitplus.wallet.lib.iso.*
 import io.kotest.assertions.withClue
 import io.kotest.core.spec.style.FreeSpec
@@ -59,16 +60,39 @@ import kotlin.random.nextUInt
 
 class IsoSerializationTest : FreeSpec({
 
-    "Serialization and deserialization" - {
+    "Serialization and deserialization for instant" - {
         withData(nameFn = { "for ${it.key}" }, dataMap().entries) {
             val item = it.toIssuerSignedItem()
 
             val serialized = item.serialize(EuPidScheme.isoNamespace)
 
-            val deserialized =
-                IssuerSignedItem.deserialize(serialized, EuPidScheme.isoNamespace, item.elementIdentifier).getOrThrow()
+            IssuerSignedItem.deserialize(serialized, EuPidScheme.isoNamespace, item.elementIdentifier)
+                .getOrThrow().apply {
+                    if (elementIdentifier == ISSUANCE_DATE || elementIdentifier == EXPIRY_DATE) {
+                        elementValue.shouldBeInstanceOf<LocalDateOrInstant.Instant>()
+                            .value shouldBe it.value
+                    } else {
+                        elementValue shouldBe it.value
+                    }
+                }
+        }
+    }
 
-            deserialized.elementValue shouldBe it.value
+    "Serialization and deserialization for local date" - {
+        withData(nameFn = { "for ${it.key}" }, dataMap(useLocalDate = true).entries) {
+            val item = it.toIssuerSignedItem()
+
+            val serialized = item.serialize(EuPidScheme.isoNamespace)
+
+            IssuerSignedItem.deserialize(serialized, EuPidScheme.isoNamespace, item.elementIdentifier)
+                .getOrThrow().apply {
+                    if (elementIdentifier == ISSUANCE_DATE || elementIdentifier == EXPIRY_DATE) {
+                        elementValue.shouldBeInstanceOf<LocalDateOrInstant.LocalDate>()
+                            .value shouldBe it.value
+                    } else {
+                        elementValue shouldBe it.value
+                    }
+                }
         }
     }
 
@@ -85,7 +109,7 @@ class IsoSerializationTest : FreeSpec({
         val namespacedItems: Map<String, List<IssuerSignedItem>> =
             mapOf(EuPidScheme.isoNamespace to claims.map { it.toIssuerSignedItem() }.toList())
         val issuerAuth = CoseSigned.create(
-            CoseHeader(), null, mso, CryptoSignature.RSAorHMAC(byteArrayOf(1, 3, 3, 7)),
+            CoseHeader(), null, mso, CryptoSignature.RSA(byteArrayOf(1, 3, 3, 7)),
             MobileSecurityObject.serializer()
         )
         val credential = SubjectCredentialStore.StoreEntry.Iso(
@@ -109,7 +133,7 @@ class IsoSerializationTest : FreeSpec({
 private fun Map.Entry<String, Any>.toIssuerSignedItem() =
     IssuerSignedItem(Random.nextUInt(), Random.nextBytes(32), key, value)
 
-private fun dataMap(): Map<String, Any> = mapOf(
+private fun dataMap(useLocalDate: Boolean = false): Map<String, Any> = mapOf(
     FAMILY_NAME to randomString(),
     GIVEN_NAME to randomString(),
     BIRTH_DATE to randomLocalDate(),
@@ -138,8 +162,8 @@ private fun dataMap(): Map<String, Any> = mapOf(
     RESIDENT_HOUSE_NUMBER to randomString(),
     SEX to IsoIec5218Gender.entries.random().code,
     NATIONALITY to setOf(randomString()),
-    ISSUANCE_DATE to randomInstant(),
-    EXPIRY_DATE to randomInstant(),
+    ISSUANCE_DATE to if (useLocalDate) randomLocalDate() else randomInstant(),
+    EXPIRY_DATE to if (useLocalDate) randomLocalDate() else randomInstant(),
     ISSUING_AUTHORITY to randomString(),
     DOCUMENT_NUMBER to randomString(),
     ISSUING_COUNTRY to randomString(),

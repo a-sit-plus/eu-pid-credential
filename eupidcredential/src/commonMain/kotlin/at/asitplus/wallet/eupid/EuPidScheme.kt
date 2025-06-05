@@ -64,6 +64,7 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
 
         Attributes.PERSONAL_ADMINISTRATIVE_NUMBER,
         Attributes.PORTRAIT,
+        Attributes.PORTRAIT_CAPTURE_DATE,
         Attributes.EMAIL_ADDRESS,
         Attributes.MOBILE_PHONE_NUMBER,
         Attributes.TRUST_ANCHOR,

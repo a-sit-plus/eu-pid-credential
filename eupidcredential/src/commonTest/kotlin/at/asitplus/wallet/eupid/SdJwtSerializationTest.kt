@@ -1,5 +1,6 @@
 package at.asitplus.wallet.eupid
 
+import at.asitplus.wallet.lib.data.LocalDateOrInstant
 import at.asitplus.wallet.lib.data.vckJsonSerializer
 import at.asitplus.wallet.lib.iso.vckCborSerializer
 import io.kotest.core.spec.style.FunSpec
@@ -17,6 +18,7 @@ import kotlin.time.Duration.Companion.seconds
 class SdJwtSerializationTest : FunSpec({
 
     test("serialize credential") {
+        val useLocalDate = Random.nextBoolean()
         val credential = EuPidCredentialSdJwt(
             familyName = randomString(),
             givenName = randomString(),
@@ -46,8 +48,8 @@ class SdJwtSerializationTest : FunSpec({
             ),
             gender = IsoIec5218Gender.NOT_APPLICABLE.toString(),
             nationalities = setOf(randomString()),
-            issuanceDate = Clock.System.now(),
-            expiryDate = Clock.System.now().plus(300.seconds),
+            issuanceDate = localDateOrInstant(useLocalDate),
+            expiryDate = localDateOrInstant(useLocalDate),
             issuingAuthority = randomString(),
             documentNumber = randomString(),
             issuingCountry = randomString(),
@@ -67,3 +69,6 @@ class SdJwtSerializationTest : FunSpec({
     }
 
 })
+
+private fun localDateOrInstant(useLocalDate: Boolean): LocalDateOrInstant =
+    if (useLocalDate) LocalDateOrInstant.LocalDate(randomLocalDate()) else LocalDateOrInstant.Instant(randomInstant())

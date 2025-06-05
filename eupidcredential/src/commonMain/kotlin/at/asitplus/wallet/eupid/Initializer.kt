@@ -3,6 +3,8 @@ package at.asitplus.wallet.eupid
 import at.asitplus.wallet.lib.JsonValueEncoder
 import at.asitplus.wallet.lib.LibraryInitializer
 import at.asitplus.wallet.lib.data.CredentialSubject
+import at.asitplus.wallet.lib.data.LocalDateOrInstant
+import at.asitplus.wallet.lib.data.LocalDateOrInstantSerializer
 import at.asitplus.wallet.lib.data.vckJsonSerializer
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
@@ -54,8 +56,8 @@ object Initializer {
                 EuPidScheme.Attributes.GENDER to IsoIec5218GenderSerializer,
                 EuPidScheme.Attributes.SEX to UInt.serializer(),
                 EuPidScheme.Attributes.NATIONALITY to SetSerializer(String.serializer()),
-                EuPidScheme.Attributes.ISSUANCE_DATE to Instant.serializer(),
-                EuPidScheme.Attributes.EXPIRY_DATE to Instant.serializer(),
+                EuPidScheme.Attributes.ISSUANCE_DATE to LocalDateOrInstantSerializer,
+                EuPidScheme.Attributes.EXPIRY_DATE to LocalDateOrInstantSerializer,
                 EuPidScheme.Attributes.PORTRAIT to ByteArraySerializer(),
                 EuPidScheme.Attributes.PORTRAIT_CAPTURE_DATE to LocalDate.serializer(),
             )
@@ -68,6 +70,7 @@ object Initializer {
             is LocalDate -> vckJsonSerializer.encodeToJsonElement(it)
             is UInt -> vckJsonSerializer.encodeToJsonElement(it)
             is Instant -> vckJsonSerializer.encodeToJsonElement(it)
+            is LocalDateOrInstant -> vckJsonSerializer.encodeToJsonElement(it)
             else -> null
         }
     }

@@ -1,21 +1,20 @@
 package at.asitplus.wallet.eupid
 
+import at.asitplus.wallet.lib.data.LocalDateOrInstant
 import at.asitplus.wallet.lib.data.vckJsonSerializer
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
-import kotlinx.datetime.Clock
 import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonArray
 import kotlin.random.Random
 import kotlin.random.nextUInt
-import kotlin.time.Duration.Companion.seconds
 
 @OptIn(ExperimentalSerializationApi::class)
 class JwtSerializationTest : FunSpec({
 
     test("serialize credential") {
+        val useLocalDate = Random.nextBoolean()
         val credential = EuPidCredential(
             id = randomString(),
             familyName = randomString(),
@@ -40,8 +39,8 @@ class JwtSerializationTest : FunSpec({
             residentHouseNumber = randomString(),
             sex = IsoIec5218Gender.entries.random().code,
             nationalityElement = buildJsonArray { add(JsonPrimitive(randomString())) },
-            issuanceDate = Clock.System.now(),
-            expiryDate = Clock.System.now().plus(300.seconds),
+            issuanceDate = localDateOrInstant(useLocalDate),
+            expiryDate = localDateOrInstant(useLocalDate),
             issuingAuthority = randomString(),
             documentNumber = randomString(),
             issuingCountry = randomString(),
@@ -58,3 +57,6 @@ class JwtSerializationTest : FunSpec({
     }
 
 })
+
+private fun localDateOrInstant(useLocalDate: Boolean): LocalDateOrInstant =
+    if (useLocalDate) LocalDateOrInstant.LocalDate(randomLocalDate()) else LocalDateOrInstant.Instant(randomInstant())
