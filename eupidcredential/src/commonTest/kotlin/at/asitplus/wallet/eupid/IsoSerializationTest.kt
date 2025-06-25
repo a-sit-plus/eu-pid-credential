@@ -1,7 +1,9 @@
 package at.asitplus.wallet.eupid
 
+import at.asitplus.iso.*
 import at.asitplus.signum.indispensable.CryptoSignature
 import at.asitplus.signum.indispensable.cosef.*
+import at.asitplus.signum.indispensable.cosef.io.coseCompliantSerializer
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_BIRTH_YEAR
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_IN_YEARS
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_12
@@ -28,9 +30,8 @@ import at.asitplus.wallet.eupid.EuPidScheme.Attributes.ISSUANCE_DATE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.ISSUING_AUTHORITY
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.ISSUING_COUNTRY
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.ISSUING_JURISDICTION
-import at.asitplus.wallet.eupid.EuPidScheme.Attributes.MOBILE_PHONE_NUMBER
-import at.asitplus.wallet.eupid.EuPidScheme.Attributes.TRUST_ANCHOR
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.LOCATION_STATUS
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.MOBILE_PHONE_NUMBER
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.NATIONALITY
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.PERSONAL_ADMINISTRATIVE_NUMBER
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.PORTRAIT
@@ -43,10 +44,12 @@ import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_POSTAL_CODE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_STATE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_STREET
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.SEX
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.TRUST_ANCHOR
 import at.asitplus.wallet.lib.agent.SubjectCredentialStore
 import at.asitplus.wallet.lib.data.CredentialToJsonConverter
 import at.asitplus.wallet.lib.data.LocalDateOrInstant
-import at.asitplus.wallet.lib.iso.*
+import at.asitplus.wallet.lib.iso.IssuerSigned
+import at.asitplus.wallet.lib.iso.MobileSecurityObject
 import io.kotest.assertions.withClue
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.datatest.withData
@@ -54,6 +57,8 @@ import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import kotlinx.datetime.Clock
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.decodeFromByteArray
 import kotlinx.serialization.json.JsonObject
 import kotlin.random.Random
 import kotlin.random.nextUInt
@@ -67,7 +72,7 @@ class IsoSerializationTest : FreeSpec({
             val serialized = item.serialize(EuPidScheme.isoNamespace)
 
             IssuerSignedItem.deserialize(serialized, EuPidScheme.isoNamespace, item.elementIdentifier)
-                .getOrThrow().apply {
+                .apply {
                     if (elementIdentifier == ISSUANCE_DATE || elementIdentifier == EXPIRY_DATE) {
                         elementValue.shouldBeInstanceOf<LocalDateOrInstant.Instant>()
                             .value shouldBe it.value
@@ -85,7 +90,7 @@ class IsoSerializationTest : FreeSpec({
             val serialized = item.serialize(EuPidScheme.isoNamespace)
 
             IssuerSignedItem.deserialize(serialized, EuPidScheme.isoNamespace, item.elementIdentifier)
-                .getOrThrow().apply {
+                .apply {
                     if (elementIdentifier == ISSUANCE_DATE || elementIdentifier == EXPIRY_DATE) {
                         elementValue.shouldBeInstanceOf<LocalDateOrInstant.LocalDate>()
                             .value shouldBe it.value
@@ -179,3 +184,9 @@ private fun dataMap(useLocalDate: Boolean = false): Map<String, Any> = mapOf(
 
 private fun deviceKeyInfo() =
     DeviceKeyInfo(CoseKey(CoseKeyType.EC2, keyParams = CoseKeyParams.EcYBoolParams(CoseEllipticCurve.P256)))
+
+private fun at.asitplus.iso.IssuerSignedItem.serialize(namespace: String): ByteArray =
+    coseCompliantSerializer.encodeToByteArray(IssuerSignedItemSerializer(namespace, elementIdentifier), this)
+
+private fun at.asitplus.iso.IssuerSignedItem.Companion.deserialize(serialized: ByteArray, namespace: String, elementIdentifier: String): IssuerSignedItem =
+    coseCompliantSerializer.decodeFromByteArray(IssuerSignedItemSerializer(namespace, elementIdentifier), serialized)
