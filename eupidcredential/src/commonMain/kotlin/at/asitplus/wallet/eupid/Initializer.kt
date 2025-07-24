@@ -6,7 +6,6 @@ import at.asitplus.wallet.lib.data.CredentialSubject
 import at.asitplus.wallet.lib.data.LocalDateOrInstant
 import at.asitplus.wallet.lib.data.LocalDateOrInstantSerializer
 import at.asitplus.wallet.lib.data.vckJsonSerializer
-import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.serialization.builtins.ByteArraySerializer
 import kotlinx.serialization.builtins.SetSerializer
@@ -15,6 +14,7 @@ import kotlinx.serialization.json.encodeToJsonElement
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import kotlinx.serialization.modules.subclass
+import kotlin.time.Instant
 
 object Initializer {
 

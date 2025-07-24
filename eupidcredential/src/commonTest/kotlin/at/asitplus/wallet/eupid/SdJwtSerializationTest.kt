@@ -10,7 +10,7 @@ import kotlinx.serialization.decodeFromByteArray
 import kotlinx.serialization.encodeToByteArray
 import kotlin.random.Random
 import kotlin.random.nextUInt
-
+private val init = inited
 @OptIn(ExperimentalSerializationApi::class)
 class SdJwtSerializationTest : FunSpec({
 

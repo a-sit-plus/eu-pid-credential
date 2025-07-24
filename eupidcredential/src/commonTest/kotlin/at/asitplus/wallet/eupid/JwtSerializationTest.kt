@@ -9,7 +9,7 @@ import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonArray
 import kotlin.random.Random
 import kotlin.random.nextUInt
-
+private val init = inited
 @OptIn(ExperimentalSerializationApi::class)
 class JwtSerializationTest : FunSpec({
 

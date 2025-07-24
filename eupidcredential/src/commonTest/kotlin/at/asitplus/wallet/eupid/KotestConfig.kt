@@ -1,15 +1,9 @@
 package at.asitplus.wallet.eupid
 
 import io.kotest.core.config.AbstractProjectConfig
-import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlin.random.Random
-
-class KotestConfig : AbstractProjectConfig() {
-    init {
-        Initializer.initWithVCK()
-    }
-}
+import kotlin.time.Instant
 
 
 internal fun randomLocalDate() = LocalDate(Random.nextInt(1900, 2100), Random.nextInt(1, 12), Random.nextInt(1, 28))
