@@ -51,17 +51,18 @@ import at.asitplus.wallet.lib.data.LocalDateOrInstant
 import at.asitplus.wallet.lib.iso.IssuerSigned
 import at.asitplus.wallet.lib.iso.MobileSecurityObject
 import io.kotest.assertions.withClue
-import at.asitplus.test.FreeSpec
+import io.kotest.core.spec.style.FreeSpec
 import io.kotest.datatest.withData
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
+import io.kotest.provided.randomInstant
+import io.kotest.provided.randomLocalDate
+import io.kotest.provided.randomString
 import kotlinx.serialization.json.JsonObject
 import kotlin.random.Random
 import kotlin.random.nextUInt
 import kotlin.time.Clock
-
-val inited =  Initializer.initWithVCK()
 
 
 class IsoSerializationTest : FreeSpec({
