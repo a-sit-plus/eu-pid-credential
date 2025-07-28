@@ -1,10 +1,13 @@
 package at.asitplus.wallet.eupid
 
+import at.asitplus.signum.indispensable.cosef.io.coseCompliantSerializer
 import at.asitplus.wallet.lib.data.LocalDateOrInstant
 import at.asitplus.wallet.lib.data.vckJsonSerializer
-import at.asitplus.wallet.lib.iso.vckCborSerializer
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
+import io.kotest.provided.randomInstant
+import io.kotest.provided.randomLocalDate
+import io.kotest.provided.randomString
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.decodeFromByteArray
 import kotlinx.serialization.encodeToByteArray
@@ -61,8 +64,8 @@ class SdJwtSerializationTest : FunSpec({
         val json = vckJsonSerializer.encodeToString(credential)
         vckJsonSerializer.decodeFromString<EuPidCredentialSdJwt>(json) shouldBe credential
 
-        val cbor = vckCborSerializer.encodeToByteArray(credential)
-        vckCborSerializer.decodeFromByteArray<EuPidCredentialSdJwt>(cbor) shouldBe credential
+        val cbor = coseCompliantSerializer.encodeToByteArray(credential)
+        coseCompliantSerializer.decodeFromByteArray<EuPidCredentialSdJwt>(cbor) shouldBe credential
     }
 
 })
