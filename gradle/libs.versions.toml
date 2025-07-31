@@ -2,7 +2,7 @@
 kotlin = "2.2.0"
 ksp = "2.0.2"
 kotest= "6.0.0.M6"
-vck = "5.8.0-SNAPSHOT"
+vck = "5.8.0"
 
 [libraries]
 vck = { module = "at.asitplus.wallet:vck", version.ref = "vck" }

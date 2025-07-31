@@ -75,11 +75,6 @@ publishing {
         mavenLocal {
             signing.isRequired = false
         }
-        maven {
-            url = uri(rootProject.layout.projectDirectory.dir("..").dir("repo"))
-            name = "local"
-            signing.isRequired = false
-        }
     }
 }
 
