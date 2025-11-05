@@ -16,31 +16,16 @@ Use data provided by EU Wallets as a W3C VC, SD-JWT (prior to ARF 1.8.0), or ISO
 
 Be sure to call `at.asitplus.wallet.eupid.Initializer.initWithVCK()` first thing in your application.
 
-See [ARF PID Rulebook](https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-3/annex-3.01-pid-rulebook.md) for a list of attributes.
+See [PID Rulebook](https://github.com/eu-digital-identity-wallet/eudi-doc-attestation-rulebooks-catalog/blob/main/rulebooks/pid/pid-rulebook.md)
+ from 2025-10-02 for a list of attributes.
 
 These are implemented for ISO:
 - `family_name`
 - `given_name`
 - `birth_date`
-- `age_over_12`
-- `age_over_13`
-- `age_over_14`
-- `age_over_16`
-- `age_over_18`
-- `age_over_21`
-- `age_over_25`
-- `age_over_60`
-- `age_over_62`
-- `age_over_65`
-- `age_over_68`
-- `age_in_years`
-- `age_birth_year`
 - `family_name_birth`
 - `given_name_birth`
-- `birth_place`
-- `birth_country` (removed in ARF 1.5.0)
-- `birth_state` (removed in ARF 1.5.0)
-- `birth_city` (removed in ARF 1.5.0)
+- `place_of_birth`
 - `resident_address`
 - `resident_country`
 - `resident_state`
@@ -54,22 +39,43 @@ These are implemented for ISO:
 - `expiry_date`
 - `issuing_authority`
 - `document_number`
-- `administrative_number` (removed in ARF 1.5.0)
 - `issuing_country`
 - `issuing_jurisdiction`
 - `personal_administrative_number`
 - `portrait`
-- `portrait_capture_date`
 - `email_address`
 - `mobile_phone_number`
 - `trust_anchor`
 - `location_status`
+
+These attributes are removed from the spec, but kept for backwards compatibility with our implementations:
+- `age_over_12`
+- `age_over_13`
+- `age_over_14`
+- `age_over_16`
+- `age_over_18`
+- `age_over_21`
+- `age_over_25`
+- `age_over_60`
+- `age_over_62`
+- `age_over_65`
+- `age_over_68`
+- `age_in_years`
+- `age_birth_year`
+- `birth_place`
+- `birth_country`
+- `birth_state`
+- `birth_city`
+- `administrative_number`
+- `portrait_capture_date`
 
 ## Changelog
 
 Release 3.3.0:
 - VC-K 5.9.0
 - Kotlin 2.2.21
+- Deprecate age attributes removed from the latest PID rulebook on 2025-10-02
+- Remove SD-JWT attribute names
 
 Release 3.2.0:
 - VC-K 5.8.0

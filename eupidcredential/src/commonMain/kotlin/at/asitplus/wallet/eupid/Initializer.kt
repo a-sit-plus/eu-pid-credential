@@ -16,6 +16,7 @@ import kotlinx.serialization.modules.polymorphic
 import kotlinx.serialization.modules.subclass
 import kotlin.time.Instant
 
+@Suppress("DEPRECATION")
 object Initializer {
 
     /**
@@ -60,6 +61,7 @@ object Initializer {
                 EuPidScheme.Attributes.EXPIRY_DATE to LocalDateOrInstantSerializer,
                 EuPidScheme.Attributes.PORTRAIT to ByteArraySerializer(),
                 EuPidScheme.Attributes.PORTRAIT_CAPTURE_DATE to LocalDate.serializer(),
+                EuPidScheme.Attributes.PLACE_OF_BIRTH to PlaceOfBirth.serializer(),
             )
         )
     }
@@ -71,6 +73,7 @@ object Initializer {
             is UInt -> vckJsonSerializer.encodeToJsonElement(it)
             is Instant -> vckJsonSerializer.encodeToJsonElement(it)
             is LocalDateOrInstant -> vckJsonSerializer.encodeToJsonElement(it)
+            is PlaceOfBirth -> vckJsonSerializer.encodeToJsonElement(it)
             else -> null
         }
     }
