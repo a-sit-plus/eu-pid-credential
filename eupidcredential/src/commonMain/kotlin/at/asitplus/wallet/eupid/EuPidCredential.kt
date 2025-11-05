@@ -15,7 +15,9 @@ import kotlinx.serialization.json.jsonPrimitive
 
 
 /**
- * PID according to [EU PID Rule Book, v1.5.0 from February 2025](https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/annexes/annex-3/annex-3.01-pid-rulebook.md)
+ * PID scheme according to
+ * [PID Rulebook](https://github.com/eu-digital-identity-wallet/eudi-doc-attestation-rulebooks-catalog/blob/main/rulebooks/pid/pid-rulebook.md)
+ * from 2025-10-02.
  */
 @Serializable
 @SerialName("EuPid2023")
@@ -36,54 +38,67 @@ data class EuPidCredential(
     @Serializable(with = LocalDateIso8601Serializer::class)
     val birthDate: LocalDate,
 
+    @Deprecated("Removed from PID rulebook")
     /** Additional current age attestations: Attesting whether the PID User is currently over 12 years old. */
     @SerialName(Attributes.AGE_OVER_12)
     val ageOver12: Boolean? = null,
 
+    @Deprecated("Removed from PID rulebook")
     /** Additional current age attestations: Attesting whether the PID User is currently over 13 years old. */
     @SerialName(Attributes.AGE_OVER_13)
     val ageOver13: Boolean? = null,
 
+    @Deprecated("Removed from PID rulebook")
     /** Additional current age attestations: Attesting whether the PID User is currently over 14 years old. */
     @SerialName(Attributes.AGE_OVER_14)
     val ageOver14: Boolean? = null,
 
+    @Deprecated("Removed from PID rulebook")
     /** Additional current age attestations: Attesting whether the PID User is currently over 16 years old. */
     @SerialName(Attributes.AGE_OVER_16)
     val ageOver16: Boolean? = null,
 
+    @Deprecated("Removed from PID rulebook")
     /** Attesting whether the User to whom the person identification data relates is currently an adult (true) or a minor (false). */
     @SerialName(Attributes.AGE_OVER_18)
     val ageOver18: Boolean? = null,
 
+    @Deprecated("Removed from PID rulebook")
     /** Additional current age attestations: Attesting whether the PID User is currently over 21 years old. */
     @SerialName(Attributes.AGE_OVER_21)
     val ageOver21: Boolean? = null,
 
+    @Deprecated("Removed from PID rulebook")
     /** Additional current age attestations: Attesting whether the PID User is currently over 25 years old. */
     @SerialName(Attributes.AGE_OVER_25)
     val ageOver25: Boolean? = null,
 
+    @Deprecated("Removed from PID rulebook")
     /** Additional current age attestations: Attesting whether the PID User is currently over 60 years old. */
     @SerialName(Attributes.AGE_OVER_60)
     val ageOver60: Boolean? = null,
 
+    @Deprecated("Removed from PID rulebook")
     /** Additional current age attestations: Attesting whether the PID User is currently over 62 years old. */
     @SerialName(Attributes.AGE_OVER_62)
     val ageOver62: Boolean? = null,
 
+    @Deprecated("Removed from PID rulebook")
     /** Additional current age attestations: Attesting whether the PID User is currently over 65 years old. */
     @SerialName(Attributes.AGE_OVER_65)
     val ageOver65: Boolean? = null,
 
+    @Deprecated("Removed from PID rulebook")
     /** Additional current age attestations: Attesting whether the PID User is currently over 68 years old. */
     @SerialName(Attributes.AGE_OVER_68)
     val ageOver68: Boolean? = null,
 
+    @Deprecated("Removed from PID rulebook")
     /** The current age of the User to whom the person identification data relates in years. */
     @SerialName(Attributes.AGE_IN_YEARS)
     val ageInYears: UInt? = null,
 
+    @Deprecated("Removed from PID rulebook")
     /** The year when the User to whom the person identification data relates was born. */
     @SerialName(Attributes.AGE_BIRTH_YEAR)
     val ageBirthYear: UInt? = null,
@@ -96,11 +111,13 @@ data class EuPidCredential(
     @SerialName(Attributes.GIVEN_NAME_BIRTH)
     val givenNameBirth: String? = null,
 
-    /** The country as an alpha-2 country code as specified in ISO 3166-1, or the state, province, district, or local
-     * area or the municipality, city, town, or village where the user to whom the person identification data relates
-     * was born. */
+    @Deprecated("Removed from PID rulebook", ReplaceWith("placeOfBirth"))
     @SerialName(Attributes.BIRTH_PLACE)
     val birthPlace: String? = null,
+
+    /** See [PlaceOfBirth]. At least one of the values shall be present. */
+    @SerialName(Attributes.PLACE_OF_BIRTH)
+    val placeOfBirth: PlaceOfBirth? = null,
 
     /** The country where the PID User was born, as an Alpha-2 country code as specified in ISO 3166-1. */
     @Suppress("DEPRECATION")
@@ -400,4 +417,18 @@ data class EuPidCredential(
 
 }
 
+/** At least one of the values shall be present. */
+@Serializable
+data class PlaceOfBirth(
+    /** The country where the PID User was born, as an Alpha-2 country code as specified in ISO 3166-1. */
+    @SerialName(Attributes.PlaceOfBirth.COUNTRY)
+    val country: String? = null,
 
+    /** The state, province, district, or local area where the PID User was born. */
+    @SerialName(Attributes.PlaceOfBirth.REGION)
+    val region: String? = null,
+
+    /** The municipality, city, town, or village where the PID User was born. */
+    @SerialName(Attributes.PlaceOfBirth.LOCALITY)
+    val locality: String? = null,
+)

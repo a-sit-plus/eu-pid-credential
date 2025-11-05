@@ -47,6 +47,7 @@ import at.asitplus.wallet.eupid.EuPidScheme.Attributes.LOCATION_STATUS
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.MOBILE_PHONE_NUMBER
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.NATIONALITY
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.PERSONAL_ADMINISTRATIVE_NUMBER
+import at.asitplus.wallet.eupid.EuPidScheme.Attributes.PLACE_OF_BIRTH
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.PORTRAIT
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.PORTRAIT_CAPTURE_DATE
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.RESIDENT_ADDRESS
@@ -151,6 +152,7 @@ val IsoSerializationTest by testSuite {
 private fun Map.Entry<String, Any>.toIssuerSignedItem() =
     IssuerSignedItem(Random.nextUInt(), Random.nextBytes(32), key, value)
 
+@Suppress("DEPRECATION")
 private fun dataMap(useLocalDate: Boolean = false): Map<String, Any> = mapOf(
     FAMILY_NAME to randomString(),
     GIVEN_NAME to randomString(),
@@ -171,6 +173,7 @@ private fun dataMap(useLocalDate: Boolean = false): Map<String, Any> = mapOf(
     FAMILY_NAME_BIRTH to randomString(),
     GIVEN_NAME_BIRTH to randomString(),
     BIRTH_PLACE to randomString(),
+    PLACE_OF_BIRTH to PlaceOfBirth(randomString(), randomString(), randomString()),
     RESIDENT_ADDRESS to randomString(),
     RESIDENT_COUNTRY to randomString(),
     RESIDENT_STATE to randomString(),
