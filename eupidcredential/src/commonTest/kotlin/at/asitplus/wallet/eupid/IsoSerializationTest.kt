@@ -1,9 +1,22 @@
 package at.asitplus.wallet.eupid
 
-import at.asitplus.iso.*
+import at.asitplus.iso.DeviceKeyInfo
+import at.asitplus.iso.IssuerSigned
+import at.asitplus.iso.IssuerSignedItem
+import at.asitplus.iso.IssuerSignedItemSerializer
+import at.asitplus.iso.MobileSecurityObject
+import at.asitplus.iso.ValidityInfo
+import at.asitplus.iso.ValueDigest
+import at.asitplus.iso.ValueDigestList
 import at.asitplus.signum.indispensable.CryptoSignature
-import at.asitplus.signum.indispensable.cosef.*
+import at.asitplus.signum.indispensable.cosef.CoseEllipticCurve
+import at.asitplus.signum.indispensable.cosef.CoseHeader
+import at.asitplus.signum.indispensable.cosef.CoseKey
+import at.asitplus.signum.indispensable.cosef.CoseKeyParams
+import at.asitplus.signum.indispensable.cosef.CoseKeyType
+import at.asitplus.signum.indispensable.cosef.CoseSigned
 import at.asitplus.signum.indispensable.cosef.io.coseCompliantSerializer
+import at.asitplus.testballoon.invoke
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_BIRTH_YEAR
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_IN_YEARS
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes.AGE_OVER_12
@@ -48,58 +61,56 @@ import at.asitplus.wallet.eupid.EuPidScheme.Attributes.TRUST_ANCHOR
 import at.asitplus.wallet.lib.agent.SubjectCredentialStore
 import at.asitplus.wallet.lib.data.CredentialToJsonConverter
 import at.asitplus.wallet.lib.data.LocalDateOrInstant
-import at.asitplus.wallet.lib.iso.IssuerSigned
-import at.asitplus.wallet.lib.iso.MobileSecurityObject
+import de.infix.testBalloon.framework.testSuite
 import io.kotest.assertions.withClue
-import io.kotest.core.spec.style.FreeSpec
-import io.kotest.datatest.withData
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
-import io.kotest.provided.randomInstant
-import io.kotest.provided.randomLocalDate
-import io.kotest.provided.randomString
 import kotlinx.serialization.json.JsonObject
 import kotlin.random.Random
 import kotlin.random.nextUInt
 import kotlin.time.Clock
 
 
-class IsoSerializationTest : FreeSpec({
+val IsoSerializationTest by testSuite {
 
-    "Serialization and deserialization for instant" - {
-        withData(nameFn = { "for ${it.key}" }, dataMap().entries) {
-            val item = it.toIssuerSignedItem()
+    "Serialization and deserialization for instant" {
+        dataMap().entries.forEach {
+            withClue("key=${it.key}") {
+                val item = it.toIssuerSignedItem()
 
-            val serialized = item.serialize(EuPidScheme.isoNamespace)
+                val serialized = item.serialize(EuPidScheme.isoNamespace)
 
-            IssuerSignedItem.deserialize(serialized, EuPidScheme.isoNamespace, item.elementIdentifier)
-                .apply {
-                    if (elementIdentifier == ISSUANCE_DATE || elementIdentifier == EXPIRY_DATE) {
-                        elementValue.shouldBeInstanceOf<LocalDateOrInstant.Instant>()
-                            .value shouldBe it.value
-                    } else {
-                        elementValue shouldBe it.value
+                IssuerSignedItem.deserialize(serialized, EuPidScheme.isoNamespace, item.elementIdentifier)
+                    .apply {
+                        if (elementIdentifier == ISSUANCE_DATE || elementIdentifier == EXPIRY_DATE) {
+                            elementValue.shouldBeInstanceOf<LocalDateOrInstant.Instant>()
+                                .value shouldBe it.value
+                        } else {
+                            elementValue shouldBe it.value
+                        }
                     }
-                }
+            }
         }
     }
 
-    "Serialization and deserialization for local date" - {
-        withData(nameFn = { "for ${it.key}" }, dataMap(useLocalDate = true).entries) {
-            val item = it.toIssuerSignedItem()
+    "Serialization and deserialization for local date" {
+        dataMap(useLocalDate = true).forEach {
+            withClue("key=${it.key}") {
+                val item = it.toIssuerSignedItem()
 
-            val serialized = item.serialize(EuPidScheme.isoNamespace)
+                val serialized = item.serialize(EuPidScheme.isoNamespace)
 
-            IssuerSignedItem.deserialize(serialized, EuPidScheme.isoNamespace, item.elementIdentifier)
-                .apply {
-                    if (elementIdentifier == ISSUANCE_DATE || elementIdentifier == EXPIRY_DATE) {
-                        elementValue.shouldBeInstanceOf<LocalDateOrInstant.LocalDate>()
-                            .value shouldBe it.value
-                    } else {
-                        elementValue shouldBe it.value
+                IssuerSignedItem.deserialize(serialized, EuPidScheme.isoNamespace, item.elementIdentifier)
+                    .apply {
+                        if (elementIdentifier == ISSUANCE_DATE || elementIdentifier == EXPIRY_DATE) {
+                            elementValue.shouldBeInstanceOf<LocalDateOrInstant.LocalDate>()
+                                .value shouldBe it.value
+                        } else {
+                            elementValue shouldBe it.value
+                        }
                     }
-                }
+            }
         }
     }
 
@@ -135,7 +146,7 @@ class IsoSerializationTest : FreeSpec({
             }
         }
     }
-})
+}
 
 private fun Map.Entry<String, Any>.toIssuerSignedItem() =
     IssuerSignedItem(Random.nextUInt(), Random.nextBytes(32), key, value)
@@ -187,8 +198,12 @@ private fun dataMap(useLocalDate: Boolean = false): Map<String, Any> = mapOf(
 private fun deviceKeyInfo() =
     DeviceKeyInfo(CoseKey(CoseKeyType.EC2, keyParams = CoseKeyParams.EcYBoolParams(CoseEllipticCurve.P256)))
 
-private fun at.asitplus.iso.IssuerSignedItem.serialize(namespace: String): ByteArray =
+private fun IssuerSignedItem.serialize(namespace: String): ByteArray =
     coseCompliantSerializer.encodeToByteArray(IssuerSignedItemSerializer(namespace, elementIdentifier), this)
 
-private fun at.asitplus.iso.IssuerSignedItem.Companion.deserialize(serialized: ByteArray, namespace: String, elementIdentifier: String): IssuerSignedItem =
+private fun IssuerSignedItem.Companion.deserialize(
+    serialized: ByteArray,
+    namespace: String,
+    elementIdentifier: String,
+): IssuerSignedItem =
     coseCompliantSerializer.decodeFromByteArray(IssuerSignedItemSerializer(namespace, elementIdentifier), serialized)

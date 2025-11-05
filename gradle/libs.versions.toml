@@ -1,8 +1,9 @@
 [versions]
-kotlin = "2.2.0"
+kotlin = "2.2.21"
 ksp = "2.0.2"
 kotest= "6.0.0.M6"
-vck = "5.8.0"
+testballoon = "0.6.3-K2.2.20-SNAPSHOT"
+vck = "5.9.0"
 
 [libraries]
 vck = { module = "at.asitplus.wallet:vck", version.ref = "vck" }
