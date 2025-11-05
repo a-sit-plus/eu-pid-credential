@@ -1,13 +1,11 @@
 package at.asitplus.wallet.eupid
 
 import at.asitplus.signum.indispensable.cosef.io.coseCompliantSerializer
+import at.asitplus.testballoon.invoke
 import at.asitplus.wallet.lib.data.LocalDateOrInstant
 import at.asitplus.wallet.lib.data.vckJsonSerializer
-import io.kotest.core.spec.style.FunSpec
+import de.infix.testBalloon.framework.testSuite
 import io.kotest.matchers.shouldBe
-import io.kotest.provided.randomInstant
-import io.kotest.provided.randomLocalDate
-import io.kotest.provided.randomString
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.decodeFromByteArray
 import kotlinx.serialization.encodeToByteArray
@@ -15,9 +13,9 @@ import kotlin.random.Random
 import kotlin.random.nextUInt
 
 @OptIn(ExperimentalSerializationApi::class)
-class SdJwtSerializationTest : FunSpec({
+val SdJwtSerializationTest by testSuite {
 
-    test("serialize credential") {
+    "serialize credential" {
         val useLocalDate = Random.nextBoolean()
         val credential = EuPidCredentialSdJwt(
             familyName = randomString(),
@@ -68,7 +66,7 @@ class SdJwtSerializationTest : FunSpec({
         coseCompliantSerializer.decodeFromByteArray<EuPidCredentialSdJwt>(cbor) shouldBe credential
     }
 
-})
+}
 
 private fun localDateOrInstant(useLocalDate: Boolean): LocalDateOrInstant =
     if (useLocalDate) LocalDateOrInstant.LocalDate(randomLocalDate()) else LocalDateOrInstant.Instant(randomInstant())

@@ -8,6 +8,7 @@ plugins {
     id("at.asitplus.gradle.conventions")
     id("org.jetbrains.dokka")
     id("signing")
+    id("de.infix.testBalloon")
 }
 
 /* required for maven publication */

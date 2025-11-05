@@ -67,6 +67,10 @@ These are implemented for ISO:
 
 ## Changelog
 
+Release 3.3.0:
+- VC-K 5.9.0
+- Kotlin 2.2.21
+
 Release 3.2.0:
 - VC-K 5.8.0
 - Kotlin 2.2.0
