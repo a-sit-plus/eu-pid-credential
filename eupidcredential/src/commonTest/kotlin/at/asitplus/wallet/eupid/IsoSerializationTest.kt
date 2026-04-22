@@ -62,7 +62,7 @@ import at.asitplus.wallet.eupid.EuPidScheme.Attributes.TRUST_ANCHOR
 import at.asitplus.wallet.lib.agent.SubjectCredentialStore
 import at.asitplus.wallet.lib.data.CredentialToJsonConverter
 import at.asitplus.wallet.lib.data.LocalDateOrInstant
-import de.infix.testBalloon.framework.testSuite
+import de.infix.testBalloon.framework.core.testSuite
 import io.kotest.assertions.withClue
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
@@ -75,7 +75,7 @@ import kotlin.time.Clock
 
 val IsoSerializationTest by testSuite {
 
-    "Serialization and deserialization for instant" {
+    test("Serialization and deserialization for instant") {
         dataMap().entries.forEach {
             withClue("key=${it.key}") {
                 val item = it.toIssuerSignedItem()
@@ -95,7 +95,7 @@ val IsoSerializationTest by testSuite {
         }
     }
 
-    "Serialization and deserialization for local date" {
+    test("Serialization and deserialization for local date") {
         dataMap(useLocalDate = true).forEach {
             withClue("key=${it.key}") {
                 val item = it.toIssuerSignedItem()
@@ -115,7 +115,7 @@ val IsoSerializationTest by testSuite {
         }
     }
 
-    "Serialization to JSON Element" {
+    test("Serialization to JSON Element") {
         val mso = MobileSecurityObject(
             version = "1.0",
             digestAlgorithm = "SHA-256",

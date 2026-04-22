@@ -3,7 +3,7 @@ package at.asitplus.wallet.eupid
 import at.asitplus.testballoon.invoke
 import at.asitplus.wallet.lib.data.LocalDateOrInstant
 import at.asitplus.wallet.lib.data.vckJsonSerializer
-import de.infix.testBalloon.framework.testSuite
+import de.infix.testBalloon.framework.core.testSuite
 import io.kotest.matchers.shouldBe
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.JsonPrimitive
@@ -14,7 +14,7 @@ import kotlin.random.nextUInt
 @OptIn(ExperimentalSerializationApi::class)
 val JwtSerializationTest by testSuite {
 
-    "serialize credential" {
+    test("serialize credential") {
         val useLocalDate = Random.nextBoolean()
         val credential = EuPidCredential(
             id = randomString(),
