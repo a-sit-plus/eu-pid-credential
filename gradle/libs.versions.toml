@@ -6,6 +6,7 @@ vck = "5.12.0"
 
 [libraries]
 vck = { module = "at.asitplus.wallet:vck", version.ref = "vck" }
+testballoon = { module = "de.infix.testBalloon:testBalloon-framework-core", version.ref = "testballoon" }
 
 [plugins]
 asitplus-gradle-conventions = { id = "at.asitplus.gradle.conventions", version.ref = "asitplus-gradle-conventions" }
