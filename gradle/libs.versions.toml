@@ -1,11 +1,12 @@
 [versions]
-asitplus-gradle-conventions = "20260122"
+asitplus-gradle-conventions = "20260314"
 kotlin = "2.3.0"
 testballoon = "0.8.2-K2.3.0"
 vck = "5.12.0"
 
 [libraries]
 vck = { module = "at.asitplus.wallet:vck", version.ref = "vck" }
+testballoon = { module = "de.infix.testBalloon:testBalloon-framework-core", version.ref = "testballoon" }
 
 [plugins]
 asitplus-gradle-conventions = { id = "at.asitplus.gradle.conventions", version.ref = "asitplus-gradle-conventions" }

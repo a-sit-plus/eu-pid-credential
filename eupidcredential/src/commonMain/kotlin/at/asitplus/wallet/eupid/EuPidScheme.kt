@@ -71,81 +71,11 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         /** Day, month, and year on which the user to whom the person identification data relates was born. */
         const val BIRTH_DATE = "birth_date"
 
-        @Deprecated("Removed from PID rulebook")
-        /** Additional current age attestations: Attesting whether the PID User is currently over 12 years old. */
-        const val AGE_OVER_12 = "age_over_12"
-
-        @Deprecated("Removed from PID rulebook")
-        /** Additional current age attestations: Attesting whether the PID User is currently over 13 years old. */
-        const val AGE_OVER_13 = "age_over_13"
-
-        @Deprecated("Removed from PID rulebook")
-        /** Additional current age attestations: Attesting whether the PID User is currently over 14 years old. */
-        const val AGE_OVER_14 = "age_over_14"
-
-        @Deprecated("Removed from PID rulebook")
-        /** Additional current age attestations: Attesting whether the PID User is currently over 16 years old. */
-        const val AGE_OVER_16 = "age_over_16"
-
-        @Deprecated("Removed from PID rulebook")
-        /** Attesting whether the User to whom the person identification data relates is currently an adult (true) or a minor (false). */
-        const val AGE_OVER_18 = "age_over_18"
-
-        @Deprecated("Removed from PID rulebook")
-        /** Additional current age attestations: Attesting whether the PID User is currently over 21 years old. */
-        const val AGE_OVER_21 = "age_over_21"
-
-        @Deprecated("Removed from PID rulebook")
-        /** Additional current age attestations: Attesting whether the PID User is currently over 25 years old. */
-        const val AGE_OVER_25 = "age_over_25"
-
-        @Deprecated("Removed from PID rulebook")
-        /** Additional current age attestations: Attesting whether the PID User is currently over 60 years old. */
-        const val AGE_OVER_60 = "age_over_60"
-
-        @Deprecated("Removed from PID rulebook")
-        /** Additional current age attestations: Attesting whether the PID User is currently over 62 years old. */
-        const val AGE_OVER_62 = "age_over_62"
-
-        @Deprecated("Removed from PID rulebook")
-        /** Additional current age attestations: Attesting whether the PID User is currently over 65 years old. */
-        const val AGE_OVER_65 = "age_over_65"
-
-        @Deprecated("Removed from PID rulebook")
-        /** Additional current age attestations: Attesting whether the PID User is currently over 68 years old. */
-        const val AGE_OVER_68 = "age_over_68"
-
-        @Deprecated("Removed from PID rulebook")
-        /** The current age of the User to whom the person identification data relates in years.. */
-        const val AGE_IN_YEARS = "age_in_years"
-
-        @Deprecated("Removed from PID rulebook")
-        /** The year when the PID User was born. */
-        const val AGE_BIRTH_YEAR = "age_birth_year"
-
         /** Last name(s) or surname(s) of the User to whom the person identification data relates at the time of birth. */
         const val FAMILY_NAME_BIRTH = "family_name_birth"
 
         /** First name(s), including middle name(s), of the User to whom the person identification data relates at the time of birth. */
         const val GIVEN_NAME_BIRTH = "given_name_birth"
-
-        /** The country as an alpha-2 country code as specified in ISO 3166-1, or the state, province, district, or
-         * local area or the municipality, city, town, or village where the user to whom the person identification data
-         * relates was born. */
-        @Deprecated("Removed from PID rulebook", ReplaceWith("PLACE_OF_BIRTH"))
-        const val BIRTH_PLACE = "birth_place"
-
-        /** The country where the PID User was born, as an Alpha-2 country code as specified in ISO 3166-1. */
-        @Deprecated("Removed in ARF 1.5.0")
-        const val BIRTH_COUNTRY = "birth_country"
-
-        /** The state, province, district, or local area where the PID User was born. */
-        @Deprecated("Removed in ARF 1.5.0")
-        const val BIRTH_STATE = "birth_state"
-
-        /** The municipality, city, town, or village where the PID User was born. */
-        @Deprecated("Removed in ARF 1.5.0")
-        const val BIRTH_CITY = "birth_city"
 
         /** Place of birth, see [PlaceOfBirth] */
         const val PLACE_OF_BIRTH = "place_of_birth"
@@ -177,10 +107,6 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
          *  any affix or suffix. */
         const val RESIDENT_HOUSE_NUMBER = "resident_house_number"
 
-        /** PID User’s gender, using a value as defined in ISO/IEC 5218. */
-        @Deprecated("Removed in ARF 1.5.0", ReplaceWith("SEX"))
-        const val GENDER = "gender"
-
         /** Values shall be one of the following: 0 = not known; 1 = male; 2 = female; 3 = other; 4 = inter;
          * 5 = diverse; 6 = open; 9 = not applicable. For values 0, 1, 2 and 9, ISO/IEC 5218 applies. */
         const val SEX = "sex"
@@ -205,10 +131,6 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
         /** A number for the PID, assigned by the PID Provider. */
         const val DOCUMENT_NUMBER = "document_number"
 
-        /** A number assigned by the PID Provider for audit control or other purposes. */
-        @Deprecated("Removed in ARF 1.5.0")
-        const val ADMINISTRATIVE_NUMBER = "administrative_number"
-
         /** Alpha-2 country code, as defined in ISO 3166-1, of the PID Provider's country or territory. */
         const val ISSUING_COUNTRY = "issuing_country"
 
@@ -230,10 +152,6 @@ object EuPidScheme : ConstantIndex.CredentialScheme {
 
         /** Facial image of the wallet user compliant with ISO 19794-5 or ISO 39794 specifications. */
         const val PORTRAIT = "portrait"
-
-        @Deprecated("Removed from PID rulebook")
-        /** Date when portrait was taken. */
-        const val PORTRAIT_CAPTURE_DATE = "portrait_capture_date"
 
         /** Electronic mail address of the user to whom the person identification data relates, in conformance with [RFC 5322]. */
         const val EMAIL_ADDRESS = "email_address"

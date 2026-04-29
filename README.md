@@ -48,28 +48,11 @@ These are implemented for ISO:
 - `trust_anchor`
 - `location_status`
 
-These attributes are removed from the spec, but kept for backwards compatibility with our implementations:
-- `age_over_12`
-- `age_over_13`
-- `age_over_14`
-- `age_over_16`
-- `age_over_18`
-- `age_over_21`
-- `age_over_25`
-- `age_over_60`
-- `age_over_62`
-- `age_over_65`
-- `age_over_68`
-- `age_in_years`
-- `age_birth_year`
-- `birth_place`
-- `birth_country`
-- `birth_state`
-- `birth_city`
-- `administrative_number`
-- `portrait_capture_date`
-
 ## Changelog
+
+Release 3.5.0:
+ - For JWT VC the data class `EuPidCredential` does not inherit from `CredentialSubject` as advised in VC-K 5.12.0
+ - Remove deprecated attributes (like the `age_over_nn` attributes)
 
 Release 3.4.0:
  - VC-K 5.12.0
