@@ -71,6 +71,10 @@ These attributes are removed from the spec, but kept for backwards compatibility
 
 ## Changelog
 
+Release 3.4.0:
+ - VC-K 5.12.0
+ - Kotlin 2.3.0
+
 Release 3.3.0:
 - VC-K 5.9.0
 - Kotlin 2.2.21
