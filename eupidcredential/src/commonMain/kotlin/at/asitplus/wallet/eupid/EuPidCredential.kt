@@ -1,7 +1,6 @@
 package at.asitplus.wallet.eupid
 
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes
-import at.asitplus.wallet.lib.data.CredentialSubject
 import at.asitplus.wallet.lib.data.LocalDateOrInstant
 import io.matthewnelson.encoding.base64.Base64
 import io.matthewnelson.encoding.core.Encoder.Companion.encodeToString
@@ -23,7 +22,8 @@ import kotlinx.serialization.json.jsonPrimitive
 @SerialName("EuPid2023")
 data class EuPidCredential(
 
-    override val id: String,
+    @SerialName("id")
+    val id: String,
 
     /** Current last name(s) or surname(s) of the user to whom the person identification data relates. */
     @SerialName(Attributes.FAMILY_NAME)
@@ -158,7 +158,7 @@ data class EuPidCredential(
     /** The location of validity status information on the person identification data where the providers of person identification data revoke person identification data. */
     @SerialName(Attributes.LOCATION_STATUS)
     val locationStatus: String? = null,
-) : CredentialSubject() {
+) {
 
     /** Values shall be one of the following: 0 = not known; 1 = male; 2 = female; 3 = other; 4 = inter; 5 = diverse;
      * 6 = open; 9 = not applicable. For values 0, 1, 2 and 9, ISO/IEC 5218 applies. */

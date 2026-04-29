@@ -3,7 +3,6 @@ package at.asitplus.wallet.eupid
 import at.asitplus.signum.indispensable.josef.io.joseCompliantSerializer
 import at.asitplus.wallet.lib.JsonValueEncoder
 import at.asitplus.wallet.lib.LibraryInitializer
-import at.asitplus.wallet.lib.data.CredentialSubject
 import at.asitplus.wallet.lib.data.LocalDateOrInstant
 import at.asitplus.wallet.lib.data.LocalDateOrInstantSerializer
 import kotlinx.datetime.LocalDate
@@ -11,9 +10,6 @@ import kotlinx.serialization.builtins.ByteArraySerializer
 import kotlinx.serialization.builtins.SetSerializer
 import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.encodeToJsonElement
-import kotlinx.serialization.modules.SerializersModule
-import kotlinx.serialization.modules.polymorphic
-import kotlinx.serialization.modules.subclass
 import kotlin.time.Instant
 
 object Initializer {
@@ -32,11 +28,6 @@ object Initializer {
     fun initWithVCK() {
         LibraryInitializer.registerExtensionLibrary(
             credentialScheme = EuPidScheme,
-            serializersModule = SerializersModule {
-                polymorphic(CredentialSubject::class) {
-                    subclass(EuPidCredential::class)
-                }
-            },
             jsonValueEncoder = jsonValueEncoder(),
             itemValueSerializerMap = mapOf(
                 EuPidScheme.Attributes.BIRTH_DATE to LocalDate.serializer(),

@@ -51,6 +51,7 @@ These are implemented for ISO:
 ## Changelog
 
 Release 3.5.0:
+ - For JWT VC the data class `EuPidCredential` does not inherit from `CredentialSubject` as advised in VC-K 5.12.0
  - Remove deprecated attributes (like the `age_over_nn` attributes)
 
 Release 3.4.0:
