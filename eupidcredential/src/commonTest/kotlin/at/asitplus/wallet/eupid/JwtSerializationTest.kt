@@ -1,6 +1,5 @@
 package at.asitplus.wallet.eupid
 
-import at.asitplus.testballoon.invoke
 import at.asitplus.wallet.lib.data.LocalDateOrInstant
 import at.asitplus.wallet.lib.data.vckJsonSerializer
 import de.infix.testBalloon.framework.core.testSuite
@@ -9,7 +8,6 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonArray
 import kotlin.random.Random
-import kotlin.random.nextUInt
 
 @OptIn(ExperimentalSerializationApi::class)
 val JwtSerializationTest by testSuite {
@@ -21,21 +19,8 @@ val JwtSerializationTest by testSuite {
             familyName = randomString(),
             givenName = randomString(),
             birthDate = randomLocalDate(),
-            ageOver12 = Random.nextBoolean(),
-            ageOver13 = Random.nextBoolean(),
-            ageOver14 = Random.nextBoolean(),
-            ageOver16 = Random.nextBoolean(),
-            ageOver18 = Random.nextBoolean(),
-            ageOver21 = Random.nextBoolean(),
-            ageOver25 = Random.nextBoolean(),
-            ageOver60 = Random.nextBoolean(),
-            ageOver65 = Random.nextBoolean(),
-            ageOver68 = Random.nextBoolean(),
-            ageInYears = Random.nextUInt(),
-            ageBirthYear = Random.nextUInt(),
             familyNameBirth = randomString(),
             givenNameBirth = randomString(),
-            birthPlace = randomString(),
             placeOfBirth = PlaceOfBirth(randomString(), randomString(), randomString()),
             residentAddress = randomString(),
             residentCountry = randomString(),

@@ -1,7 +1,6 @@
 package at.asitplus.wallet.eupid
 
 import at.asitplus.wallet.eupid.EuPidScheme.Attributes
-import at.asitplus.wallet.lib.data.CredentialSubject
 import at.asitplus.wallet.lib.data.LocalDateOrInstant
 import io.matthewnelson.encoding.base64.Base64
 import io.matthewnelson.encoding.core.Encoder.Companion.encodeToString
@@ -23,7 +22,8 @@ import kotlinx.serialization.json.jsonPrimitive
 @SerialName("EuPid2023")
 data class EuPidCredential(
 
-    override val id: String,
+    @SerialName("id")
+    val id: String,
 
     /** Current last name(s) or surname(s) of the user to whom the person identification data relates. */
     @SerialName(Attributes.FAMILY_NAME)
@@ -38,71 +38,6 @@ data class EuPidCredential(
     @Serializable(with = LocalDateIso8601Serializer::class)
     val birthDate: LocalDate,
 
-    @Deprecated("Removed from PID rulebook")
-    /** Additional current age attestations: Attesting whether the PID User is currently over 12 years old. */
-    @SerialName(Attributes.AGE_OVER_12)
-    val ageOver12: Boolean? = null,
-
-    @Deprecated("Removed from PID rulebook")
-    /** Additional current age attestations: Attesting whether the PID User is currently over 13 years old. */
-    @SerialName(Attributes.AGE_OVER_13)
-    val ageOver13: Boolean? = null,
-
-    @Deprecated("Removed from PID rulebook")
-    /** Additional current age attestations: Attesting whether the PID User is currently over 14 years old. */
-    @SerialName(Attributes.AGE_OVER_14)
-    val ageOver14: Boolean? = null,
-
-    @Deprecated("Removed from PID rulebook")
-    /** Additional current age attestations: Attesting whether the PID User is currently over 16 years old. */
-    @SerialName(Attributes.AGE_OVER_16)
-    val ageOver16: Boolean? = null,
-
-    @Deprecated("Removed from PID rulebook")
-    /** Attesting whether the User to whom the person identification data relates is currently an adult (true) or a minor (false). */
-    @SerialName(Attributes.AGE_OVER_18)
-    val ageOver18: Boolean? = null,
-
-    @Deprecated("Removed from PID rulebook")
-    /** Additional current age attestations: Attesting whether the PID User is currently over 21 years old. */
-    @SerialName(Attributes.AGE_OVER_21)
-    val ageOver21: Boolean? = null,
-
-    @Deprecated("Removed from PID rulebook")
-    /** Additional current age attestations: Attesting whether the PID User is currently over 25 years old. */
-    @SerialName(Attributes.AGE_OVER_25)
-    val ageOver25: Boolean? = null,
-
-    @Deprecated("Removed from PID rulebook")
-    /** Additional current age attestations: Attesting whether the PID User is currently over 60 years old. */
-    @SerialName(Attributes.AGE_OVER_60)
-    val ageOver60: Boolean? = null,
-
-    @Deprecated("Removed from PID rulebook")
-    /** Additional current age attestations: Attesting whether the PID User is currently over 62 years old. */
-    @SerialName(Attributes.AGE_OVER_62)
-    val ageOver62: Boolean? = null,
-
-    @Deprecated("Removed from PID rulebook")
-    /** Additional current age attestations: Attesting whether the PID User is currently over 65 years old. */
-    @SerialName(Attributes.AGE_OVER_65)
-    val ageOver65: Boolean? = null,
-
-    @Deprecated("Removed from PID rulebook")
-    /** Additional current age attestations: Attesting whether the PID User is currently over 68 years old. */
-    @SerialName(Attributes.AGE_OVER_68)
-    val ageOver68: Boolean? = null,
-
-    @Deprecated("Removed from PID rulebook")
-    /** The current age of the User to whom the person identification data relates in years. */
-    @SerialName(Attributes.AGE_IN_YEARS)
-    val ageInYears: UInt? = null,
-
-    @Deprecated("Removed from PID rulebook")
-    /** The year when the User to whom the person identification data relates was born. */
-    @SerialName(Attributes.AGE_BIRTH_YEAR)
-    val ageBirthYear: UInt? = null,
-
     /** Last name(s) or surname(s) of the User to whom the person identification data relates at the time of birth. */
     @SerialName(Attributes.FAMILY_NAME_BIRTH)
     val familyNameBirth: String? = null,
@@ -111,31 +46,9 @@ data class EuPidCredential(
     @SerialName(Attributes.GIVEN_NAME_BIRTH)
     val givenNameBirth: String? = null,
 
-    @Deprecated("Removed from PID rulebook", ReplaceWith("placeOfBirth"))
-    @SerialName(Attributes.BIRTH_PLACE)
-    val birthPlace: String? = null,
-
     /** See [PlaceOfBirth]. At least one of the values shall be present. */
     @SerialName(Attributes.PLACE_OF_BIRTH)
     val placeOfBirth: PlaceOfBirth? = null,
-
-    /** The country where the PID User was born, as an Alpha-2 country code as specified in ISO 3166-1. */
-    @Suppress("DEPRECATION")
-    @Deprecated("Removed in ARF 1.5.0")
-    @SerialName(Attributes.BIRTH_COUNTRY)
-    val birthCountry: String? = null,
-
-    /** The state, province, district, or local area where the PID User was born. */
-    @Suppress("DEPRECATION")
-    @Deprecated("Removed in ARF 1.5.0")
-    @SerialName(Attributes.BIRTH_STATE)
-    val birthState: String? = null,
-
-    /** The municipality, city, town, or village where the PID User was born. */
-    @Suppress("DEPRECATION")
-    @Deprecated("Removed in ARF 1.5.0")
-    @SerialName(Attributes.BIRTH_CITY)
-    val birthCity: String? = null,
 
     /**
      * The full address of the place where the user to whom the person identification data relates currently resides or
@@ -172,11 +85,6 @@ data class EuPidCredential(
     @SerialName(Attributes.RESIDENT_HOUSE_NUMBER)
     val residentHouseNumber: String? = null,
 
-    /** PID User’s gender, using a value as defined in ISO/IEC 5218. */
-    @SerialName(Attributes.GENDER)
-    @Deprecated("Replaced with sex in ARF 1.5.0", ReplaceWith("sex"))
-    val gender: IsoIec5218Gender? = null,
-
     /** Values shall be one of the following: 0 = not known; 1 = male; 2 = female; 3 = other; 4 = inter; 5 = diverse;
      * 6 = open; 9 = not applicable. For values 0, 1, 2 and 9, ISO/IEC 5218 applies. */
     @SerialName(Attributes.SEX)
@@ -207,12 +115,6 @@ data class EuPidCredential(
     /** A number for the PID, assigned by the PID Provider. */
     @SerialName(Attributes.DOCUMENT_NUMBER)
     val documentNumber: String? = null,
-
-    /** A number assigned by the PID Provider for audit control or other purposes. */
-    @Suppress("DEPRECATION")
-    @Deprecated("Removed in ARF 1.5.0")
-    @SerialName(Attributes.ADMINISTRATIVE_NUMBER)
-    val administrativeNumber: String? = null,
 
     /** Alpha-2 country code, as defined in ISO 3166-1, of the PID Provider's country or territory. */
     @SerialName(Attributes.ISSUING_COUNTRY)
@@ -256,7 +158,7 @@ data class EuPidCredential(
     /** The location of validity status information on the person identification data where the providers of person identification data revoke person identification data. */
     @SerialName(Attributes.LOCATION_STATUS)
     val locationStatus: String? = null,
-) : CredentialSubject() {
+) {
 
     /** Values shall be one of the following: 0 = not known; 1 = male; 2 = female; 3 = other; 4 = inter; 5 = diverse;
      * 6 = open; 9 = not applicable. For values 0, 1, 2 and 9, ISO/IEC 5218 applies. */
@@ -282,23 +184,12 @@ data class EuPidCredential(
 
         other as EuPidCredential
 
-        if (ageOver12 != other.ageOver12) return false
-        if (ageOver14 != other.ageOver14) return false
-        if (ageOver16 != other.ageOver16) return false
-        if (ageOver18 != other.ageOver18) return false
-        if (ageOver21 != other.ageOver21) return false
         if (id != other.id) return false
         if (familyName != other.familyName) return false
         if (givenName != other.givenName) return false
         if (birthDate != other.birthDate) return false
-        if (ageInYears != other.ageInYears) return false
-        if (ageBirthYear != other.ageBirthYear) return false
         if (familyNameBirth != other.familyNameBirth) return false
         if (givenNameBirth != other.givenNameBirth) return false
-        if (birthPlace != other.birthPlace) return false
-        if (birthCountry != other.birthCountry) return false
-        if (birthState != other.birthState) return false
-        if (birthCity != other.birthCity) return false
         if (residentAddress != other.residentAddress) return false
         if (residentCountry != other.residentCountry) return false
         if (residentState != other.residentState) return false
@@ -306,14 +197,12 @@ data class EuPidCredential(
         if (residentPostalCode != other.residentPostalCode) return false
         if (residentStreet != other.residentStreet) return false
         if (residentHouseNumber != other.residentHouseNumber) return false
-        if (gender != other.gender) return false
         if (sex != other.sex) return false
         if (nationality != other.nationality) return false
         if (issuanceDate != other.issuanceDate) return false
         if (expiryDate != other.expiryDate) return false
         if (issuingAuthority != other.issuingAuthority) return false
         if (documentNumber != other.documentNumber) return false
-        if (administrativeNumber != other.administrativeNumber) return false
         if (issuingCountry != other.issuingCountry) return false
         if (issuingJurisdiction != other.issuingJurisdiction) return false
         if (personalAdministrativeNumber != other.personalAdministrativeNumber) return false
@@ -327,23 +216,12 @@ data class EuPidCredential(
     }
 
     override fun hashCode(): Int {
-        var result = ageOver12?.hashCode() ?: 0
-        result = 31 * result + (ageOver14?.hashCode() ?: 0)
-        result = 31 * result + (ageOver16?.hashCode() ?: 0)
-        result = 31 * result + (ageOver18?.hashCode() ?: 0)
-        result = 31 * result + (ageOver21?.hashCode() ?: 0)
-        result = 31 * result + id.hashCode()
+        var result = id.hashCode()
         result = 31 * result + familyName.hashCode()
         result = 31 * result + givenName.hashCode()
         result = 31 * result + birthDate.hashCode()
-        result = 31 * result + (ageInYears?.hashCode() ?: 0)
-        result = 31 * result + (ageBirthYear?.hashCode() ?: 0)
         result = 31 * result + (familyNameBirth?.hashCode() ?: 0)
         result = 31 * result + (givenNameBirth?.hashCode() ?: 0)
-        result = 31 * result + (birthPlace?.hashCode() ?: 0)
-        result = 31 * result + (birthCountry?.hashCode() ?: 0)
-        result = 31 * result + (birthState?.hashCode() ?: 0)
-        result = 31 * result + (birthCity?.hashCode() ?: 0)
         result = 31 * result + (residentAddress?.hashCode() ?: 0)
         result = 31 * result + (residentCountry?.hashCode() ?: 0)
         result = 31 * result + (residentState?.hashCode() ?: 0)
@@ -351,14 +229,12 @@ data class EuPidCredential(
         result = 31 * result + (residentPostalCode?.hashCode() ?: 0)
         result = 31 * result + (residentStreet?.hashCode() ?: 0)
         result = 31 * result + (residentHouseNumber?.hashCode() ?: 0)
-        result = 31 * result + (gender?.hashCode() ?: 0)
         result = 31 * result + (sex?.hashCode() ?: 0)
         result = 31 * result + (nationality?.hashCode() ?: 0)
         result = 31 * result + issuanceDate.hashCode()
         result = 31 * result + expiryDate.hashCode()
         result = 31 * result + issuingAuthority.hashCode()
         result = 31 * result + (documentNumber?.hashCode() ?: 0)
-        result = 31 * result + (administrativeNumber?.hashCode() ?: 0)
         result = 31 * result + issuingCountry.hashCode()
         result = 31 * result + (issuingJurisdiction?.hashCode() ?: 0)
         result = 31 * result + (personalAdministrativeNumber?.hashCode() ?: 0)
@@ -376,19 +252,8 @@ data class EuPidCredential(
                 "familyName='$familyName', " +
                 "givenName='$givenName', " +
                 "birthDate=$birthDate, " +
-                "ageOver12=$ageOver12, " +
-                "ageOver14=$ageOver14, " +
-                "ageOver16=$ageOver16, " +
-                "ageOver18=$ageOver18, " +
-                "ageOver21=$ageOver21, " +
-                "ageInYears=$ageInYears, " +
-                "ageBirthYear=$ageBirthYear, " +
                 "familyNameBirth=$familyNameBirth, " +
                 "givenNameBirth=$givenNameBirth, " +
-                "birthPlace=$birthPlace, " +
-                "birthCountry=$birthCountry, " +
-                "birthState=$birthState, " +
-                "birthCity=$birthCity, " +
                 "residentAddress=$residentAddress, " +
                 "residentCountry=$residentCountry, " +
                 "residentState=$residentState, " +
@@ -396,14 +261,12 @@ data class EuPidCredential(
                 "residentPostalCode=$residentPostalCode, " +
                 "residentStreet=$residentStreet, " +
                 "residentHouseNumber=$residentHouseNumber, " +
-                "gender=$gender, " +
                 "sex=$sex, " +
                 "nationality=$nationality, " +
                 "issuanceDate=$issuanceDate, " +
                 "expiryDate=$expiryDate, " +
                 "issuingAuthority='$issuingAuthority', " +
                 "documentNumber=$documentNumber, " +
-                "administrativeNumber=$administrativeNumber, " +
                 "issuingCountry='$issuingCountry', " +
                 "issuingJurisdiction=$issuingJurisdiction, " +
                 "personalAdministrativeNumber=$personalAdministrativeNumber, " +

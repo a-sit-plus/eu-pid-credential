@@ -29,6 +29,12 @@ kotlin {
                 api(libs.vck)
             }
         }
+        commonTest {
+            dependencies {
+                implementation(libs.testballoon)
+                implementation(kotest("assertions-core"))
+            }
+        }
     }
 }
 
